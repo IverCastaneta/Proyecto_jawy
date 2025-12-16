@@ -1,12 +1,6 @@
 /*
- * App Global CSS
+ * App Global CSS - CORREGIDO
  * ----------------------------------------------------------------------------
- * Put style rules here that you want to apply globally. These styles are for
- * the entire app and not just one component. Additionally, this file can be
- * used as an entry point to import other CSS/Sass files to be included in the
- * output CSS.
- * For more information on global stylesheets, visit the documentation:
- * https://ionicframework.com/docs/layout/global-stylesheets
  */
 
 /* Core CSS required for Ionic components to work properly */
@@ -28,48 +22,55 @@
 /**
  * Ionic Dark Mode
  * -----------------------------------------------------
- * For more info, please see:
- * https://ionicframework.com/docs/theming/dark-mode
  */
-
+/* Descomenta esta línea si quieres forzar el modo oscuro siempre: */
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
-/* @import "@ionic/angular/css/palettes/dark.class.css"; */
+
+/* Importaciones de Temas y Variables */
 @import "@ionic/angular/css/palettes/dark.system.css";
 @import "./theme/iwer.scss";
 @import "./theme/seba.scss";
-@import "./theme/variables.scss";
+@import "./theme/variables.scss"; // << AQUI DEBE ESTAR EL CODIGO DE LA PALETA NUEVA
 
-/* FUENTES PROYECTO*/
+/* FUENTES PROYECTO */
 
 @font-face {
     font-family: "poligraphergrotesk-semibold";
-    src: url("./assets/fonts/poligraphergrotesk-SemiBold-BF66e3a5da2ab00.otf");
+    src: url("./assets/fonts/Geist-Bold.ttf");
 }
 
 @font-face {
     font-family: "poppins-regular";
-    src: url("./assets/fonts/Poppins-Regular.ttf");
+    src: url("./assets/fonts/Geist-Regular.ttf");
 }
 
-//fondo general
+// Configuración Global y Fondo
 
 :root {
+    // Aplicar la fuente Poppins por defecto a toda la aplicación
     --ion-font-family: "poppins-regular";
 }
 
+// CORRECCIÓN: Usar el nuevo color oscuro principal (#252525) para el fondo del contenido
 ion-content {
-    --background: #130223;
+    --background: var( --ion-color-tertiary); 
 }
 
+// Estilos de Títulos
 h1,
 h2,
 h3,
 h4,
 h5 {
     font-family: 'poligraphergrotesk-semibold';
+    // Opcional: Asegurar que los títulos sean de color claro
+    color: var(--ion-color-light); 
 }
 
+// Estilos de Párrafos
 p {
-    color: var(--ion-color-v2);
+    // CORRECCIÓN: Usar la variable light para texto general en fondo oscuro.
+    // Si quieres un gris más neutral, usa var(--ion-color-secondary);
+    color: var(--ion-color-light); 
     font-family: 'poppins-regular';
 }

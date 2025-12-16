@@ -1,123 +1,107 @@
-// For information on how to create your own theme, please see:
-// http://ionicframework.com/docs/theming/
+// Archivo de variables de color (variables.scss o theme/variables.css)
 
 :root {
-	--ion-color-primary: #220440;
-	--ion-color-primary-rgb: 34, 4, 64;
-	--ion-color-primary-contrast: #ffffff;
-	--ion-color-primary-contrast-rgb: 255, 255, 255;
-	--ion-color-primary-shade: #1e0438;
-	--ion-color-primary-tint: #381d53;
+    /* ----------------------------------- */
+    /* Colores Principales de la Paleta (Basados en tu imagen) */
+    /* ----------------------------------- */
 
-	--ion-color-secondary: #E5958E;
-	--ion-color-secondary-rgb: 229, 149, 142;
-	--ion-color-secondary-contrast: #000000;
-	--ion-color-secondary-contrast-rgb: 0, 0, 0;
-	--ion-color-secondary-shade: #ca837d;
-	--ion-color-secondary-tint: #e8a099;
+    // Primary: Naranja de Acento (#F66F17) - Para botones e interacción principal
+    --ion-color-primary: #F66F17;
+    --ion-color-primary-rgb: 246, 111, 23;
+    --ion-color-primary-contrast: #000000;
+    --ion-color-primary-contrast-rgb: 0, 0, 0;
+    --ion-color-primary-shade: #d86214;
+    --ion-color-primary-tint: #f77d2e;
 
-	--ion-color-tertiary: #FDB096;
-	--ion-color-tertiary-rgb: 253, 176, 150;
-	--ion-color-tertiary-contrast: #000000;
-	--ion-color-tertiary-contrast-rgb: 0, 0, 0;
-	--ion-color-tertiary-shade: #df9b84;
-	--ion-color-tertiary-tint: #fdb8a1;
+    // Secondary: Gris Medio (#868686) - Para elementos secundarios, texto neutral.
+    --ion-color-secondary: #868686;
+    --ion-color-secondary-rgb: 134, 134, 134;
+    --ion-color-secondary-contrast: #000000;
+    --ion-color-secondary-contrast-rgb: 0, 0, 0;
+    --ion-color-secondary-shade: #767676;
+    --ion-color-secondary-tint: #929292;
 
-	--ion-color-success: #2dd55b;
-	--ion-color-success-rgb: 45, 213, 91;
-	--ion-color-success-contrast: #000000;
-	--ion-color-success-contrast-rgb: 0, 0, 0;
-	--ion-color-success-shade: #28bb50;
-	--ion-color-success-tint: #42d96b;
+    // Tertiary: Negro Profundo (#151519) - Para fondos de tarjetas o elementos internos.
+    --ion-color-tertiary: #151519;
+    --ion-color-tertiary-rgb: 21, 21, 25;
+    --ion-color-tertiary-contrast: #ffffff;
+    --ion-color-tertiary-contrast-rgb: 255, 255, 255;
+    --ion-color-tertiary-shade: #121216;
+    --ion-color-tertiary-tint: #2c2c30;
 
-	--ion-color-warning: #CC9402;
-	--ion-color-warning-rgb: 204, 148, 2;
-	--ion-color-warning-contrast: #000000;
-	--ion-color-warning-contrast-rgb: 0, 0, 0;
-	--ion-color-warning-shade: #b48202;
-	--ion-color-warning-tint: #d19f1b;
+    // Dark: Negro Principal de Fondo (#252525)
+    --ion-color-dark: #252525;
+    --ion-color-dark-rgb: 37, 37, 37;
+    --ion-color-dark-contrast: #FAFAFA; // Usamos el color light como contraste
+    --ion-color-dark-contrast-rgb: 250, 250, 250;
+    --ion-color-dark-shade: #212121;
+    --ion-color-dark-tint: #3b3b3b;
 
-	--ion-color-danger: #c5000f;
-	--ion-color-danger-rgb: 197, 0, 15;
-	--ion-color-danger-contrast: #ffffff;
-	--ion-color-danger-contrast-rgb: 255, 255, 255;
-	--ion-color-danger-shade: #ad000d;
-	--ion-color-danger-tint: #cb1a27;
+    // Medium: Gris para elementos neutros (Mismo que secondary)
+    --ion-color-medium: #868686;
+    --ion-color-medium-rgb: 134, 134, 134;
+    --ion-color-medium-contrast: #000000;
+    --ion-color-medium-contrast-rgb: 0, 0, 0;
+    --ion-color-medium-shade: #767676;
+    --ion-color-medium-tint: #929292;
 
-	--ion-color-light: #f6f8fc;
-	--ion-color-light-rgb: 246, 248, 252;
-	--ion-color-light-contrast: #000000;
-	--ion-color-light-contrast-rgb: 0, 0, 0;
-	--ion-color-light-shade: #d8dade;
-	--ion-color-light-tint: #f7f9fc;
+    // Light: Blanco para Texto y Contraste (#FAFAFA)
+    --ion-color-light: #FAFAFA;
+    --ion-color-light-rgb: 250, 250, 250;
+    --ion-color-light-contrast: #000000;
+    --ion-color-light-contrast-rgb: 0, 0, 0;
+    --ion-color-light-shade: #dcdcdc;
+    --ion-color-light-tint: #fbfbfb;
 
-	--ion-color-medium: #BAB1C4;
-	--ion-color-medium-rgb: 186, 177, 196;
-	--ion-color-medium-contrast: #000000;
-	--ion-color-medium-contrast-rgb: 0, 0, 0;
-	--ion-color-medium-shade: #a49cac;
-	--ion-color-medium-tint: #c1b9ca;
 
-	--ion-color-dark: #130223;
-	--ion-color-dark-rgb: 19, 2, 35;
-	--ion-color-dark-contrast: #ffffff;
-	--ion-color-dark-contrast-rgb: 255, 255, 255;
-	--ion-color-dark-shade: #11021f;
-	--ion-color-dark-tint: #2b1b39;
+    /* ----------------------------------- */
+    /* Colores de Estado (Predeterminados y Optimizados para Tema Oscuro) */
+    /* ----------------------------------- */
 
+    // Success (verde)
+    --ion-color-success: #2fcf80;
+    --ion-color-success-rgb: 47, 207, 128;
+    --ion-color-success-contrast: #000000;
+    --ion-color-success-contrast-rgb: 0, 0, 0;
+    --ion-color-success-shade: #29b570;
+    --ion-color-success-tint: #44d38c;
+
+    // Warning (amarillo/ámbar)
+    --ion-color-warning: #ffc409;
+    --ion-color-warning-rgb: 255, 196, 9;
+    --ion-color-warning-contrast: #000000;
+    --ion-color-warning-contrast-rgb: 0, 0, 0;
+    --ion-color-warning-shade: #e0ac08;
+    --ion-color-warning-tint: #ffca22;
+
+    // Danger (rojo)
+    --ion-color-danger: #eb445a;
+    --ion-color-danger-rgb: 235, 68, 90;
+    --ion-color-danger-contrast: #ffffff;
+    --ion-color-danger-contrast-rgb: 255, 255, 255;
+    --ion-color-danger-shade: #cf3c4f;
+    --ion-color-danger-tint: #ed576e;
 }
 
+// -------------------------------------------------------------
+// Clases CSS Personalizadas (Opcional)
+// -------------------------------------------------------------
 
+// Clase para usar el color principal de acento con el nombre "mostaza"
 :root {
-	--ion-color-mostaza: #F2A950;
-	--ion-color-mostaza-rgb: 242,169,80;
-	--ion-color-mostaza-contrast: #000000;
-	--ion-color-mostaza-contrast-rgb: 0,0,0;
-	--ion-color-mostaza-shade: #d59546;
-	--ion-color-mostaza-tint: #f3b262;
+    --ion-color-mostaza: var(--ion-color-primary);
+    --ion-color-mostaza-rgb: var(--ion-color-primary-rgb);
+    --ion-color-mostaza-contrast: var(--ion-color-primary-contrast);
+    --ion-color-mostaza-contrast-rgb: var(--ion-color-primary-contrast-rgb);
+    --ion-color-mostaza-shade: var(--ion-color-primary-shade);
+    --ion-color-mostaza-tint: var(--ion-color-primary-tint);
 }
 
 .ion-color-mostaza {
-	--ion-color-base: var(--ion-color-mostaza);
-	--ion-color-base-rgb: var(--ion-color-mostaza-rgb);
-	--ion-color-contrast: var(--ion-color-mostaza-contrast);
-	--ion-color-contrast-rgb: var(--ion-color-mostaza-contrast-rgb);
-	--ion-color-shade: var(--ion-color-mostaza-shade);
-	--ion-color-tint: var(--ion-color-mostaza-tint);
-}
-
-:root {
-	--ion-color-mostaza2: #CC9402;
-	--ion-color-mostaza2-rgb: 204,148,2;
-	--ion-color-mostaza2-contrast: #000000;
-	--ion-color-mostaza2-contrast-rgb: 0,0,0;
-	--ion-color-mostaza2-shade: #b48202;
-	--ion-color-mostaza2-tint: #d19f1b;
-}
-
-.ion-color-mostaza2 {
-	--ion-color-base: var(--ion-color-mostaza2);
-	--ion-color-base-rgb: var(--ion-color-mostaza2-rgb);
-	--ion-color-contrast: var(--ion-color-mostaza2-contrast);
-	--ion-color-contrast-rgb: var(--ion-color-mostaza2-contrast-rgb);
-	--ion-color-shade: var(--ion-color-mostaza2-shade);
-	--ion-color-tint: var(--ion-color-mostaza2-tint);
-}
-// color generator :D https://ionicframework.com/docs/theming/colors /
-:root {
-	--ion-color-blanquito: #F8F3F7;
-	--ion-color-blanquito-rgb: 248,243,247;
-	--ion-color-blanquito-contrast: #000000;
-	--ion-color-blanquito-contrast-rgb: 0,0,0;
-	--ion-color-blanquito-shade: #dad6d9;
-	--ion-color-blanquito-tint: #f9f4f8;
-}
-
-.ion-color-blanquito {
-	--ion-color-base: var(--ion-color-blanquito);
-	--ion-color-base-rgb: var(--ion-color-blanquito-rgb);
-	--ion-color-contrast: var(--ion-color-blanquito-contrast);
-	--ion-color-contrast-rgb: var(--ion-color-blanquito-contrast-rgb);
-	--ion-color-shade: var(--ion-color-blanquito-shade);
-	--ion-color-tint: var(--ion-color-blanquito-tint);
+    --ion-color-base: var(--ion-color-mostaza);
+    --ion-color-base-rgb: var(--ion-color-mostaza-rgb);
+    --ion-color-contrast: var(--ion-color-mostaza-contrast);
+    --ion-color-contrast-rgb: var(--ion-color-mostaza-contrast-rgb);
+    --ion-color-shade: var(--ion-color-mostaza-shade);
+    --ion-color-tint: var(--ion-color-mostaza-tint);
 }
