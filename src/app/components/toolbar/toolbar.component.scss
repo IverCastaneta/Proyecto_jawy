@@ -1,0 +1,25 @@
+/* 1. Selector para ion-segment */
+ion-segment {
+  /*
+  Color de texto del segmento INACTIVO (por defecto)
+  Forzamos a blanco puro.
+  */
+  --color: #ffffff !important; 
+
+  /*
+  Color de texto del segmento ACTIVO (para que siga siendo tu color 'primary')
+  Usamos la variable de CSS de tu tema para obtener el naranja de 'primary'
+  */
+  --color-checked: var(--ion-color-primary); 
+
+  /*
+  Color de la barra/indicador bajo el segmento activo
+  */
+  --indicator-color: var(--ion-color-primary);
+}
+
+/* 2. Selector adicional (para máxima seguridad) */
+ion-segment-button:not(.segment-button-checked) ion-label {
+    /* Selecciona la etiqueta de texto SOLAMENTE si el botón NO está activo */
+    color: #ffffff !important;
+}

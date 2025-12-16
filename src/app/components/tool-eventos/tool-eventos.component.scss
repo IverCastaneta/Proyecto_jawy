@@ -1,0 +1,23 @@
+ion-segment {
+  /* 1. Color de texto del segmento NO SELECCIONADO (INACTIVO).
+     Se fuerza a blanco puro para anular cualquier estilo de color gris.
+  */
+  --color: #ffffff !important; 
+
+  /* 2. Color de texto del segmento SELECCIONADO (ACTIVO).
+     Usamos la variable CSS que representa tu color personalizado 'mostaza2'.
+  */
+  --color-checked: var(--ion-color-mostaza2); 
+
+  /*
+  3. Color de la barra/indicador bajo el segmento activo.
+     También se define con 'mostaza2'.
+  */
+  --indicator-color: var(--ion-color-mostaza2);
+}
+
+/* 4. Selector de respaldo para máxima seguridad en el color blanco inactivo */
+ion-segment-button:not(.segment-button-checked) ion-label {
+    /* Selecciona la etiqueta de texto SOLAMENTE si el botón NO está activo */
+    color: #ffffff !important;
+}

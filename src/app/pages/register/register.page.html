@@ -1,36 +1,94 @@
-<ion-header></ion-header>
-<ion-content [fullscreen]="true">
- 
-  <ion-grid>
-    <ion-row>
-      <ion-col>
-        <h1>Registrarse</h1>
-        <form [formGroup]="form" (ngSubmit)="onSubmitForm()">
-          <ion-input 
-          label="Email" labelPlacement="floating"
-          formControlName="email"></ion-input>
-          <ion-input 
-          label="Nombre" labelPlacement="floating"
-          formControlName="name"></ion-input>
-          <ion-input 
-          label="Whatsapp" labelPlacement="floating"
-          formControlName="phone"></ion-input>
-          <ion-input 
-          label="Contraseña" labelPlacement="floating"
-          formControlName="password"></ion-input>
-          <ion-input 
-          label="Confirme Contraseña" labelPlacement="floating"
-          formControlName="confirmPassword"></ion-input>
-          
-          <ion-button type="submit" shape="round" expand="full" color="mostaza2">Registrar cuenta</ion-button>
+<ion-header class="ion-no-border">
+  <ion-toolbar color="dark">
+    <div class="header-content">
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/login"></ion-back-button>
+      </ion-buttons>
+      
+      <img src="./assets/img/logo.png" alt="Logo Jawy" class="jawy-logo-small">
+    </div>
+  </ion-toolbar>
+</ion-header>
 
+<ion-content [fullscreen]="true" class="register-content-final">
+  <div class="form-container">
+    
+    <h1 style="padding-top: 5vh;">¡Regístrate!</h1>
+    <p class="subtitle">Ingresa tus datos personales y crea tu cuenta.</p>
 
-        </form>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+    <form [formGroup]="form" (ngSubmit)="onSubmitForm()">
+      
+      <ion-input 
+        label="Correo Electronico" 
+        labelPlacement="floating"
+        formControlName="email"
+        type="email"
+        fill="solid" 
+        class="custom-input-solid"
+      ></ion-input>
+
+      <ion-input 
+        label="Nombre completo" 
+        labelPlacement="floating"
+        formControlName="name"
+        type="text"
+        fill="solid" 
+        class="custom-input-solid"
+      ></ion-input>
+
+      <ion-input 
+        label="Nombre de usuario" 
+        labelPlacement="floating"
+        formControlName="username"
+        type="text"
+        fill="solid" 
+        class="custom-input-solid"
+      ></ion-input>
+      
+      <ion-input 
+        label="Whatsapp" 
+        labelPlacement="floating"
+        formControlName="phone"
+        type="tel"
+        fill="solid" 
+        class="custom-input-solid"
+      ></ion-input>
+      
+      <ion-input
+        label="Contraseña" 
+        labelPlacement="floating" 
+        formControlName="password"
+        type="password"
+        fill="solid" 
+        class="custom-input-solid"
+      ></ion-input>
+      
+      <ion-input 
+        label="Confirmar contraseña" 
+        labelPlacement="floating" 
+        formControlName="confirmPassword"
+        type="password"
+        fill="solid" 
+        class="custom-input-solid"
+      ></ion-input>
+      
+      <ion-button 
+        type="submit" 
+        shape="round" 
+        expand="block" 
+        color="primary"
+        class="main-button"
+        [disabled]="form.invalid"
+      >
+        Registrarse
+      </ion-button>
+    </form>
+    
+    <div class="login-link-container">
+      <p class="ion-text-center">
+        ¿Ya tienes una cuenta? <a routerLink="/login/" class="login-link">¡Ingresa tu cuenta!</a>
+      </p>
+    </div>
+
+  </div>
 </ion-content>
-<ion-footer>
-  <p>¿Ya tienes cuenta?</p>
-  <ion-button class="crearCuenta" fill="clear" color="mostaza2" routerLink="/login/">Iniciar Sesion</ion-button>
-</ion-footer>

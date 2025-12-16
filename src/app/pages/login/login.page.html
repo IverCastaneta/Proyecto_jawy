@@ -1,28 +1,56 @@
-<ion-header></ion-header>
-<ion-content [fullscreen]="true">
-  
-  <h1>Ingresar</h1>
-  <p class="Bienvenida">
-    Bienvenido a <strong>BeatSpaces</strong>.
-  </p>
-  <ion-grid>
-    <ion-row>
-      <ion-col>
-        <form [formGroup]="form" (ngSubmit)="onSubmitForm()">
-          <ion-input 
-          label="Email" labelPlacement="floating"
-          formControlName="email"></ion-input>
-        
-          <ion-input
-          label="Contraseña" labelPlacement="floating"
-          formControlName="password"></ion-input>
-          <ion-button class="Ingresar"expand="block" shape="round" color="mostaza2" type="submit"> Ingresar</ion-button>
-        </form>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+<ion-header class="ion-no-border">
+  <ion-toolbar color="tertiary">
+    <div class="header-content">
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/"></ion-back-button>
+      </ion-buttons>
+      
+      <img src="./assets/img/logo.png" alt="Logo Jawy" class="jawy-logo-small">
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="login-content-final" color="tertiary">
+  <div class="form-container">
+    
+    <h1 style="padding-top: 50px;">¡Inicia sesión!</h1>
+    <p class="subtitle">Ingresa a tu cuenta</p>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmitForm()">
+      
+      <ion-input 
+        label="Nombre" 
+        labelPlacement="floating" 
+        formControlName="email"
+        fill="solid" 
+        class="custom-input-solid"
+      ></ion-input>
+      
+      <ion-input
+        label="Contraseña" 
+        labelPlacement="floating" 
+        formControlName="password"
+        type="password"
+        fill="solid" 
+        class="custom-input-solid"
+      ></ion-input>
+      
+      <ion-button 
+        expand="block" 
+        shape="round" 
+        color="primary" 
+        type="submit"
+        class="main-button"
+      > 
+        Ingresar
+      </ion-button>
+    </form>
+    
+    <div class="register-link-container">
+      <p class="ion-text-center">¿No tienes cuenta? 
+        <a routerLink="/register/" class="register-link">Regístrate</a>
+      </p>
+    </div>
+
+  </div>
 </ion-content>
-<ion-footer>
-  <p>¿No tienes cuenta?</p>
-  <ion-button class="crearCuenta" fill="clear" color="mostaza2" routerLink="/register/">Crear cuenta</ion-button>
-</ion-footer>

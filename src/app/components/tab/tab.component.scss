@@ -1,3 +1,13 @@
 .tab-selected {
     color: var(--ion-color-mostaza);
 }
+ion-tab-bar {
+  /*
+  Esto elimina la sombra predeterminada.
+  La propiedad 'box-shadow' es la que crea la sombra en los elementos HTML.
+  */
+  box-shadow: none !important;
+
+  /* En muchos casos, también es necesario asegurarse de que no haya un borde superior. */
+  border-top: none !important;
+}

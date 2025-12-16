@@ -1,27 +1,76 @@
-.ion-card-title{
-    font-family: 'poligraphergrotesk-semibold';
-    font-size: 30pt;
-}
-h1{
-    padding: 0;
-    margin: 0;
-}
-ion-card-header{
-    padding: 0;
-    padding-left: 3.9%;
-    margin: 1vh 0vh 1vh 0; 
+// ===============================================
+// ESTILOS DE LA TARJETA DE EVENTO (Centro Cultural Thelonius)
+// ===============================================
 
+.event-card {
+    // Fondo de la tarjeta: Usamos un color oscuro (#1e1e1e)
+    --background: var(--ion-color-dark-shade); 
+    
+    // Esquinas redondeadas y sin margen externo
+    border-radius: 10px;
+    margin: 20px auto; 
+    max-width: 95%; 
+    
+    // Sombra sutil para destacar la tarjeta
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+
+    // Borde inferior naranja de acento (similar al diseño de la referencia)
+    border-bottom: 5px solid var(--ion-color-primary);
+    
+    // Asegurar que la imagen no tenga esquinas en la parte inferior
+    img {
+        border-radius: 10px 10px 0 0;
+        width: 100%;
+        height: auto;
+        display: block;
+    }
 }
-ion-card-subtitle{
-    margin: 0;    
+
+ion-card-header {
+    padding: 10px 15px 5px 15px; // Padding interno
 }
-ion-icon{
+
+.card-title {
+    // Título grande en blanco
+    font-family: 'poligraphergrotesk-semibold';
+    font-size: 20pt;
+    color: var(--ion-color-light); 
+    margin: 0;
     padding: 0;
-    margin: 0;
+    
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
 }
-ion-card-content{
-    margin: 0vh 0vh 1vh 0; 
+
+.accent-mark {
+    // La 'W' o marca naranja al lado del título
+    color: var(--ion-color-primary);
+    font-size: 24pt;
+    font-weight: bold;
 }
-ion-card{
-    margin: 0;
+
+ion-card-content {
+    padding: 5px 15px 15px 15px;
+}
+
+.card-detail {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 8px; // Espacio entre los detalles
+    
+    ion-icon {
+        color: var(--ion-color-light); // Iconos blancos
+        font-size: 16px;
+        margin-right: 8px;
+        margin-top: 3px;
+        flex-shrink: 0; // Evita que el icono se comprima
+    }
+    
+    p {
+        color: var(--ion-color-light); // Texto de detalle blanco
+        font-family: 'poppins-regular';
+        font-size: 14pt; // Un poco más pequeño que el título
+        margin: 0;
+    }
 }

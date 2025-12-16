@@ -1,24 +1,134 @@
-h1{
-    padding-top: 6vh;
-}
-p{  
-    margin: 0;
-    padding-left: 2vh;
-}
-ion-grid{
-    padding-left: 2vh;    
-}
-.crearCuenta{
-    margin: auto;
-    padding-bottom: 3vh;
+// ===============================================
+// 1. HEADER (Botón de atrás y Logo)
+// ===============================================
 
+ion-toolbar {
+    --background: var(--ion-color-tertiary);
+    --border-width: 0; 
+    --color: var(--ion-color-light); 
 }
-.Bienvenida{
-    padding-bottom: 5vh;
+
+.header-content {
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
 }
-.ingresar{
-    padding-top: 4vh !important;
+
+ion-back-button {
+    --color: var(--ion-color-light); 
+    margin-right: 10px;
 }
-ion-button{
-    padding-right: 2vh;
+
+.jawy-logo-small {
+    width: 70px; 
+    height: auto;
+}
+
+// ===============================================
+// 2. CONTENIDO PRINCIPAL Y FORMULARIO (FONDO Y ESPACIADO)
+// ===============================================
+
+.register-content-final {
+    --background: var(--ion-color-tertiary) !important; 
+    
+    // Aseguramos el padding lateral de 20px
+    --padding-start: 20px;
+    --padding-end: 20px;
+    --padding-top: 0;
+    --padding-bottom: 0;
+}
+
+.form-container {
+    // Usamos el h1 para el padding superior como en la referencia
+    padding-top: 0; 
+}
+
+h1 {
+    color: var(--ion-color-light); 
+    font-family: 'poligraphergrotesk-semibold'; // Usamos la fuente de título
+    font-weight: bold;
+    font-size: 30px; 
+    margin: 0;
+    // Añadimos el padding superior aquí para separar del header
+    padding-top: 5vh; 
+}
+
+.subtitle {
+    color: var(--ion-color-medium); 
+    font-size: 16px;
+    margin: 5px 0 40px 0; 
+}
+
+
+// ===============================================
+// 3. INPUTS (Estilo SOLID, Fondo Oscuro Constante, Foco Naranja)
+// ===============================================
+
+ion-input.custom-input-solid {
+    margin-bottom: 20px;
+    height: 55px; 
+    
+    // --- ESTADO NORMAL ---
+    --background: var(--ion-color-tertiary); 
+    --color: var(--ion-color-light); 
+    --border-width: 0 0 1px 0;
+    --border-color: var(--ion-color-dark-shade); 
+    --placeholder-color: var(--ion-color-secondary);
+    --label-color: var(--ion-color-secondary);
+    
+    // --- ESTADOS INTERACTIVOS (HOVER/ACTIVATED/FOCUS) ---
+    
+    // CLAVE: Mantiene el fondo oscuro constante en todos los estados
+    --background-focused: var(--ion-color-tertiary) !important; 
+    --background-hover: var(--ion-color-tertiary) !important;
+    --background-activated: var(--ion-color-tertiary) !important;
+    --color-focused: var(--ion-color-light) !important;
+    
+    --box-shadow: none; 
+    
+    &.ion-focused {
+        // Contorno Naranja en foco
+        box-shadow: 0 0 0 2px var(--ion-color-primary) !important;
+        --border-width: 0 !important;
+        
+        ion-label {
+            color: var(--ion-color-secondary) !important; 
+        }
+    }
+    
+    // Solución agresiva para el input nativo
+    ::part(native) {
+        background: var(--ion-color-tertiary) !important;
+        color: var(--ion-color-light) !important;
+    }
+}
+
+
+// ===============================================
+// 4. BOTONES Y ENLACE DE LOGIN
+// ===============================================
+
+.main-button {
+    margin-top: 30px; 
+    height: 50px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.login-link-container {
+    margin-top: 40px;
+    padding-bottom: 30px; // Espacio inferior
+}
+
+.login-link-container p {
+    color: var(--ion-color-medium); // El texto general es gris tenue
+    font-size: 14px;
+    text-align: center;
+}
+
+.login-link {
+    // La parte del enlace es naranja
+    color: var(--ion-color-primary); 
+    font-weight: bold;
+    text-decoration: none; 
 }

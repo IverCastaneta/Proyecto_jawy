@@ -1,25 +1,167 @@
-h1{
-    padding-left: 2vh;
-    padding-top: 6vh;
-}
-p{  
-    margin: 0;
-    padding-left: 2vh;
-}
-ion-grid{
-    padding-left: 2vh;    
-}
-.crearCuenta{
-    margin: auto;
-    padding-bottom: 3vh;
+// ===============================================
+// 1. HEADER (Botón de atrás y Logo)
+// ===============================================
 
+ion-toolbar {
+    // Usamos DARK como fondo principal del header
+    --background: var(--ion-color-dark);
+    --border-width: 0; 
+    --color: var(--ion-color-light); // Íconos y texto en color Light (Blanco)
 }
-.Bienvenida{
-    padding-bottom: 5vh;
+
+.header-content {
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
 }
-.ingresar{
-    padding-top: 4vh !important;
+
+ion-back-button {
+    --color: var(--ion-color-light); 
+    margin-right: 10px;
 }
-ion-button{
-    padding-right: 2vh;
+
+.jawy-logo-small {
+    width: 70px; 
+    height: auto;
+}
+
+// ===============================================
+// 2. CONTENIDO PRINCIPAL Y FORMULARIO
+// ===============================================
+
+.login-content-final {
+    // Usamos DARK como fondo principal de la página
+    --background: var(--ion-color-dark) !important; 
+    padding: 0 20px;
+}
+
+.form-container {
+    padding-top: 5vh; 
+}
+
+h1 {
+    color: var(--ion-color-light); // Blanco
+    font-weight: bold;
+    font-size: 30px; 
+    margin: 0;
+    padding-left: 5px; 
+}
+
+.subtitle {
+    color: var(--ion-color-medium); // Gris tenue
+    font-size: 16px;
+    margin: 5px 0 40px 5px; 
+}
+
+// ===============================================
+// 3. INPUTS (Estilo SOLID - Relleno oscuro)
+// ===============================================
+
+ion-input.custom-input-solid {
+    margin-bottom: 20px;
+    height: 55px; 
+    
+    // Fondo de los inputs (Usamos TERTIARY que es el negro más profundo: #151519)
+    --background: var(--ion-color-tertiary); 
+    
+    // Color del texto que el usuario escribe
+    --color: var(--ion-color-light); 
+    
+    // Borde inferior (sutil)
+    --border-color: var(--ion-color-dark-shade); // Una sombra de dark (#212121)
+    --border-width: 0 0 1px 0;
+    
+    // Etiqueta flotante y placeholder
+    --placeholder-color: var(--ion-color-secondary); // Gris Medio
+    --label-color: var(--ion-color-secondary);
+
+    --box-shadow: none; 
+}
+
+// ===============================================
+// 4. BOTONES Y FOOTER
+// ===============================================
+
+.main-button {
+    margin-top: 30px; 
+    height: 50px;
+    font-weight: bold;
+    text-transform: uppercase;
+    // El color lo toma de color="mostaza2" en el HTML, que se mapea a primary
+}
+
+.register-link-container {
+    margin-top: 40px;
+}
+
+.register-link-container p {
+    color: var(--ion-color-light);
+    font-size: 14px;
+}
+
+.register-link {
+    // El enlace "Regístrate" en naranja (primary)
+    color: var(--ion-color-primary); 
+    font-weight: bold;
+    text-decoration: none; 
+}
+
+// ===============================================
+// 2. CONTENIDO PRINCIPAL Y FORMULARIO
+// ===============================================
+
+.login-content-final {
+    // FONDO OSCURO: Súper importante que use el !important y la variable correcta.
+    --background: var(--ion-color-dark) !important; 
+    
+    // Aseguramos el padding lateral para que no quede al borde
+    --padding-start: 20px;
+    --padding-end: 20px;
+    --padding-top: 0;
+    --padding-bottom: 0;
+}
+
+// Anulamos los márgenes negativos de ion-grid para que respete el padding del content
+ion-grid {
+    padding: 0;
+    margin: 0;
+}
+
+.form-container {
+    padding-top: 5vh; // Espacio superior
+    // Eliminamos el padding lateral aquí ya que lo pusimos en ion-content
+}
+// ...
+
+// ===============================================
+// 3. INPUTS (Estilo SOLID - Foco Naranja y Fondo Oscuro Constante)
+// ===============================================
+
+ion-input.custom-input-solid {
+    // ... (otras variables)
+    
+    // --- ESTADOS INTERACTIVOS (HOVER / ACTIVATED) ---
+    
+    // CLAVE: Evita que el fondo se ponga blanco al pasar el ratón o tocar
+    --background-hover: var(--ion-color-tertiary) !important;
+    --background-activated: var(--ion-color-tertiary) !important;
+    
+    // CLAVE: Esto apunta al fondo del ítem implícito que envuelve el input
+    --ion-item-background-activated: var(--ion-color-tertiary) !important;
+    --ion-item-background-hover: var(--ion-color-tertiary) !important;
+
+    // ... (el resto de tu código para el estado normal y el foco naranja)
+}
+
+// Además, apunta al input nativo usando pseudo-clases de CSS para el hover/focus:
+ion-input.custom-input-solid:hover ::part(native),
+ion-input.custom-input-solid:focus ::part(native) {
+    background-color: var(--ion-color-tertiary) !important;
+}
+
+// Apunta al color de texto/label para evitar el color rojo/negro al activarse (como en tu imagen)
+ion-input.custom-input-solid.ion-activated ion-label,
+ion-input.custom-input-solid.ion-focused ion-label,
+ion-input.custom-input-solid.ion-activated ::part(label) {
+     color: var(--ion-color-secondary) !important; // Mantiene el color gris sutil
 }
