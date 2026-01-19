@@ -4,8 +4,12 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'inicio', // Redirige automáticamente al inicio
     pathMatch: 'full'
+  },
+  {
+    path: 'inicio',
+    loadChildren: () => import('./pages/inicio/inicio.module').then( m => m.InicioPageModule)
   },
   {
     path: 'home',
@@ -82,9 +86,14 @@ const routes: Routes = [
   {
     path: 'view-lugar/:idLugar',
     loadChildren: () => import('./pages/view-lugar/view-lugar.module').then( m => m.ViewLugarPageModule)
-  },  {
+  },
+  {
     path: 'add-lugar',
     loadChildren: () => import('./pages/add-lugar/add-lugar.module').then( m => m.AddLugarPageModule)
+  },
+  {
+    path: 'inicio',
+    loadChildren: () => import('./pages/inicio/inicio.module').then( m => m.InicioPageModule)
   },
 
 

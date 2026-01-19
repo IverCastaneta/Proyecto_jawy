@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy, RouterModule } from '@angular/router';
 
@@ -7,41 +7,49 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
-// Para hacer llamadas http
+// --- SERVICIOS Y COMUNICACIÓN ---
 import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
-// Para utlizar formularios reactivos
-import { ReactiveFormsModule } from '@angular/forms';
-
-// Para cargar Firebase
+// --- CONFIGURACIÓN DE FIREBASE (VERSION COMPAT) ---
 import { environment } from '../environments/environment';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
-// Para cargar Firebase
-
-// Para ejecutar Swiper
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-// Para ejecutar Swiper
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 
 @NgModule({
   declarations: [AppComponent],
-  // Para ejecutar Swiper
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  // Permite el uso de componentes externos como Swiper para sliders musicales
+  schemas: [CUSTOM_ELEMENTS_SCHEMA], 
   imports: [
     BrowserModule,
-    IonicModule.forRoot(),
+    // Configuración global de la interfaz de Ionic
+    IonicModule.forRoot({
+      mode: 'ios', // Forzamos estilo iOS para una estética más limpia en Jawy
+      rippleEffect: true
+    }),
     AppRoutingModule,
-    /////////
-    HttpClientModule,
+    
+    // Módulos para formularios (Registro y Login manual)
     ReactiveFormsModule,
-    // Para cargar Firebase
+    FormsModule,
+    
+    // Módulo para conectar con APIs externas si fuera necesario
+    HttpClientModule,
+    
+    // INICIALIZACIÓN DE FIREBASE
+    // Usa las credenciales que configuramos en environment.ts
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFireAuthModule,
-    AngularFirestoreModule,
+    AngularFireAuthModule,      // Para el login con Google y correo
+    AngularFirestoreModule,     // Para la base de datos de músicos y eventos
+    AngularFireStorageModule,    // Para subir fotos de perfiles o posters de eventos
+    
     RouterModule
   ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

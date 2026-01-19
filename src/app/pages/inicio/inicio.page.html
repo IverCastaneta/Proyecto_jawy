@@ -1,0 +1,31 @@
+<ion-content [fullscreen]="true">
+  <div class="welcome-container">
+    
+    <div class="logo-section">
+      <h1 class="jawy-logo">JAWY</h1>
+    </div>
+
+    <div class="text-section">
+      <h2>¡Bienvenido a <span class="highlight">Jawy</span>!</h2>
+      <p>
+        Reserva espacios para tus tocadas, promueve tu arte, ve los eventos locales 
+        y mucho más sobre la escena <strong>musical en La Paz</strong>
+      </p>
+    </div>
+
+    <div class="action-section">
+      <ion-button expand="block" mode="ios" class="main-button" routerLink="/login">
+        Inicia sesión
+      </ion-button>
+
+      <ion-button expand="block" mode="ios" fill="outline" class="google-button" (click)="loginGoogle()">
+        Inicia sesión con Google
+      </ion-button>
+
+      <div class="register-link">
+        <a routerLink="/registro">¿No tienes cuenta? Registrate</a>
+      </div>
+    </div>
+
+  </div>
+</ion-content>
