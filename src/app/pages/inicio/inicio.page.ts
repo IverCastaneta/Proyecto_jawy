@@ -20,16 +20,20 @@ export class InicioPage implements OnInit {
 
   // Función vinculada al botón "Inicia sesión con Google"
   async loginGoogle() {
-    const user = await this.authService.loginWithGoogle();
-    
-    if (user) {
-      console.log('¡Bienvenido a Jawy!', user.displayName);
-      // Una vez que Firebase confirma la identidad, navegamos a la pantalla principal
-      this.router.navigate(['/home']); 
-    } else {
-      // Opcional: Aquí podrías mostrar una alerta si el login falla
-      console.log('El usuario canceló el login o hubo un error.');
+
+    // Función vinculada al botón "Inicia sesión con Google"
+  
+    // LLAMADA ÚNICA: 
+    // El AuthService se encarga de todo: abrir el popup, 
+    // verificar el perfil en Firestore y decidir a qué página navegar.
+    try {
+      await this.authService.loginWithGoogle();
+    } catch (error) {
+      console.error('Error durante el proceso de login:', error);
     }
+  
+
   }
+
 
 }

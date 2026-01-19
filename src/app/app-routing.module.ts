@@ -94,7 +94,31 @@ const routes: Routes = [
   {
     path: 'inicio',
     loadChildren: () => import('./pages/inicio/inicio.module').then( m => m.InicioPageModule)
+  },  {
+    path: 'seleccion-rol',
+    loadChildren: () => import('./pages/seleccion-rol/seleccion-rol.module').then( m => m.SeleccionRolPageModule)
   },
+  {
+    path: 'informacion-personal',
+    loadChildren: () => import('./pages/informacion-personal/informacion-personal.module').then( m => m.InformacionPersonalPageModule)
+  },
+  {
+    path: 'informacion-contacto',
+    loadChildren: () => import('./pages/informacion-contacto/informacion-contacto.module').then( m => m.InformacionContactoPageModule)
+  },
+  {
+    path: 'detalles-musicales',
+    loadChildren: () => import('./pages/detalles-musicales/detalles-musicales.module').then( m => m.DetallesMusicalesPageModule)
+  },
+  {
+    path: 'perfil-artistico',
+    loadChildren: () => import('./pages/perfil-artistico/perfil-artistico.module').then( m => m.PerfilArtisticoPageModule)
+  },
+  {
+    path: 'finalizar-registro',
+    loadChildren: () => import('./pages/finalizar-registro/finalizar-registro.module').then( m => m.FinalizarRegistroPageModule)
+  },
+
 
 
 

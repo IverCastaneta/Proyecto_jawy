@@ -1,0 +1,45 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/informacion-personal" text="" icon="chevron-back"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      <span class="logo-small">JAWY</span>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="container">
+    
+    <div class="header-text">
+      <h1>¿Cómo te van a contactar<span class="orange-q">?</span></h1>
+      <p>Llena los espacios para que puedan conocerte mejor</p>
+    </div>
+
+    <form [formGroup]="contactoForm" class="form-container">
+      
+      <div class="input-group">
+        <label>Correo electrónico</label>
+        <ion-item lines="none" class="custom-input">
+          <ion-input type="email" placeholder="ejemplo@gmail.com" formControlName="email"></ion-input>
+        </ion-item>
+      </div>
+
+      <div class="input-group">
+        <label>Número de contacto</label>
+        <ion-item lines="none" class="custom-input">
+          <ion-input type="tel" placeholder="+591 00000000" formControlName="telefono"></ion-input>
+        </ion-item>
+      </div>
+
+    </form>
+
+    <div class="footer-actions">
+      <ion-button expand="block" mode="ios" (click)="siguiente()" [disabled]="!contactoForm.valid">
+        Siguiente
+      </ion-button>
+    </div>
+
+  </div>
+</ion-content>

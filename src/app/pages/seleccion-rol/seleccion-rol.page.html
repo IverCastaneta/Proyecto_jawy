@@ -1,0 +1,43 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/inicio" text="" icon="chevron-back"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      <span class="logo-small">JAWY</span>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="container">
+    
+    <div class="header-text">
+      <h1>¿Quién eres<span class="orange-q">?</span></h1>
+      <p>Elige lo que mejor te describa</p>
+    </div>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6" *ngFor="let rol of roles">
+          <div class="role-card" 
+               [class.selected]="rolSeleccionado === rol.id" 
+               (click)="seleccionar(rol.id)">
+            <div class="image-placeholder">
+              </div>
+            <div class="role-footer">
+              {{ rol.nombre }}
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <div class="footer-actions">
+      <ion-button expand="block" mode="ios" (click)="siguiente()" [disabled]="!rolSeleccionado">
+        Siguiente
+      </ion-button>
+    </div>
+
+  </div>
+</ion-content>

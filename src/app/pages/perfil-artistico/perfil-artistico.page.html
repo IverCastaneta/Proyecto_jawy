@@ -1,0 +1,51 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/detalles-musicales" text="" icon="chevron-back"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      <span class="logo-small">JAWY</span>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="container">
+    
+    <div class="header-text">
+      <h1>Hablanos de tí</h1>
+      <p>Llena los espacios para que puedan conocerte mejor</p>
+    </div>
+
+    <div class="avatar-section" (click)="seleccionarFoto()">
+      <div class="avatar-circle">
+        <ion-icon name="person-outline" *ngIf="!imagePreview"></ion-icon>
+        <img [src]="imagePreview" *ngIf="imagePreview">
+        <div class="add-button">
+          <ion-icon name="add"></ion-icon>
+        </div>
+      </div>
+      <p>Añadir foto de perfil</p>
+      <input type="file" #fileInput (change)="onFileSelected($event)" accept="image/*" style="display: none;">
+    </div>
+
+    <div class="description-section">
+      <label>Descripción</label>
+      <ion-item lines="none" class="custom-textarea">
+        <ion-textarea 
+          placeholder="Danos una breve descripción de quien eres" 
+          [autoGrow]="true" 
+          rows="4"
+          [(ngModel)]="descripcion">
+        </ion-textarea>
+      </ion-item>
+    </div>
+
+    <div class="footer-actions">
+      <ion-button expand="block" mode="ios" (click)="siguiente()" [disabled]="!descripcion">
+        Siguiente
+      </ion-button>
+    </div>
+
+  </div>
+</ion-content>

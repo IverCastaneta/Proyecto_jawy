@@ -1,0 +1,57 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/seleccion-rol" text="" icon="chevron-back"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      <span class="logo-small">JAWY</span>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="container">
+    
+    <div class="header-text">
+      <h1>¿Quién eres<span class="orange-q">?</span></h1>
+      <p>Llena los espacios para que puedan conocerte mejor</p>
+    </div>
+
+    <form [formGroup]="personaForm" class="form-container">
+      
+      <div class="input-group">
+        <label>Nombre artístico</label>
+        <ion-item counter="true" lines="none" class="custom-input">
+          <ion-input type="text" placeholder="¿Cómo quieres aparecer en la plataforma?" formControlName="nombreArtistico"></ion-input>
+        </ion-item>
+      </div>
+
+      <div class="input-group">
+        <label>Nombre y apellidos</label>
+        <ion-item lines="none" class="custom-input">
+          <ion-input type="text" placeholder="¿Cuál es tu nombre real?" formControlName="nombreReal"></ion-input>
+        </ion-item>
+      </div>
+
+      <div class="input-group">
+        <label>Fecha de nacimiento</label>
+        <ion-item lines="none" class="custom-input date-item">
+          <ion-datetime-button datetime="datetime"></ion-datetime-button>
+          <ion-popover [keepContentsMounted]="true">
+            <ng-template>
+              <ion-datetime id="datetime" presentation="date" formControlName="fechaNacimiento"></ion-datetime>
+            </ng-template>
+          </ion-popover>
+        </ion-item>
+      </div>
+
+    </form>
+
+    <div class="footer-actions">
+      <ion-button expand="block" mode="ios" (click)="siguiente()" [disabled]="!personaForm.valid">
+        Siguiente
+      </ion-button>
+    </div>
+
+  </div>
+</ion-content>

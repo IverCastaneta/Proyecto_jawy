@@ -1,0 +1,58 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/informacion-contacto" text="" icon="chevron-back"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      <span class="logo-small">JAWY</span>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="container">
+    
+    <div class="header-text">
+      <h1>Hablanos de tí</h1>
+      <p>Llena los espacios para que puedan conocerte mejor</p>
+    </div>
+
+    <div class="section-group">
+      <label class="section-label">¿Y tú eres?...</label>
+      <ion-item lines="none" class="custom-select">
+        <ion-select label="" placeholder="Seleccione un rol" toggleIcon="chevron-down" [(ngModel)]="rolEspecifico">
+          <ion-select-option value="solista">Solista</ion-select-option>
+          <ion-select-option value="integrante">Integrante de banda</ion-select-option>
+          <ion-select-option value="sesionista">Músico de sesión</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </div>
+
+    <div class="section-group">
+      <label class="section-label">¿Qué tocas?</label>
+      <ion-list lines="full" class="dark-list">
+        <ion-item *ngFor="let inst of instrumentos">
+          <ion-label>{{ inst.nombre }}</ion-label>
+          <ion-checkbox slot="end" [(ngModel)]="inst.isChecked"></ion-checkbox>
+        </ion-item>
+      </ion-list>
+    </div>
+
+    <div class="section-group">
+      <label class="section-label">¿Qué genero de música tocas?</label>
+      <ion-list lines="full" class="dark-list">
+        <ion-item *ngFor="let gen of generos">
+          <ion-label>{{ gen.nombre }}</ion-label>
+          <ion-checkbox slot="end" [(ngModel)]="gen.isChecked"></ion-checkbox>
+        </ion-item>
+      </ion-list>
+    </div>
+
+    <div class="footer-actions">
+      <ion-button expand="block" mode="ios" (click)="siguiente()">
+        Siguiente
+      </ion-button>
+    </div>
+
+  </div>
+</ion-content>
