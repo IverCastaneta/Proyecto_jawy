@@ -1,17 +1,17 @@
 <ion-content [fullscreen]="true" class="profile-bg">
   <div class="container" *ngIf="usuario">
-    
+
     <div class="profile-header">
       <div class="avatar-container">
         <img [src]="usuario.fotoPerfil || 'assets/default-avatar.png'">
         <div class="edit-badge"><ion-icon name="pencil"></ion-icon></div>
       </div>
-      
+
       <div class="user-info">
         <h1>{{ usuario.nombreArtistico }}</h1>
         <p class="role-tag">
           <ion-icon name="musical-notes-outline"></ion-icon>
-          {{ usuario.role === 'dueno' ? 'Dueño de lugar' : 'Músico independiente' }}
+          {{ usuario.rol === 'dueno' ? 'Dueño de lugar' : 'Músico independiente' }}
         </p>
       </div>
 
@@ -27,48 +27,87 @@
       </div>
     </div>
 
-    <div class="section" *ngIf="usuario.rol === 'musico'">
-      <h3>Generos</h3>
-      <div class="chips-container">
-        <ion-chip *ngFor="let g of usuario.generos">{{ g }}</ion-chip>
-        <ion-button fill="clear" size="small" class="add-btn">
-          Añadir genero +
-        </ion-button>
-      </div>
-    </div>
+    <ion-segment [(ngModel)]="segmentoActual" mode="ios" class="custom-segment">
+      <ion-segment-button value="info">
+        <ion-label>Perfil</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="gestion">
+        <ion-label>Gestión</ion-label>
+      </ion-segment-button>
+    </ion-segment>
 
-    <div class="section">
-      <div class="section-title">
-        <h3>Descripción</h3>
-        <ion-icon name="pencil-outline"></ion-icon>
-      </div>
-      <p class="bio-text">{{ usuario.biografia }}</p>
-    </div>
-
-    <div class="section">
-      <h3>{{ usuario.rol === 'dueno' ? 'Mi lugar' : 'Lugares visitados' }}</h3>
+    <div [ngSwitch]="segmentoActual">
       
-      <ion-card class="venue-card" *ngIf="usuario.rol === 'dueno' && miLugar">
-        <img [src]="miLugar.foto" />
-        <ion-card-header>
-          <ion-card-title>{{ miLugar.nombre }}</ion-card-title>
-          <ion-card-subtitle>{{ miLugar.direccion }}</ion-card-subtitle>
-        </ion-card-header>
-      </ion-card>
-    </div>
+      <div *ngSwitchCase="'info'">
+        <div class="section" *ngIf="usuario.rol === 'musico'">
+          <h3>Generos</h3>
+          <div class="chips-container">
+            <ion-chip *ngFor="let g of usuario.generos">{{ g }}</ion-chip>
+            <ion-button fill="clear" size="small" class="add-btn">
+              Añadir genero +
+            </ion-button>
+          </div>
+        </div>
 
+        <div class="section">
+          <div class="section-title">
+            <h3>Descripción</h3>
+            <ion-icon name="pencil-outline"></ion-icon>
+          </div>
+          <p class="bio-text">{{ usuario.biografia }}</p>
+        </div>
+
+        <div class="section">
+          <h3>{{ usuario.rol === 'dueno' ? 'Mi lugar' : 'Lugares visitados' }}</h3>
+          <ion-card class="venue-card" *ngIf="usuario.rol === 'dueno' && miLugar">
+            <img [src]="miLugar.fotoLugar || miLugar.foto" />
+            <ion-card-header>
+              <ion-card-title>{{ miLugar.nombreLugar || miLugar.nombre }}</ion-card-title>
+              <ion-card-subtitle>{{ miLugar.direccion }}</ion-card-subtitle>
+            </ion-card-header>
+          </ion-card>
+        </div>
+      </div>
+
+      <div *ngSwitchCase="'gestion'" class="ion-padding">
+        <h3 class="gestion-title">
+          {{ usuario.rol === 'dueno' ? 'Solicitudes por revisar' : 'Mis solicitudes' }}
+        </h3>
+
+        <ion-card *ngFor="let s of solicitudes" class="request-card">
+          <ion-item lines="none">
+            <ion-avatar slot="start">
+              <img [src]="s.fotoMusico || 'assets/default-avatar.png'">
+            </ion-avatar>
+            <ion-label>
+              <h2>{{ usuario.rol === 'dueno' ? s.nombreMusico : s.nombreLugar }}</h2>
+              <p><ion-icon name="calendar-outline"></ion-icon> {{ s.fechaPerformance | date:'dd/MM/yyyy' }}</p>
+            </ion-label>
+            <ion-badge slot="end" [color]="s.estado === 'aceptado' ? 'success' : (s.estado === 'pendiente' ? 'warning' : 'danger')">
+              {{ s.estado }}
+            </ion-badge>
+          </ion-item>
+
+          <div class="action-buttons" *ngIf="usuario.rol === 'dueno' && s.estado === 'pendiente'">
+            <ion-button fill="clear" color="danger" (click)="gestionarSolicitud(s.id, 'rechazado')">
+              Rechazar
+            </ion-button>
+            <ion-button fill="solid" color="success" (click)="gestionarSolicitud(s.id, 'aceptado')">
+              Aceptar
+            </ion-button>
+          </div>
+        </ion-card>
+
+        <div *ngIf="solicitudes.length === 0" class="empty-state">
+          <p>No hay actividad por el momento.</p>
+        </div>
+      </div>
+    </div>
   </div>
 </ion-content>
 
 <ion-footer class="ion-no-border">
   <ion-toolbar>
-    <ion-tabs>
-      <ion-tab-bar slot="bottom">
-        <ion-tab-button tab="home"><ion-icon name="pulse-outline"></ion-icon><ion-label>Explorar</ion-label></ion-tab-button>
-        <ion-tab-button tab="crowd"><ion-icon name="storefront-outline"></ion-icon><ion-label>Crowdfunding</ion-label></ion-tab-button>
-        <ion-tab-button tab="eventos"><ion-icon name="calendar-outline"></ion-icon><ion-label>Eventos</ion-label></ion-tab-button>
-        <ion-tab-button tab="perfil" class="active"><ion-icon name="person"></ion-icon><ion-label>Perfil</ion-label></ion-tab-button>
-      </ion-tab-bar>
-    </ion-tabs>
+    <app-tab></app-tab>
   </ion-toolbar>
 </ion-footer>

@@ -1,7 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AuthService } from 'src/app/services/auth.service';
 import { DatabaseService } from 'src/app/services/database.service';
+import { ModalController } from '@ionic/angular'; // 1. Importación necesaria
+import { ReservationModalComponent } from 'src/app/components/reservation-modal/reservation-modal.component';
 
 @Component({
   selector: 'app-view-lugar',
@@ -12,22 +13,39 @@ export class ViewLugarPage implements OnInit {
 
   id: any;
   lugar: any;
-  @Input() data: any;
+
   constructor(
-    public db: DatabaseService,
-    public activatedRoute: ActivatedRoute,
-    public auth: AuthService
-  ) { 
-    this.id = this.activatedRoute.snapshot.paramMap.get('idLugar');
-    console.log('id lugar', this.id)
-  }
+    private activatedRoute: ActivatedRoute,
+    private db: DatabaseService,
+    private modalCtrl: ModalController // 2. Inyectamos el controlador de modales
+  ) { }
 
   ngOnInit() {
-    this.db.getDocumentById('lugares', this.id)
-    .subscribe((res: any)=>{
-      this.lugar = res;
-    })
-    console.log('Data desde view-lugar', this.data)
-  }
+  // CAMBIO CLAVE: Cambiamos 'id' por 'idLugar' para que coincida con el routing
+  this.id = this.activatedRoute.snapshot.paramMap.get('idLugar');
+  
+  console.log('ID capturado correctamente:', this.id);
 
+  if (this.id) {
+    this.db.getDocumentById('lugares', this.id).subscribe(res => {
+      this.lugar = res;
+      console.log('¡Datos cargados con éxito!', this.lugar);
+    });
+  }
+}
+
+  // 3. LA FUNCIÓN QUE FALTA: Esto elimina el error TS2339
+  async solicitarPerformance(lugar: any) {
+    const modal = await this.modalCtrl.create({
+      component: ReservationModalComponent,
+      componentProps: { lugar: lugar } // Le pasamos los datos del lugar al modal
+    });
+
+    await modal.present();
+
+    const { data, role } = await modal.onWillDismiss();
+    if (role === 'confirm') {
+      console.log('Solicitud enviada para:', lugar.nombre);
+    }
+  }
 }

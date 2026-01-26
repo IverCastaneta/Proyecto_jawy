@@ -1,61 +1,46 @@
-<!--
-  <p><strong>Precio:</strong>{{lugar?.precio}}</p>
-  <p><strong>Propietario:</strong>{{lugar?.nombre_propietario}}</p>
-  <p><strong>Direccion:</strong>{{lugar?.direccion}}</p>
-  <p><strong>Descripcion:</strong>{{lugar?.descripcion}}</p>
--->
+<ion-content [fullscreen]="true" class="profile-bg">
+  
+  <div class="back-navigation">
+    <app-back routerLink="/home"></app-back>
+  </div>
 
-<ion-content [fullscreen]="true">
+  <div class="venue-hero">
+    <img [src]="lugar?.foto || 'assets/default-venue.jpg'" class="hero-img" />
+    <div class="hero-overlay">
+      <ion-badge color="warning" mode="ios">Destacado</ion-badge>
+      <h1>{{ lugar?.nombre }}</h1>
+    </div>
+  </div>
 
-  <app-back routerLink="/view-profile/cCm4kpD0dNMYhAn2f7mjNNAEVKm2"></app-back>
+  <div class="content-wrapper">
+    <div class="info-section">
+      <div class="info-item">
+        <ion-icon name="location-outline" color="primary"></ion-icon>
+        <p><strong>Ubicación:</strong> {{ lugar?.direccion }}</p>
+      </div>
+      
+      <div class="info-item">
+        <ion-icon name="people-outline" color="primary"></ion-icon>
+        <p><strong>Capacidad:</strong> {{ lugar?.capacidad }} personas</p>
+      </div>
+    </div>
 
+    <hr class="divider">
 
-  <ion-card class="sinSombra" style="background-color: var(--ion-color-dark);">
+    <div class="details-section">
+      <h3>Sobre el lugar</h3>
+      <p class="description-text">{{ lugar?.descripcion }}</p>
+    </div>
 
-    <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" />
-
-    <ion-card-header style="padding: 0; margin: 0;">
-
-      <ion-card-title color="mostaza2"
-        style="font-family: 'poligraphergrotesk-semibold'; font-size: 22pt;">{{lugar?.nombre}}</ion-card-title>
-        
-        <ion-card-subtitle style="padding: 0 !important; margin: 0 !important;" style="font-family: 'poppins-regular'; font-size: 16pt;" color="blanquito">
-          <p><strong>Ubicación: </strong>{{lugar?.direccion}} <ion-icon style="scale: 1; padding-left: 5px;" name="location-outline" fill="solid"></ion-icon></p>
-          
-        </ion-card-subtitle>
-
-      <ion-card-subtitle style="font-family: 'poppins-regular'; font-size: 16pt;" color="blanquito">
-        <p><strong>Propietario: </strong>{{lugar?.nombre_propietario}}</p>
-      </ion-card-subtitle>
-
-      <ion-card-subtitle style="font-family: 'poppins-regular'; font-size: 16pt;" color="blanquito">
-        <p><strong>Precio: </strong>{{lugar?.precio}}</p>
-      </ion-card-subtitle>
-    </ion-card-header>
-
-    
-
-    <ion-card-content>
-      <hr>
-      <p><strong>Descripcion: {{lugar?.descripcion}}</strong></p>
-      <br>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In rutrum erat id orci dignissim, nec fermentum magna imperdiet. Donec porta enim velit, vel ornare nibh cursus tempor. Mauris at odio non tellus placerat sollicitudin sit amet nec sem. Phasellus quis odio purus. Vestibulum vestibulum, risus suscipit blandit molestie, lectus magna mollis libero, vitae aliquam ante nisi efficitur arcu. Cras maximus est purus, et auctor neque placerat vel. In fermentum mi vitae est aliquet malesuada. Maecenas ut nulla imperdiet mi mattis aliquam eu ac odio. Praesent et enim ut justo porta hendrerit. Maecenas rhoncus nisl sit amet malesuada fermentum. Vestibulum cursus arcu vel leo pretium sollicitudin. 
-    </ion-card-content>
-    <hr style="padding: 0 4vh 0 4vh;">
-  </ion-card>
+    <div class="equipment-section" *ngIf="lugar?.equipamiento">
+      <h3>Equipamiento</h3>
+      <ion-chip *ngFor="let item of lugar?.equipamiento">
+        <ion-label>{{ item }}</ion-label>
+      </ion-chip>
+    </div>
+  </div>
 </ion-content>
 
-<ion-footer>
-  <app-action-calendar (click)="auth.addToList('reserva',lugar.id)"></app-action-calendar>
+<ion-footer class="ion-no-border">
+  <app-action-calendar (click)="solicitarPerformance(lugar)"></app-action-calendar>
 </ion-footer>
-
-<!-- para commit -->
-<!--
-<ion-content>
-  <app-back></app-back>
-  <app-cardpapu class="sinSombra">
-  </app-cardpapu>
-  <app-descripcion>
-  </app-descripcion>  
-</ion-content>
-
--->

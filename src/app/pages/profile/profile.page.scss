@@ -1,4 +1,6 @@
-.profile-bg { --background: #121212; }
+.profile-bg {
+  --background: #121212;
+}
 
 .profile-header {
   display: flex;
@@ -9,39 +11,173 @@
 
   .avatar-container {
     position: relative;
-    img { width: 120px; height: 120px; border-radius: 50%; border: 3px solid #333; }
+
+    img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 3px solid #333;
+    }
+
     .edit-badge {
-      position: absolute; bottom: 5px; right: 5px;
-      background: #F66F17; padding: 5px; border-radius: 50%;
-      display: flex; color: white; border: 2px solid #121212;
+      position: absolute;
+      bottom: 5px;
+      right: 5px;
+      background: #F66F17;
+      padding: 5px;
+      border-radius: 50%;
+      display: flex;
+      color: white;
+      border: 2px solid #121212;
     }
   }
 
-  h1 { font-size: 28px; font-weight: 700; margin: 15px 0 5px; }
-  .role-tag { color: #888; display: flex; align-items: center; gap: 5px; font-size: 14px; }
+  h1 {
+    font-size: 28px;
+    font-weight: 700;
+    margin: 15px 0 5px;
+  }
+
+  .role-tag {
+    color: #888;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 14px;
+  }
 }
 
 .stats-box {
-  display: flex; gap: 40px; margin-top: 20px;
+  display: flex;
+  gap: 40px;
+  margin-top: 20px;
+
   .stat {
-    display: flex; flex-direction: column;
-    .stat-value { font-size: 22px; font-weight: 800; }
-    .stat-label { font-size: 12px; color: #666; text-transform: uppercase; }
+    display: flex;
+    flex-direction: column;
+
+    .stat-value {
+      font-size: 22px;
+      font-weight: 800;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: #666;
+      text-transform: uppercase;
+    }
   }
 }
 
 .section {
-  padding: 0 20px; margin-bottom: 30px;
-  .section-title { display: flex; justify-content: space-between; align-items: center; }
-  h3 { font-size: 18px; font-weight: 600; color: #fff; }
-  .bio-text { color: #aaa; line-height: 1.5; font-size: 14px; }
+  padding: 0 20px;
+  margin-bottom: 30px;
+
+  .section-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff;
+  }
+
+  .bio-text {
+    color: #aaa;
+    line-height: 1.5;
+    font-size: 14px;
+  }
 }
 
-ion-chip { --background: #2a2a2a; --color: #ddd; font-size: 12px; }
-.add-btn { --color: #F66F17; font-weight: 600; }
+ion-chip {
+  --background: #2a2a2a;
+  --color: #ddd;
+  font-size: 12px;
+}
+
+.add-btn {
+  --color: #F66F17;
+  font-weight: 600;
+}
 
 .venue-card {
-  background: #1e1e1e; border-radius: 15px; margin: 0;
-  img { height: 150px; object-fit: cover; }
-  ion-card-title { color: #fff; font-size: 16px; }
+  background: #1e1e1e;
+  border-radius: 15px;
+  margin: 0;
+
+  img {
+    height: 150px;
+    object-fit: cover;
+  }
+
+  ion-card-title {
+    color: #fff;
+    font-size: 16px;
+  }
+}
+
+.request-card {
+  background: #1e1e1e;
+  border-radius: 12px;
+  margin-bottom: 15px;
+
+  ion-item {
+    --background: transparent;
+    --color: white;
+  }
+
+  h2 {
+    font-weight: 700;
+    font-size: 16px;
+  }
+
+  p {
+    color: #aaa;
+    font-size: 13px;
+  }
+}
+
+ion-segment {
+  --background: #1e1e1e;
+  margin: 10px 20px;
+  border-radius: 10px;
+}
+
+.section-title {
+  color: #F66F17;
+  font-size: 18px;
+  font-weight: 800;
+  margin: 15px 0;
+}
+.custom-segment {
+  margin: 10px 20px;
+  --background: #1e1e1e;
+  border-radius: 12px;
+}
+
+.request-card {
+  background: #1e1e1e;
+  border-radius: 15px;
+  margin-bottom: 15px;
+  
+  ion-item { --background: transparent; --color: #fff; }
+  h2 { font-weight: 700; }
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+  border-top: 1px solid #333;
+  ion-button { width: 45%; font-weight: 600; }
+}
+
+.gestion-title {
+  color: #F66F17;
+  font-weight: 800;
+  font-size: 1.2rem;
+  margin-bottom: 15px;
 }

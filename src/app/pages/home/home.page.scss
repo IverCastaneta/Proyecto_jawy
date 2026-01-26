@@ -1,7 +1,51 @@
-ion-footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    z-index: 10; /* Ajusta según la jerarquía de tu app */
-  }
+.dark-theme { --background: #121212; }
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 16px 10px;
+  h2 { font-size: 20px; font-weight: 700; color: #fff; margin: 0; }
+  ion-note { color: #F66F17; font-weight: 600; }
+}
+
+.horizontal-scroll {
+  display: flex;
+  overflow-x: auto;
+  padding: 0 10px;
+  &::-webkit-scrollbar { display: none; }
   
+  .musico-card {
+    min-width: 140px;
+    margin: 8px;
+    border-radius: 15px;
+    background: #1e1e1e;
+    img { height: 120px; object-fit: cover; }
+    ion-card-title { font-size: 14px; text-align: center; color: #fff; }
+  }
+}
+
+.places-container {
+  padding: 0 8px;
+  
+  .venue-card {
+    background: #1e1e1e;
+    border-radius: 18px;
+    margin: 12px 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+
+    .image-wrapper {
+      position: relative;
+      img { height: 180px; width: 100%; object-fit: cover; }
+      .venue-badge { position: absolute; top: 12px; right: 12px; }
+    }
+
+    ion-card-title { color: #fff; font-weight: 700; font-size: 18px; }
+    ion-card-subtitle { 
+      display: flex; 
+      align-items: center; 
+      gap: 4px; 
+      color: #999; 
+    }
+  }
+}

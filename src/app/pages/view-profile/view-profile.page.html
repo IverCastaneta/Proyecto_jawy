@@ -1,30 +1,39 @@
-<ion-header [translucent]="true">
+<ion-header class="ion-no-border">
   <ion-toolbar>
-
-    <app-search-bar >
-    </app-search-bar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home" text="" icon="chevron-back"></ion-back-button>
+    </ion-buttons>
+    <ion-title><span class="logo-small">JAWY</span></ion-title>
   </ion-toolbar>
-
-  <app-toolbar>
-  </app-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" class="dark-theme">
+  <div class="container" *ngIf="user">
+    
+    <div class="profile-card ion-text-center">
+      <img [src]="user.fotoPerfil || 'assets/default-avatar.png'" class="avatar">
+      <h1>{{ user.nombreArtistico }}</h1>
+      <ion-badge color="primary" mode="ios">{{ user.rol === 'dueno' ? 'Dueño de Lugar' : 'Músico' }}</ion-badge>
+      <p class="bio">{{ user.biografia }}</p>
+    </div>
 
-  <app-card [data]="lugar" *ngFor="let lugar of lugaresFiltrados"></app-card>
-  <br style="height: 100px;" color="primary">
-  <br style="height: 100px;" color="primary">
-
-
-  <ion-fab slot="fixed" vertical="bottom" horizontal="end" style="margin-bottom: 60px; margin-right: 12px;" routerLink="/add-lugar/">
-    <ion-fab-button color="mostaza2">
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
+    <div class="section" *ngIf="user.rol === 'dueno'">
+      <h2 class="section-title">Espacios Disponibles</h2>
+      
+      <ion-card class="venue-card" *ngFor="let lugar of lugaresDelDueno">
+        <img [src]="lugar.fotoLugar || 'assets/default-venue.jpg'" />
+        <ion-card-header>
+          <ion-card-title>{{ lugar.nombreLugar }}</ion-card-title>
+          <ion-card-subtitle>{{ lugar.direccion }}</ion-card-subtitle>
+        </ion-card-header>
+        
+        <ion-card-content>
+          <ion-button expand="block" shape="round" (click)="solicitarPerformance(lugar)">
+            Solicitar Performance
+          </ion-button>
+        </ion-card-content>
+      </ion-card>
+    </div>
+    
+  </div>
 </ion-content>
-
-<ion-footer [translucent]="true">
-  <ion-toolbar>
-    <app-tab></app-tab>
-  </ion-toolbar>
-</ion-footer>

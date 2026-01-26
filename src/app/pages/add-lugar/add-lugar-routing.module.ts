@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
 import { AddLugarPage } from './add-lugar.page';
-import { SharedModule } from 'src/app/modules/shared/shared.module';
+
+// ELIMINA la línea del SharedModule de aquí arriba
 
 const routes: Routes = [
   {
@@ -12,7 +12,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes), SharedModule],
+  imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class AddLugarPageRoutingModule {}
+export class AddLugarPageRoutingModule { }

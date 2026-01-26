@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
 import { IWERPage } from './iwer.page';
-import { SharedModule } from 'src/app/modules/shared/shared.module';
 
 const routes: Routes = [
   {
@@ -12,7 +10,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes), SharedModule],
-  exports: [RouterModule, SharedModule],
+  imports: [RouterModule.forChild(routes)], // ¡ASEGÚRATE DE QUE AQUÍ NO ESTÉ EL SharedModule!
+  exports: [RouterModule],
 })
 export class IWERPageRoutingModule {}

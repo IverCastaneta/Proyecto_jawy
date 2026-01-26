@@ -1,95 +1,21 @@
-.modal-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100%; // Centrado vertical
-    text-align: center;
-    padding: 20px;
-    background: #f9f9f9; // Fondo claro
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
+.dark-modal { --background: #121212; color: white; }
 
-.modal-content p {
-    font-size: 1.2rem;
-    color: #333;
-    margin-bottom: 20px;
-}
-
-ion-button {
-    --background: #f3b262;
-// Color primario de Ionic
-    --color: #fff;
-    --border-radius: 8px;
-    --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-ion-button:hover {
-    --background: #d59546; // Efecto hover
-}
 .verification-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    text-align: center;
-    background-color: #f9f9f9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 80%;
   
-    h2 {
-      color: #4CAF50;
-      font-size: 1.8rem;
-      margin-top: 20px;
-      animation: fadeIn 1.5s ease-in-out;
-    }
-  
-    p {
-      color: #666;
-      font-size: 1rem;
-      animation: fadeIn 2s ease-in-out;
-    }
-  }
-  
-  /* SVG Animations */
   .tick-animation {
-    width: 100px;
-    height: 100px;
     margin-bottom: 20px;
+    .circle { stroke-dasharray: 100; stroke-dashoffset: 100; animation: dash 0.8s ease-in-out forwards; }
+    .check { stroke-dasharray: 50; stroke-dashoffset: 50; animation: dash 0.5s 0.6s ease-in-out forwards; }
   }
-  
-  .circle {
-    stroke-dasharray: 63; /* Perímetro del círculo */
-    stroke-dashoffset: 63; /* Oculta el trazo */
-    animation: drawCircle 1s ease-out forwards;
-  }
-  
-  .check {
-    stroke-dasharray: 10; /* Longitud del check */
-    stroke-dashoffset: 10; /* Oculta el trazo */
-    animation: drawCheck 1s ease-out forwards 1s; /* Inicia después del círculo */
-  }
-  
-  /* Keyframes para la animación */
-  @keyframes drawCircle {
-    to {
-      stroke-dashoffset: 0; /* Dibuja el círculo completo */
-    }
-  }
-  
-  @keyframes drawCheck {
-    to {
-      stroke-dashoffset: 0; /* Dibuja el check completo */
-    }
-  }
-  
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
+}
+
+@keyframes dash { to { stroke-dashoffset: 0; } }
+
+.confirm-btn { --background: #F66F17; --border-radius: 12px; margin-top: 25px; height: 50px; font-weight: 700; }
+.custom-input, .custom-textarea { --background: #1e1e1e; border: 1px solid #333; border-radius: 10px; margin-top: 5px; }
+.studio-tag { font-size: 10px; opacity: 0.4; margin-top: 20px; }

@@ -10,7 +10,10 @@ import { DocumentData } from 'firebase/firestore'; // Asegúrate de importar Doc
   providedIn: 'root'
 })
 export class DatabaseService {
-
+  async addDocument(collectionName: string, collectionData: any) {
+  // .add() genera un ID automático de Firebase, ideal para reservas
+  return this.firestore.collection(collectionName).add(collectionData);
+}
   constructor(
     public http: HttpClient,
     public firestore: AngularFirestore

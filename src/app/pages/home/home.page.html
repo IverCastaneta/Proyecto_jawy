@@ -1,31 +1,52 @@
-<ion-header [translucent]="true">
+<ion-header [translucent]="true" class="ion-no-border">
   <ion-toolbar>
-    
-  <app-search-bar>
-  </app-search-bar>
+    <app-search-bar></app-search-bar>
   </ion-toolbar>
-
-  <app-toolbar>
-  </app-toolbar>
+  <app-toolbar></app-toolbar>
 </ion-header>
 
+<ion-content [fullscreen]="true" class="dark-theme">
 
-<ion-content [fullscreen]="true">
+  <div class="section-header">
+    <h2>Músicos en La Paz</h2>
+    <ion-note>Ver todos</ion-note>
+  </div>
 
-  <app-cardpapu>
-  </app-cardpapu>
+  <div class="horizontal-scroll">
+    <ion-card *ngFor="let musico of musicos" [routerLink]="['/view-profile', musico.id]" class="musico-card">
+      <img [src]="musico.fotoPerfil || 'assets/default-avatar.png'" />
+      <ion-card-header>
+        <ion-card-title>{{ musico.nombreArtistico }}</ion-card-title>
+      </ion-card-header>
+    </ion-card>
+  </div>
 
+  <div class="section-header">
+    <h2>Lugares para tocar</h2>
+    <ion-note>Explorar espacios</ion-note>
+  </div>
 
-  <!-- Boton add -->
-  <ion-fab slot="fixed" vertical="bottom" horizontal="end" style="margin-bottom: 60px; margin-right: 12px;" >
-    <ion-fab-button color="tertiary">
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
+  <div class="places-container">
+    <ion-card *ngFor="let lugar of lugares" [routerLink]="['/view-lugar', lugar.id]" class="venue-card">
+      <div class="image-wrapper">
+        <img [src]="lugar.foto || 'assets/default-venue.jpg'" />
+        <ion-badge color="warning" mode="ios" class="venue-badge">Destacado</ion-badge>
+      </div>
+      <ion-card-header>
+        <ion-card-title>{{ lugar.nombre }}</ion-card-title>
+        <ion-card-subtitle>
+          <ion-icon name="location-outline"></ion-icon>
+          {{ lugar.direccion }}
+        </ion-card-subtitle>
+      </ion-card-header>
+    </ion-card>
+  </div>
+  <app-cardpapu></app-cardpapu>
+
 </ion-content>
 
-<ion-footer [translucent]="true">
+<ion-footer class="ion-no-border">
   <ion-toolbar>
-    <app-tab ></app-tab>
+    <app-tab></app-tab>
   </ion-toolbar>
 </ion-footer>

@@ -19,17 +19,37 @@ import { FechaSemanaComponent } from 'src/app/components/fecha-semana/fecha-sema
 import { FechaMesComponent } from 'src/app/components/fecha-mes/fecha-mes.component';
 import { RouterModule } from '@angular/router';
 import { ReservationModalComponent } from 'src/app/components/reservation-modal/reservation-modal.component';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 @NgModule({
-  exports: [CardComponent, TabsComponent, TabComponent, CardpapuComponent,  ToolbarComponent, ActionCalendarComponent, SearchBarComponent, DescripcionComponent, CardReservaComponent,BackComponent, MinicardsComponent, ToolbarmarketplaceComponent, ToolEventosComponent, EventoComponenteComponent, FechaSemanaComponent, FechaMesComponent, ReservationModalComponent],
-  declarations: [CardComponent, TabsComponent, TabComponent, CardpapuComponent, ToolbarComponent, ActionCalendarComponent, SearchBarComponent, DescripcionComponent, CardReservaComponent,BackComponent, MinicardsComponent, ToolbarmarketplaceComponent, ToolEventosComponent, EventoComponenteComponent, FechaSemanaComponent, FechaMesComponent, ReservationModalComponent],
+  declarations: [
+    CardComponent, TabsComponent, TabComponent, CardpapuComponent, 
+    ToolbarComponent, ActionCalendarComponent, SearchBarComponent, 
+    DescripcionComponent, CardReservaComponent, BackComponent, 
+    MinicardsComponent, ToolbarmarketplaceComponent, ToolEventosComponent, 
+    EventoComponenteComponent, FechaSemanaComponent, FechaMesComponent, 
+    ReservationModalComponent
+  ],
   imports: [
     CommonModule,
-    IonicModule.forRoot({
-      rippleEffect: false,
-      mode: 'md'
-    }),
-    RouterModule
+    IonicModule,
+    RouterModule,
+    FormsModule,
+    ReactiveFormsModule
+  ],
+  exports: [
+    // Exportamos tus componentes para usarlos en las páginas
+    CardComponent, TabsComponent, TabComponent, CardpapuComponent, 
+    ToolbarComponent, ActionCalendarComponent, SearchBarComponent, 
+    DescripcionComponent, CardReservaComponent, BackComponent, 
+    MinicardsComponent, ToolbarmarketplaceComponent, ToolEventosComponent, 
+    EventoComponenteComponent, FechaSemanaComponent, FechaMesComponent, 
+    ReservationModalComponent,
+    // EXPORTAMOS TAMBIÉN ESTOS (Crucial para que no den error las páginas)
+    CommonModule,
+    IonicModule,
+    RouterModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class SharedModule { }

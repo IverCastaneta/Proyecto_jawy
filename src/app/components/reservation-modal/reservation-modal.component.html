@@ -1,22 +1,13 @@
-<ion-content>
-  <div class="verification-container">
-    <ion-content>
-      <div class="verification-container">
-        <!-- Ícono SVG con clases de animación -->
-        <svg class="tick-animation" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="100" height="100">
-          <!-- Círculo -->
-          <circle class="circle" cx="12" cy="12" r="10" stroke="#4CAF50" />
-          <!-- Check -->
-          <path class="check" d="M9 12l2 2 4-4" stroke="#4CAF50" />
-        </svg>
-    
-        <!-- Mensaje -->
-        <h2>¡Verificación completada!</h2>
-        <p>Su información ha sido validada exitosamente.</p>
-      </div>
-    </ion-content>
-    
-    <p>Reservación realizada</p>
+<ion-content class="ion-padding">
+  <div *ngIf="!enviado">
+    <h2>Reservar en {{ lugar?.nombre }}</h2>
+    <ion-datetime presentation="date" [(ngModel)]="fecha"></ion-datetime>
+    <ion-textarea placeholder="Mensaje para el dueño" [(ngModel)]="mensaje"></ion-textarea>
+    <ion-button expand="block" (click)="confirmarReserva()" [disabled]="!fecha">Enviar Solicitud</ion-button>
+  </div>
+
+  <div *ngIf="enviado" class="verification-container ion-text-center">
+    <h2>¡Reservación realizada!</h2>
     <ion-button expand="block" (click)="dismissModal()">Aceptar</ion-button>
   </div>
 </ion-content>

@@ -3,18 +3,17 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { HomePage } from './home.page';
-
 import { HomePageRoutingModule } from './home-routing.module';
-import { SharedModule } from 'src/app/modules/shared/shared.module';
-
+// 1. IMPORTA EL SHARED MODULE AQUÍ
+import { SharedModule } from 'src/app/modules/shared/shared.module'; 
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    SharedModule,
-    HomePageRoutingModule
+    HomePageRoutingModule,
+    SharedModule // 2. AGRÉGALO A LOS IMPORTS
   ],
   declarations: [HomePage]
 })

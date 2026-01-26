@@ -9,10 +9,13 @@ import { DatabaseService } from 'src/app/services/database.service';
 })
 export class ProfilePage implements OnInit {
 
-  // DECLARACIÓN DE PROPIEDADES (Esto soluciona los errores TS2339)
+  // 1. PROPIEDAD QUE FALTABA: Esto quita los errores TS2339 de tu HTML
+  segmentoActual: string = 'info'; 
+
   usuario: any; 
   miLugar: any; 
   reservas: any[] = []; 
+  solicitudes: any[] = [];
 
   constructor(
     public auth: AuthService,
@@ -20,32 +23,33 @@ export class ProfilePage implements OnInit {
   ) {}
 
   ngOnInit() {
-    // Sincronizamos 'usuario' con el perfil del AuthService
     this.usuario = this.auth.profile;
 
     if (this.usuario) {
       this.cargarDatosSegunRol();
+      // 2. IMPORTANTE: Llamamos a la carga de solicitudes aquí
+      this.cargarSolicitudesSegunRol();
     } else {
-      // Pequeño retraso por si el perfil aún se está recuperando del Storage
       setTimeout(() => {
         this.usuario = this.auth.profile;
-        if (this.usuario) this.cargarDatosSegunRol();
+        if (this.usuario) {
+          this.cargarDatosSegunRol();
+          this.cargarSolicitudesSegunRol();
+        }
       }, 500);
     }
   }
 
   cargarDatosSegunRol() {
-    if (this.usuario.rol === 'dueno') {
-      // Buscamos en la colección 'lugares' donde 'duenoId' coincida con el usuario
+    // TIP: Asegúrate de que en Firebase el rol sea 'dueno' sin tilde para evitar errores
+    if (this.usuario.rol === 'dueno' || this.usuario.rol === 'dueño') {
       this.db.getCollectionByCustomparam('lugares', 'duenoId', this.usuario.id)
         .subscribe((res: any) => {
-          // Si el dueño tiene un lugar, tomamos el primero
           if (res && res.length > 0) {
             this.miLugar = res[0];
           }
         });
     } else {
-      // Si es músico, cargamos sus reservas (lugares visitados)
       this.cargarReservas();
     }
   }
@@ -65,4 +69,38 @@ export class ProfilePage implements OnInit {
       });
     });
   }
+
+  cargarSolicitudesSegunRol() {
+    const user = this.auth.profile;
+    if (!user) return;
+    
+    // Ajustamos para que acepte tanto 'dueno' como 'dueño'
+    if (user.rol === 'dueño' || user.rol === 'dueno') {
+      this.db.getCollectionByCustomparam('performances', 'idDueno', user.id).subscribe(res => {
+        this.solicitudes = res;
+      });
+    } else {
+      this.db.getCollectionByCustomparam('performances', 'idMusico', user.id).subscribe(res => {
+        this.solicitudes = res;
+      });
+    }
+  }
+
+  async gestionarSolicitud(idSolicitud: string, nuevoEstado: 'aceptado' | 'rechazado') {
+    try {
+    // 1. Actualizamos el estado en la colección 'performances' de Firebase
+    await this.db.updateFireStoreDocument('performances', idSolicitud, {
+      estado: nuevoEstado
+    });
+    
+    console.log(`Solicitud marcada como: ${nuevoEstado}`);
+    
+    // 2. Opcional: Podrías añadir una alerta de éxito aquí
+    // this.presentToast(`Propuesta ${nuevoEstado} con éxito`);
+    
+  } catch (error) {
+    console.error('Error al actualizar el estado de la performance:', error);
+  }
+  }
+  
 }
