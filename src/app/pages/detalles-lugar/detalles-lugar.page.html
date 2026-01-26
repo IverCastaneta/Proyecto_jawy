@@ -1,0 +1,51 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/informacion-lugar" text="" icon="chevron-back"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      <span class="logo-small">JAWY</span>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="container">
+    
+    <div class="header-text">
+      <h1>Hablanos de tu lugar</h1>
+      <p>Llena los espacios para que podamos darnos una idea de como es tu lugar.</p>
+    </div>
+
+    <div class="section-group">
+      <label class="section-label">¿Para cuantas personas es tu espacio?</label>
+      <ion-item lines="none" class="custom-select">
+        <ion-select placeholder="Seleccione capacidad" toggleIcon="chevron-down" [(ngModel)]="capacidad">
+          <ion-select-option value="0-10">0-10</ion-select-option>
+          <ion-select-option value="10-30">10-30</ion-select-option>
+          <ion-select-option value="30-60">30-60</ion-select-option>
+          <ion-select-option value="60-100">60-100</ion-select-option>
+          <ion-select-option value="100+">Más de 100</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </div>
+
+    <div class="section-group">
+      <label class="section-label">¿Con qué cuenta tu espacio?</label>
+      <ion-list lines="full" class="dark-list">
+        <ion-item *ngFor="let item of equipamiento">
+          <ion-label>{{ item.nombre }}</ion-label>
+          <ion-checkbox slot="end" [(ngModel)]="item.isChecked"></ion-checkbox>
+        </ion-item>
+      </ion-list>
+    </div>
+
+    <div class="footer-actions">
+      <ion-button expand="block" mode="ios" (click)="siguiente()" [disabled]="!capacidad">
+        Siguiente
+      </ion-button>
+      <p class="studio-tag">&#64;Paput studio</p>
+    </div>
+
+  </div>
+</ion-content>

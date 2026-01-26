@@ -118,6 +118,14 @@ const routes: Routes = [
     path: 'finalizar-registro',
     loadChildren: () => import('./pages/finalizar-registro/finalizar-registro.module').then( m => m.FinalizarRegistroPageModule)
   },
+  {
+    path: 'informacion-lugar',
+    loadChildren: () => import('./pages/informacion-lugar/informacion-lugar.module').then( m => m.InformacionLugarPageModule)
+  },
+  {
+    path: 'detalles-lugar',
+    loadChildren: () => import('./pages/detalles-lugar/detalles-lugar.module').then( m => m.DetallesLugarPageModule)
+  },
 
 
 

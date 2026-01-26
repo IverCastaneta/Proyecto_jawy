@@ -27,17 +27,19 @@ export class InformacionPersonalPage implements OnInit {
   }
 
   siguiente() {
-  if (this.personaForm.valid) {
-    const datosPersonales = this.personaForm.value;
-    const datosExistentes = JSON.parse(localStorage.getItem('temp_registro') || '{}');
-    
-    // Unimos los datos actuales con los anteriores
-    const registroActualizado = { ...datosExistentes, ...datosPersonales };
-    localStorage.setItem('temp_registro', JSON.stringify(registroActualizado));
+    if (this.personaForm.valid) {
+      const datosPersonales = this.personaForm.value;
+      const datosExistentes = JSON.parse(localStorage.getItem('temp_registro') || '{}');
+      const registroActualizado = { ...datosExistentes, ...datosPersonales };
 
-    // NAVEGACIÓN: Asegúrate de que esta ruta coincida con tu app-routing.module.ts
-    this.router.navigate(['/informacion-contacto']); 
+      localStorage.setItem('temp_registro', JSON.stringify(registroActualizado));
+
+      // Lógica de ramificación (Branching)
+      if (datosExistentes.rol === 'dueno') {
+        this.router.navigate(['/informacion-lugar']);
+      } else {
+        this.router.navigate(['/informacion-contacto']);
+      }
+    }
   }
-}
-
 }

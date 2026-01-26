@@ -1,88 +1,74 @@
-<ion-header [translucent]="true">
-  <h1>Tu perfil</h1>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-grid>
-    <ion-row>
-      <ion-col>
-        <div class="imagen">
-          <div class="color"></div>
-          <h1 class="nombre">{{auth.profile?.name}}</h1>
-        </div>
-      </ion-col>
-      <ion-col class="datos">
-        <h3>Hola, {{auth.profile?.name}} <br></h3>
-        <hr>
-        <p>
-          {{auth.profile?.email}} <br>
+<ion-content [fullscreen]="true" class="profile-bg">
+  <div class="container" *ngIf="usuario">
+    
+    <div class="profile-header">
+      <div class="avatar-container">
+        <img [src]="usuario.fotoPerfil || 'assets/default-avatar.png'">
+        <div class="edit-badge"><ion-icon name="pencil"></ion-icon></div>
+      </div>
+      
+      <div class="user-info">
+        <h1>{{ usuario.nombreArtistico }}</h1>
+        <p class="role-tag">
+          <ion-icon name="musical-notes-outline"></ion-icon>
+          {{ usuario.role === 'dueno' ? 'Dueño de lugar' : 'Músico independiente' }}
         </p>
-        <hr>
-        <p>whatsapp: {{auth.profile?.phone}} <br></p>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-  <hr>
+      </div>
 
+      <div class="stats-box">
+        <div class="stat">
+          <span class="stat-value">40</span>
+          <span class="stat-label">Reseñas</span>
+        </div>
+        <div class="stat divider">
+          <span class="stat-value">★ 4.94</span>
+          <span class="stat-label">Estrellas</span>
+        </div>
+      </div>
+    </div>
 
+    <div class="section" *ngIf="usuario.rol === 'musico'">
+      <h3>Generos</h3>
+      <div class="chips-container">
+        <ion-chip *ngFor="let g of usuario.generos">{{ g }}</ion-chip>
+        <ion-button fill="clear" size="small" class="add-btn">
+          Añadir genero +
+        </ion-button>
+      </div>
+    </div>
 
+    <div class="section">
+      <div class="section-title">
+        <h3>Descripción</h3>
+        <ion-icon name="pencil-outline"></ion-icon>
+      </div>
+      <p class="bio-text">{{ usuario.biografia }}</p>
+    </div>
 
-  <ion-list class="acercaDe">
-    <h2>Acerca de tí:</h2>
-    <ion-row>
-      <ion-chip>
-        <ion-avatar aria-hidden="true" slot="start">
-          <img alt="" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
-        </ion-avatar>
-        <ion-label>Artista</ion-label>
-      </ion-chip>
-    </ion-row>
-    <ion-row>
-      <ion-chip>
-        <ion-avatar aria-hidden="true" slot="start">
-          <img alt="" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
-        </ion-avatar>
-        <ion-label>Propietario</ion-label>
-      </ion-chip>
-    </ion-row>
-    <ion-row>
-      <ion-chip>
-        <ion-avatar aria-hidden="true" slot="start">
-          <img alt="" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
-        </ion-avatar>
-        <ion-label>Productora</ion-label>
-      </ion-chip>
-    </ion-row>
-  </ion-list>
-  <hr>
-  <h1 style="text-align: center;">Tus Reservas</h1>
+    <div class="section">
+      <h3>{{ usuario.rol === 'dueno' ? 'Mi lugar' : 'Lugares visitados' }}</h3>
+      
+      <ion-card class="venue-card" *ngIf="usuario.rol === 'dueno' && miLugar">
+        <img [src]="miLugar.foto" />
+        <ion-card-header>
+          <ion-card-title>{{ miLugar.nombre }}</ion-card-title>
+          <ion-card-subtitle>{{ miLugar.direccion }}</ion-card-subtitle>
+        </ion-card-header>
+      </ion-card>
+    </div>
 
-  <ion-card *ngFor="let reserva of reservas">
-    <ion-card-header>
-      <ion-card-title>{{ reserva.nombre }}</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <p>Descripción: {{ reserva.descripcion }}</p>
-      <p>Precio: {{ reserva.precio | currency }}</p>
-      <p>Dirección: {{ reserva.direccion }}</p>
-    </ion-card-content>
-  </ion-card>
-<hr>
-  <h1 style="text-align: center;">Tus Lugares</h1>
-  <ion-card *ngFor="let lugar of lugaresPropios">
-    <ion-card-header>
-      <ion-card-title color="primary">{{lugar.nombre}} </ion-card-title>
-      <ion-card-subtitle>{{lugar.nombre_propietario}} | USD. {{lugar.precio}}</ion-card-subtitle>
-    </ion-card-header>
-
-    <ion-card-content>
-      {{lugar.direccion}}
-    </ion-card-content>
-  </ion-card>
+  </div>
 </ion-content>
 
-<ion-footer>
+<ion-footer class="ion-no-border">
   <ion-toolbar>
-    <app-tab></app-tab>
+    <ion-tabs>
+      <ion-tab-bar slot="bottom">
+        <ion-tab-button tab="home"><ion-icon name="pulse-outline"></ion-icon><ion-label>Explorar</ion-label></ion-tab-button>
+        <ion-tab-button tab="crowd"><ion-icon name="storefront-outline"></ion-icon><ion-label>Crowdfunding</ion-label></ion-tab-button>
+        <ion-tab-button tab="eventos"><ion-icon name="calendar-outline"></ion-icon><ion-label>Eventos</ion-label></ion-tab-button>
+        <ion-tab-button tab="perfil" class="active"><ion-icon name="person"></ion-icon><ion-label>Perfil</ion-label></ion-tab-button>
+      </ion-tab-bar>
+    </ion-tabs>
   </ion-toolbar>
 </ion-footer>

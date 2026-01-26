@@ -9,53 +9,58 @@ import { DatabaseService } from 'src/app/services/database.service';
 })
 export class ProfilePage implements OnInit {
 
-  lugaresPropios: any; // Lugares propios del usuario
-  reservas: any[] = []; // Reservas del usuario
+  // DECLARACIÓN DE PROPIEDADES (Esto soluciona los errores TS2339)
+  usuario: any; 
+  miLugar: any; 
+  reservas: any[] = []; 
 
   constructor(
     public auth: AuthService,
     public db: DatabaseService
-  ) {
-    // Obtener todos los lugares
-    this.db.fetchFirestoreCollection('lugares')
-      .subscribe((res: any) => {
-        console.log('todos los lugares', res);
-      });
+  ) {}
 
-    // Obtener lugares propios del usuario autenticado
-    this.db.getCollectionByCustomparam('lugares', 'userId', auth.profile?.id)
-      .subscribe((res: any) => {
-        console.log('lugares propios', res);
-        this.lugaresPropios = res;
-      });
+  ngOnInit() {
+    // Sincronizamos 'usuario' con el perfil del AuthService
+    this.usuario = this.auth.profile;
 
-    // Cargar las reservas del usuario
-    this.cargarReservas();
+    if (this.usuario) {
+      this.cargarDatosSegunRol();
+    } else {
+      // Pequeño retraso por si el perfil aún se está recuperando del Storage
+      setTimeout(() => {
+        this.usuario = this.auth.profile;
+        if (this.usuario) this.cargarDatosSegunRol();
+      }, 500);
+    }
   }
 
-  // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
-  ngOnInit() {}
+  cargarDatosSegunRol() {
+    if (this.usuario.rol === 'dueno') {
+      // Buscamos en la colección 'lugares' donde 'duenoId' coincida con el usuario
+      this.db.getCollectionByCustomparam('lugares', 'duenoId', this.usuario.id)
+        .subscribe((res: any) => {
+          // Si el dueño tiene un lugar, tomamos el primero
+          if (res && res.length > 0) {
+            this.miLugar = res[0];
+          }
+        });
+    } else {
+      // Si es músico, cargamos sus reservas (lugares visitados)
+      this.cargarReservas();
+    }
+  }
 
   cargarReservas() {
-    const userId = this.auth.profile?.id; // ID del usuario autenticado
-    if (!userId) {
-      console.error('Usuario no autenticado');
-      return;
-    }
+    const userId = this.usuario?.id;
+    if (!userId) return;
 
-    // Obtener el documento del usuario
     this.db.getDocumentById('users', userId).subscribe((userData: any) => {
-      const reservas = userData?.reserva || [];
-      if (reservas.length === 0) {
-        console.log('No hay reservas para este usuario');
-        return;
-      }
-
-      // Obtener detalles de cada lugar reservado
+      const idsReservas = userData?.reserva || [];
       this.reservas = [];
-      reservas.forEach((lugarId: string) => {
+      
+      idsReservas.forEach((lugarId: string) => {
         this.db.getDocumentById('lugares', lugarId).subscribe((lugarData: any) => {
-          this.reservas.push(lugarData);
+          if (lugarData) this.reservas.push(lugarData);
         });
       });
     });
