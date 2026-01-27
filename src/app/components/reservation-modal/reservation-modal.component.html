@@ -1,13 +1,96 @@
-<ion-content class="ion-padding">
-  <div *ngIf="!enviado">
-    <h2>Reservar en {{ lugar?.nombre }}</h2>
-    <ion-datetime presentation="date" [(ngModel)]="fecha"></ion-datetime>
-    <ion-textarea placeholder="Mensaje para el dueño" [(ngModel)]="mensaje"></ion-textarea>
-    <ion-button expand="block" (click)="confirmarReserva()" [disabled]="!fecha">Enviar Solicitud</ion-button>
+<ion-content class="ion-padding payment-modal">
+
+  <div *ngIf="paso === 1" class="animate__animated animate__fadeIn">
+    <div class="modal-header">
+      <h2 class="ion-text-center">Reservar en {{ lugar?.nombre }}</h2>
+      <div class="price-badge">{{ lugar?.precio || 0 }} Bs.</div>
+    </div>
+
+    <div class="calendar-wrapper">
+      <ion-label class="input-label">Selecciona la fecha del evento</ion-label>
+      <ion-datetime 
+        presentation="date" 
+        [(ngModel)]="fecha" 
+        size="cover" 
+        class="custom-datetime"
+        locale="es-ES">
+      </ion-datetime>
+    </div>
+
+    <div class="input-group ion-margin-top">
+      <ion-label class="input-label">Mensaje para el dueño</ion-label>
+      <ion-textarea class="custom-textarea" rows="2" placeholder="Ej: Requerimientos técnicos..." [(ngModel)]="mensaje"></ion-textarea>
+    </div>
+
+    <ion-button expand="block" mode="ios" class="main-btn" (click)="paso = 2" [disabled]="!fecha">
+      Siguiente: Método de Pago
+    </ion-button>
   </div>
 
-  <div *ngIf="enviado" class="verification-container ion-text-center">
-    <h2>¡Reservación realizada!</h2>
-    <ion-button expand="block" (click)="dismissModal()">Aceptar</ion-button>
+  <div *ngIf="paso === 2" class="animate__animated animate__fadeIn">
+  <h2 class="ion-text-center">Confirmar Pago</h2>
+
+  <ion-list mode="ios" class="payment-selector">
+    <ion-radio-group [(ngModel)]="metodoSeleccionado">
+      <ion-item class="selector-item" lines="none">
+        <ion-icon name="qr-code-outline" slot="start" color="success"></ion-icon>
+        <ion-label>QR Simple</ion-label>
+        <ion-radio value="qr"></ion-radio>
+      </ion-item>
+      <ion-item class="selector-item" lines="none">
+        <ion-icon name="card-outline" slot="start" color="primary"></ion-icon>
+        <ion-label>Tarjeta Bancaria</ion-label>
+        <ion-radio value="tarjeta"></ion-radio>
+      </ion-item>
+    </ion-radio-group>
+  </ion-list>
+
+  <div class="payment-dynamic-area">
+    
+    <div *ngIf="metodoSeleccionado === 'tarjeta'" class="animate__animated animate__slideInUp">
+      
+      <div *ngIf="!usuario?.metodosPago?.length" class="premium-form">
+        <p class="form-hint">Registra tu tarjeta para continuar</p>
+        <ion-item lines="none" class="glass-input">
+          <ion-input placeholder="Número de Tarjeta" type="number" [(ngModel)]="numTarjeta"></ion-input>
+        </ion-item>
+        <ion-row>
+          <ion-col size="6">
+            <ion-item lines="none" class="glass-input"><ion-input placeholder="Exp (MM/AA)"></ion-input></ion-item>
+          </ion-col>
+          <ion-col size="6">
+            <ion-item lines="none" class="glass-input"><ion-input placeholder="CVV" type="password"></ion-input></ion-item>
+          </ion-col>
+        </ion-row>
+      </div>
+
+      <div *ngIf="usuario?.metodosPago?.length" class="jawy-card visa mini">
+         <div class="card-number-mini">**** {{ usuario.metodosPago[0].ultimos4 }}</div>
+         <div class="card-brand-mini">VISA</div>
+      </div>
+    </div>
+
+    <div *ngIf="metodoSeleccionado === 'qr'" class="qr-container-premium">
+       <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=JAWY-PAY" class="qr-image">
+       <p>Sube tu comprobante de transferencia</p>
+       <ion-button fill="clear" size="small"><ion-icon name="camera" slot="start"></ion-icon> Captura</ion-button>
+    </div>
   </div>
+
+  <div class="footer-actions">
+    <ion-button expand="block" mode="ios" color="success" class="pay-btn" (click)="confirmarReserva()" [disabled]="!metodoSeleccionado">
+      Confirmar y Pagar {{ lugar?.precio }} Bs.
+    </ion-button>
+  </div>
+</div>
+
+  <div *ngIf="paso === 3" class="success-container ion-text-center animate__animated animate__zoomIn">
+    <div class="icon-circle">
+      <ion-icon name="checkmark-sharp" color="success"></ion-icon>
+    </div>
+    <h2>¡Reservación Realizada!</h2>
+    <p>Tu solicitud ha sido enviada con éxito a <strong>{{ lugar?.nombre }}</strong>.</p>
+    <ion-button expand="block" mode="ios" class="main-btn" (click)="dismissModal()">Cerrar</ion-button>
+  </div>
+
 </ion-content>

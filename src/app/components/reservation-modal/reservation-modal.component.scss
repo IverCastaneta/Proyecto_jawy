@@ -19,3 +19,222 @@
 .confirm-btn { --background: #F66F17; --border-radius: 12px; margin-top: 25px; height: 50px; font-weight: 700; }
 .custom-input, .custom-textarea { --background: #1e1e1e; border: 1px solid #333; border-radius: 10px; margin-top: 5px; }
 .studio-tag { font-size: 10px; opacity: 0.4; margin-top: 20px; }
+
+.credit-card-ui {
+  width: 280px;
+  height: 160px;
+  border-radius: 20px;
+  padding: 20px;
+  margin-right: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: white;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+  
+  &.visa { background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d); }
+  &.mastercard { background: linear-gradient(135deg, #232526, #414345); }
+  
+  .card-top { display: flex; justify-content: space-between; ion-icon { font-size: 30px; } }
+  .card-number { font-size: 1.2rem; letter-spacing: 2px; font-family: monospace; }
+  .card-bottom { display: flex; justify-content: space-between; font-size: 0.8rem; text-transform: uppercase; }
+}
+
+.cards-scroll {
+  display: flex;
+  overflow-x: auto;
+  padding: 10px 0;
+  &::-webkit-scrollbar { display: none; }
+}
+.payment-modal {
+  --background: #121212;
+  color: white;
+
+  .price-badge {
+    background: #F66F17;
+    color: white;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-weight: 800;
+    width: fit-content;
+    margin: 10px auto;
+  }
+
+  .custom-input, .custom-textarea, .card-input-item {
+    --background: #1e1e1e;
+    --color: white;
+    --border-radius: 12px;
+    margin-top: 8px;
+    border: 1px solid #333;
+  }
+
+  .payment-card-item {
+    --background: #1e1e1e;
+    --color: white;
+    margin-top: 10px;
+    border-radius: 12px;
+    border: 1px solid #333;
+  }
+
+  .qr-frame {
+    background: white;
+    padding: 10px;
+    border-radius: 15px;
+    display: inline-block;
+    margin-bottom: 10px;
+    img { width: 180px; }
+  }
+
+  .btn-back {
+    text-align: center;
+    color: #888;
+    margin-bottom: 15px;
+    cursor: pointer;
+  }
+
+  .icon-circle {
+    width: 80px;
+    height: 80px;
+    background: #2dd36f;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px auto;
+    ion-icon { font-size: 50px; color: white; }
+  }
+}
+/* Efecto de Ticket para Reservas Confirmadas */
+.confirmed-ticket {
+  border-left: 5px solid #2dd36f;
+  background: linear-gradient(135deg, #1e1e1e 0%, #112b1a 100%) !important;
+  animation: ticket-entrance 0.5s ease-out;
+
+  .ticket-status-bar {
+    background: #2dd36f;
+    color: black;
+    font-size: 10px;
+    font-weight: 900;
+    text-align: center;
+    padding: 2px;
+    text-transform: uppercase;
+  }
+}
+
+/* Animación de Pulso para el Badge de Éxito */
+.pulse-green {
+  animation: pulse-green-animation 2s infinite;
+}
+
+@keyframes pulse-green-animation {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(45, 211, 111, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(45, 211, 111, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(45, 211, 111, 0); }
+}
+
+@keyframes ticket-entrance {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.custom-date-btn {
+  --background: #1e1e1e;
+  --color: white;
+  --border-radius: 12px;
+  font-size: 1.1rem;
+  margin: 15px 0;
+}
+
+.big-check {
+  font-size: 80px;
+  animation: bounceIn 0.8s;
+}
+
+.qr-frame {
+  background: white;
+  padding: 10px;
+  border-radius: 15px;
+  display: inline-block;
+  margin-bottom: 10px;
+  img { width: 160px; height: 160px; }
+}
+
+.card-input-item {
+  --background: #1e1e1e;
+  --color: white;
+  border: 1px solid #333;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+.payment-modal {
+  --background: #121212;
+  
+  /* Arreglo para que el modal no se corte */
+  .calendar-wrapper {
+    min-height: 350px; 
+    overflow: visible;
+  }
+
+  ion-datetime {
+    --background: #1e1e1e;
+    --color: white;
+    border-radius: 15px;
+    margin: 10px auto;
+  }
+
+  .saved-card-view {
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    border-radius: 12px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: white;
+    font-weight: 700;
+  }
+}
+
+.calendar-container {
+  min-height: 350px; // Evita que el modal se "corte" al cargar el calendario
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  ion-datetime {
+    --background: transparent;
+    border-radius: 15px;
+    margin: 10px 0;
+  }
+}
+
+.price-badge {
+  background: #F66F17;
+  color: white;
+  padding: 8px 20px;
+  border-radius: 25px;
+  font-weight: 800;
+  display: inline-block;
+  margin-top: 10px;
+}
+
+.payment-modal {
+  --background: #121212;
+  
+  .calendar-wrapper {
+    min-height: 380px; // Altura mínima para que el calendario respire
+  }
+
+  .icon-circle {
+    width: 80px;
+    height: 80px;
+    background: rgba(45, 211, 111, 0.1);
+    border: 2px solid #2dd36f;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px auto;
+    ion-icon { font-size: 50px; }
+  }
+}

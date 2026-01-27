@@ -75,3 +75,58 @@ p {
     font-family: 'poppins-regular';
 }
 
+/* Tarjeta Estilo Premium Jawy */
+.jawy-card {
+  width: 100%;
+  height: 200px;
+  border-radius: 20px;
+  padding: 25px;
+  position: relative;
+  overflow: hidden;
+  color: white;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+  background: linear-gradient(135deg, #1a1a1a 0%, #2c2c2c 100%); // Fondo Dark Base
+  transition: transform 0.3s ease;
+
+  // Efecto de brillo/luz
+  &::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
+  }
+
+  .card-chip {
+    width: 45px;
+    height: 35px;
+    background: linear-gradient(135deg, #d4af37, #f9f295); // Oro para el chip
+    border-radius: 5px;
+    margin-bottom: 20px;
+  }
+
+  .card-number {
+    font-size: 1.4rem;
+    letter-spacing: 3px;
+    font-family: 'OCR A Std', monospace;
+    margin: 15px 0;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+  }
+
+  .card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: 20px;
+    
+    .holder { font-size: 0.8rem; text-transform: uppercase; opacity: 0.8; }
+    .brand { font-size: 1.5rem; font-weight: 900; font-style: italic; }
+  }
+}
+
+/* Colores por marca */
+.visa { background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d); }
+.mastercard { background: linear-gradient(135deg, #232526, #414345); }
+

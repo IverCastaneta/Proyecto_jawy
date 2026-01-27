@@ -1,183 +1,77 @@
-.profile-bg {
-  --background: #121212;
+/* --- BASE & MÁRGENES --- */
+.profile-bg { --background: #121212; color: white; }
+
+.main-safe-container {
+  padding: 0 16px; /* Evita que las cosas toquen el borde */
+  max-width: 450px; 
+  margin: 0 auto;
+  min-height: 100vh;
 }
 
+/* --- HEADER --- */
 .profile-header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 40px 20px;
-  text-align: center;
-
-  .avatar-container {
+  padding: 35px 0 20px;
+  display: flex; flex-direction: column; align-items: center;
+  .avatar-wrapper {
     position: relative;
+    .main-avatar { width: 100px; height: 100px; border-radius: 50%; border: 3px solid #F66F17; padding: 4px; object-fit: cover; }
+    .edit-badge { position: absolute; bottom: 0; right: 0; background: #F66F17; border-radius: 50%; padding: 6px; display: flex; box-shadow: 0 4px 8px rgba(0,0,0,0.5); }
+  }
+  .user-meta { text-align: center; h1 { font-size: 1.6rem; font-weight: 800; margin: 12px 0 4px; } .role-tag { color: #888; font-size: 13px; display: flex; align-items: center; justify-content: center; gap: 4px; } }
+}
 
-    img {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      border: 3px solid #333;
+/* --- SEGMENTOS --- */
+.jawy-segment {
+  --background: #1e1e1e; border-radius: 12px;
+  ion-segment-button { --indicator-color: #F66F17; --color-checked: #fff; font-weight: 600; font-size: 14px!important; }
+}
+
+/* --- JAWY WALLET (RESPONSIVE) --- */
+.jawy-card {
+  width: 100%; aspect-ratio: 1.586 / 1; border-radius: 20px; position: relative; overflow: hidden;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.4); margin-bottom: 20px;
+  background: linear-gradient(135deg, #2c2c2c 0%, #1a1a1a 100%);
+
+  &.visa { background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); }
+  &.mastercard { background: linear-gradient(135deg, #232526 0%, #414345 100%); }
+
+  .card-body {
+    padding: 22px; position: relative; z-index: 2; height: 100%;
+    display: flex; flex-direction: column; justify-content: space-between;
+    
+    .card-top-row { display: flex; justify-content: space-between; .chip-gold { width: 38px; height: 28px; background: linear-gradient(135deg, #d4af37, #f9f295); border-radius: 5px; } .btn-trash { --color: rgba(255,255,255,0.4); margin: -10px -10px 0 0; } }
+    
+    /* NÚMEROS PEQUEÑOS Y ELEGANTES */
+    .card-number-display { 
+      font-size: 1.2rem; letter-spacing: 2px; font-family: 'OCR A Std', monospace; 
+      white-space: nowrap; text-shadow: 0 2px 4px rgba(0,0,0,0.5); 
     }
-
-    .edit-badge {
-      position: absolute;
-      bottom: 5px;
-      right: 5px;
-      background: #F66F17;
-      padding: 5px;
-      border-radius: 50%;
-      display: flex;
-      color: white;
-      border: 2px solid #121212;
-    }
+    
+    .card-bottom-row { display: flex; justify-content: space-between; align-items: flex-end; .card-holder-info { span { font-size: 0.6rem; opacity: 0.6; display: block; } p { margin: 0; font-weight: 700; font-size: 0.85rem; } } .card-brand-type { font-size: 1.2rem; font-weight: 900; font-style: italic; } }
   }
-
-  h1 {
-    font-size: 28px;
-    font-weight: 700;
-    margin: 15px 0 5px;
-  }
-
-  .role-tag {
-    color: #888;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 14px;
-  }
+  .card-glass-effect { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(45deg, rgba(255,255,255,0.06), transparent); backdrop-filter: blur(1.5px); }
 }
 
-.stats-box {
-  display: flex;
-  gap: 40px;
-  margin-top: 20px;
-
-  .stat {
-    display: flex;
-    flex-direction: column;
-
-    .stat-value {
-      font-size: 22px;
-      font-weight: 800;
-    }
-
-    .stat-label {
-      font-size: 12px;
-      color: #666;
-      text-transform: uppercase;
-    }
-  }
+.add-card-box {
+  border: 2px dashed #444; border-radius: 20px; height: 150px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #888;
+  .plus-icon { background: #F66F17; color: white; border-radius: 50%; padding: 8px; font-size: 22px; margin-bottom: 10px; display: flex; }
 }
 
-.section {
-  padding: 0 20px;
-  margin-bottom: 30px;
-
-  .section-title {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  h3 {
-    font-size: 18px;
-    font-weight: 600;
-    color: #fff;
-  }
-
-  .bio-text {
-    color: #aaa;
-    line-height: 1.5;
-    font-size: 14px;
-  }
-}
-
-ion-chip {
-  --background: #2a2a2a;
-  --color: #ddd;
-  font-size: 12px;
-}
-
-.add-btn {
-  --color: #F66F17;
-  font-weight: 600;
-}
-
-.venue-card {
-  background: #1e1e1e;
-  border-radius: 15px;
-  margin: 0;
-
-  img {
-    height: 150px;
-    object-fit: cover;
-  }
-
-  ion-card-title {
-    color: #fff;
-    font-size: 16px;
-  }
-}
-
-.request-card {
-  background: #1e1e1e;
-  border-radius: 12px;
-  margin-bottom: 15px;
-
-  ion-item {
-    --background: transparent;
-    --color: white;
-  }
-
-  h2 {
-    font-weight: 700;
-    font-size: 16px;
-  }
-
-  p {
-    color: #aaa;
-    font-size: 13px;
-  }
-}
-
-ion-segment {
-  --background: #1e1e1e;
-  margin: 10px 20px;
-  border-radius: 10px;
-}
-
-.section-title {
-  color: #F66F17;
-  font-size: 18px;
-  font-weight: 800;
-  margin: 15px 0;
-}
-.custom-segment {
-  margin: 10px 20px;
-  --background: #1e1e1e;
-  border-radius: 12px;
-}
-
-.request-card {
-  background: #1e1e1e;
-  border-radius: 15px;
-  margin-bottom: 15px;
+/* --- TICKETS DE GESTIÓN (FORZADO DARK) --- */
+.jawy-ticket {
+  background: #1e1e1e; border-radius: 14px; margin-bottom: 15px; border: 1px solid #222;
   
-  ion-item { --background: transparent; --color: #fff; }
-  h2 { font-weight: 700; }
+  &.is-confirmed {
+    border: 1px solid #2dd36f !important;
+    --background: #1a1a1a; 
+    background: linear-gradient(135deg, #121212 0%, #0d2b1a 100%) !important;
+    .status-banner { background: #2dd36f; color: black; text-align: center; font-size: 10px; font-weight: 900; padding: 3px; letter-spacing: 1px; }
+    ion-item { --background: transparent !important; --color: #fff !important; h2 { color: #fff !important; font-weight: 700; } }
+  }
 }
 
-.action-buttons {
-  display: flex;
-  justify-content: space-around;
-  padding: 10px;
-  border-top: 1px solid #333;
-  ion-button { width: 45%; font-weight: 600; }
-}
-
-.gestion-title {
-  color: #F66F17;
-  font-weight: 800;
-  font-size: 1.2rem;
-  margin-bottom: 15px;
+/* --- MEDIA QUERY MÓVIL PEQUEÑO --- */
+@media (max-width: 380px) {
+  .main-safe-container { padding: 0 12px; }
+  .jawy-card .card-body { padding: 16px; .card-number-display { font-size: 1.05rem; letter-spacing: 1.5px; } }
 }

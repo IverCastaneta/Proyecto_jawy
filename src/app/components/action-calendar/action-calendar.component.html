@@ -1,15 +1,6 @@
-<div class="buttonComprar" style="padding: 12px 0;">
-<ion-button   shape="round" id="open-modal" expand="block" color="mostaza2" style="width: 80%; margin: 0 auto;"> <p style="padding-right: 0;">Reservar Ahora</p> </ion-button>
-    <ion-modal   trigger="open-modal" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
-        <ng-template class="fondo2"  color="dark">
-            <div  class="modal-cortado ">
-                <ion-datetime mode="ios" color="mostaza2" presentation="date" [multiple]="true" class="calendario" >
-                    
-                    <span slot="title"> <h3>Selecciona la fecha</h3></span>
-                </ion-datetime>
-                
-            </div>
-            <ion-button class="fondo2" color="mostaza2" shape="round"   (click)="onActionClick()">Reservar Lugar</ion-button>
-        </ng-template>
-    </ion-modal>
+<div class="action-btn-container">
+  <ion-button expand="block" mode="ios" class="reservar-btn">
+    <ion-icon name="calendar-outline" slot="start"></ion-icon>
+    Reservar Lugar
+  </ion-button>
 </div>

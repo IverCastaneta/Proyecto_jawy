@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
 import { DatabaseService } from 'src/app/services/database.service';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -9,54 +9,106 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./reservation-modal.component.scss'],
 })
 export class ReservationModalComponent implements OnInit {
-  @Input() lugar: any; // Recibe el lugar desde la página anterior
+  @Input() lugar: any;
+
+  cargando: boolean = false;
+  usuario: any;
+  paso: number = 1;
+  metodoSeleccionado: string = '';
   fecha: string = '';
   mensaje: string = '';
-  enviado: boolean = false;
+
+  // Propiedades para capturar los datos de la tarjeta
+  numTarjeta: string = '';
+  quiereGuardar: boolean = true;
 
   constructor(
     private modalCtrl: ModalController,
     private db: DatabaseService,
-    private auth: AuthService
+    public auth: AuthService,
+    private toastCtrl: ToastController
   ) { }
 
-  ngOnInit() { console.log('Lugar a reservar:', this.lugar); }
+  ngOnInit() {
+    this.usuario = this.auth.profile;
+  }
 
-  dismissModal() { this.modalCtrl.dismiss(); }
+  dismissModal() {
+    this.modalCtrl.dismiss();
+  }
+
+  // Lógica para detectar marca rápido
+  detectarMarca(numero: string): string {
+    if (numero.startsWith('4')) return 'Visa';
+    if (numero.startsWith('5')) return 'Mastercard';
+    return 'Tarjeta';
+  }
 
   async confirmarReserva() {
-    const musico = this.auth.profile;
+    if (!this.fecha || !this.metodoSeleccionado) {
+      this.presentToast('Por favor completa los datos', 'warning');
+      return;
+    }
 
-  if (!musico) {
-    console.error('Error: No se encontró el perfil del músico logueado.');
-    // Opcional: Mostrar una alerta al usuario
-    return; 
+    this.cargando = true;
+
+    // PILOTO: Si es tarjeta y quiere guardar, lo registramos en su perfil de Firestore
+    if (this.metodoSeleccionado === 'tarjeta' && this.quiereGuardar && this.numTarjeta) {
+      const nuevaTarjeta = {
+        id: Date.now().toString(),
+        marca: this.detectarMarca(this.numTarjeta),
+        ultimos4: this.numTarjeta.slice(-4),
+        tokenFake: 'tok_' + Math.random().toString(36).substr(2, 5)
+      };
+
+      const tarjetasActuales = this.usuario.metodosPago || [];
+      await this.db.updateFireStoreDocument('users', this.usuario.id, {
+        metodosPago: [...tarjetasActuales, nuevaTarjeta]
+      });
+      // Actualizamos localmente para que se vea en el perfil
+      this.usuario.metodosPago = [...tarjetasActuales, nuevaTarjeta];
+    }
+
+    const nuevaPerformance = {
+      idMusico: this.usuario.id,
+      nombreMusico: this.usuario.nombreArtistico || this.usuario.nombre,
+      fotoMusico: this.usuario.fotoPerfil || '',
+      idLugar: this.lugar.id,
+      nombreLugar: this.lugar.nombre,
+      idDueno: this.lugar.duenoId,
+      fechaPerformance: this.fecha,
+      mensaje: this.mensaje,
+      monto: this.lugar.precio || 0,
+      metodoPago: this.metodoSeleccionado,
+      // Estado directo para saltar verificaciones en el piloto
+      estado: 'pagado', 
+      fechaSolicitud: new Date(),
+      idTransaccion: 'JW-' + Math.random().toString(36).substr(2, 9).toUpperCase()
+    };
+
+    try {
+      await this.db.addFirestoreDocument('performances', nuevaPerformance);
+      
+      // Delay visual para simular el procesamiento del pago
+      setTimeout(() => {
+        this.cargando = false;
+        this.paso = 3; 
+      }, 1500);
+
+    } catch (error) {
+      this.cargando = false;
+      this.presentToast('Error al procesar la reserva', 'danger');
+    }
   }
 
-  // 2. Validamos que el lugar haya sido recibido
-  if (!this.lugar) {
-    console.error('Error: No se recibieron los datos del lugar en el modal.');
-    return;
+  async presentToast(msg: string, color: string) {
+    const toast = await this.toastCtrl.create({
+      message: msg,
+      duration: 2000,
+      color: color,
+      mode: 'ios',
+      position: 'bottom'
+    });
+    await toast.present();
   }
-
-  const solicitud = {
-    // Usamos ?. para mayor seguridad si no se validara arriba
-    idMusico: musico?.id, 
-    nombreMusico: musico?.nombreArtistico || musico?.nombre,
-    idLugar: this.lugar?.id,
-    nombreLugar: this.lugar?.nombre,
-    idDueno: this.lugar?.duenoId || '',
-    fechaPerformance: this.fecha,
-    mensaje: this.mensaje,
-    estado: 'pendiente',
-    fechaSolicitud: new Date()
-  };
-
-  try {
-    await this.db.addDocument('performances', solicitud);
-    this.enviado = true;
-  } catch (error) {
-    console.error('Error al guardar la solicitud:', error);
-  }
-}
 }
