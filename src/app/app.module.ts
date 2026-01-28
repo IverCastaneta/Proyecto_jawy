@@ -7,6 +7,10 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
+// --- ANIMACIONES LOTTIE ---
+import { provideLottieOptions } from 'ngx-lottie'; 
+import player from 'lottie-web';
+
 // --- SERVICIOS Y COMUNICACIÓN ---
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -20,35 +24,38 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 
 @NgModule({
   declarations: [AppComponent],
-  // Permite el uso de componentes externos como Swiper para sliders musicales
+  // Permite el uso de componentes externos como Swiper o Lottie
   schemas: [CUSTOM_ELEMENTS_SCHEMA], 
   imports: [
     BrowserModule,
     // Configuración global de la interfaz de Ionic
-    IonicModule.forRoot({
-      mode: 'ios', // Forzamos estilo iOS para una estética más limpia en Jawy
-      rippleEffect: true
+    IonicModule.forRoot({ 
+      mode: 'ios', // Estética limpia para Jawy
+      rippleEffect: true 
     }),
     AppRoutingModule,
     
-    // Módulos para formularios (Registro y Login manual)
+    // Módulos para formularios
     ReactiveFormsModule,
     FormsModule,
     
-    // Módulo para conectar con APIs externas si fuera necesario
+    // Módulo para conectar con APIs
     HttpClientModule,
     
     // INICIALIZACIÓN DE FIREBASE
-    // Usa las credenciales que configuramos en environment.ts
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFireAuthModule,      // Para el login con Google y correo
-    AngularFirestoreModule,     // Para la base de datos de músicos y eventos
-    AngularFireStorageModule,    // Para subir fotos de perfiles o posters de eventos
+    AngularFireAuthModule,      
+    AngularFirestoreModule,     
+    AngularFireStorageModule,    
     
     RouterModule
   ],
   providers: [
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    // CONFIGURACIÓN DE LOTTIE PARA ANGULAR 18
+    provideLottieOptions({ 
+      player: () => player 
+    }) 
   ],
   bootstrap: [AppComponent],
 })

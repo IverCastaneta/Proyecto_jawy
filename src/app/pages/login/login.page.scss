@@ -1,7 +1,3 @@
-// ===============================================
-// 1. HEADER (Botón de atrás y Logo)
-// ===============================================
-
 ion-toolbar {
     // Usamos DARK como fondo principal del header
     --background: var(--ion-color-dark);
@@ -10,19 +6,26 @@ ion-toolbar {
 }
 
 .header-content {
+    background-color: transparent !important;
+    margin-top: 40px; // Bajé un poco el margen para que no se salga del área
     display: flex;
     align-items: center;
-    padding-left: 10px;
+    padding-left: 12px;
 }
 
 ion-back-button {
     --color: var(--ion-color-light); 
     margin-right: 10px;
 }
-
 .jawy-logo-small {
     width: 70px; 
     height: auto;
+}
+.form-container{
+    padding-top: 50px;
+}
+.naranja {
+  color: #F66F17; /* El naranja que estamos usando para tus inputs */
 }
 
 // ===============================================
@@ -36,7 +39,8 @@ ion-back-button {
 }
 
 .form-container {
-    padding-top: 5vh; 
+    padding-top: 5vh;
+    margin-top: 68px; 
 }
 
 h1 {
@@ -58,24 +62,48 @@ h1 {
 // ===============================================
 
 ion-input.custom-input-solid {
-    margin-bottom: 20px;
-    height: 55px; 
+    margin-bottom: 16px;
+    min-height: 55px; // Usamos min-height para que el padding respire
     
-    // Fondo de los inputs (Usamos TERTIARY que es el negro más profundo: #151519)
-    --background: var(--ion-color-tertiary); 
+    // --- ESTRUCTURA Y LÍMITES ---
+    --padding-start: 12px;
+    --padding-end: 12px;
+    --background: #252525;
+    --color: #868686; 
+    --border-radius: 8px;
+    --border-width: 1px;
+    --border-style: solid;
+    --border-color: #F66F17;
     
-    // Color del texto que el usuario escribe
-    --color: var(--ion-color-light); 
+    // --- ESTILOS DE TEXTO ---
+    --placeholder-color: rgba(255, 255, 255, 0.5);
+    font-size: 16px;
     
-    // Borde inferior (sutil)
-    --border-color: var(--ion-color-dark-shade); // Una sombra de dark (#212121)
-    --border-width: 0 0 1px 0;
+    // --- ESTADOS INTERACTIVOS (HOVER/ACTIVATED/FOCUS) ---
     
-    // Etiqueta flotante y placeholder
-    --placeholder-color: var(--ion-color-secondary); // Gris Medio
-    --label-color: var(--ion-color-secondary);
-
+    // CLAVE: Mantiene el fondo oscuro constante en todos los estados
+    --background-focused: var(--ion-color-tertiary) !important; 
+    --background-hover: var(--ion-color-tertiary) !important;
+    --background-activated: var(--ion-color-tertiary) !important;
+    --color-focused: var(--ion-color-light) !important;
+    
     --box-shadow: none; 
+    
+    &.ion-focused {
+        // Contorno Naranja en foco
+        box-shadow: 0 0 0 2px var(--ion-color-primary) !important;
+        --border-width: 0 !important;
+        
+        ion-label {
+            color: var(--ion-color-secondary) !important; 
+        }
+    }
+    
+    // Solución agresiva para el input nativo
+    ::part(native) {
+        background: var(--ion-color-tertiary) !important;
+        color: var(--ion-color-light) !important;
+    }
 }
 
 // ===============================================
@@ -86,7 +114,6 @@ ion-input.custom-input-solid {
     margin-top: 30px; 
     height: 50px;
     font-weight: bold;
-    text-transform: uppercase;
     // El color lo toma de color="mostaza2" en el HTML, que se mapea a primary
 }
 
@@ -96,7 +123,7 @@ ion-input.custom-input-solid {
 
 .register-link-container p {
     color: var(--ion-color-light);
-    font-size: 14px;
+    font-size: 12px;
 }
 
 .register-link {

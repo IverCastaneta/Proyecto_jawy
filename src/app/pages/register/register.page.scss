@@ -1,26 +1,58 @@
-// ===============================================
-// 1. HEADER (Botón de atrás y Logo)
-// ===============================================
-
-ion-toolbar {
-    --background: var(--ion-color-tertiary);
-    --border-width: 0; 
-    --color: var(--ion-color-light); 
+// 1. Forzamos el contenedor principal al color de tus inputs
+ion-header.ion-no-border {
+    background-color: #252525 !important;
+    --background: #252525 !important;
 }
 
+// 2. Forzamos la Toolbar y su fondo interno
+ion-toolbar {
+    --background: #252525 !important;
+    --border-width: 0 !important;
+    background: #252525 !important;
+
+    // Esta es la "llave" maestra para el fondo real en Ionic
+    &::part(background) {
+        background: #252525 !important;
+    }
+}
+
+// Ajuste para el contenedor del logo
+.logo-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding-right: 48px; // Compensación por el botón back
+}
+// 2. Forzamos la Toolbar y su fondo interno
+ion-toolbar {
+    --background: #151519 !important;
+    --border-width: 0 !important;
+    background: #151519 !important;
+
+    // Esta es la "llave" maestra para entrar al fondo real
+    &::part(background) {
+        background: #151519 !important;
+    }
+}
+
+// 3. Ajuste de contenido para que no haya "fugas" de color
 .header-content {
+    background-color: transparent !important;
+    margin-top: 40px; // Bajé un poco el margen para que no se salga del área
     display: flex;
     align-items: center;
-    padding-left: 10px;
+}
+.naranja {
+  color: #F66F17; /* El naranja que estamos usando para tus inputs */
 }
 
 ion-back-button {
     --color: var(--ion-color-light); 
-    margin-right: 10px;
+    margin-right: 8px;
 }
 
 .jawy-logo-small {
-    width: 70px; 
+    width: 64px; 
     height: auto;
 }
 
@@ -34,7 +66,6 @@ ion-back-button {
     // Aseguramos el padding lateral de 20px
     --padding-start: 20px;
     --padding-end: 20px;
-    --padding-top: 0;
     --padding-bottom: 0;
 }
 
@@ -59,22 +90,23 @@ h1 {
     margin: 5px 0 40px 0; 
 }
 
-
-// ===============================================
-// 3. INPUTS (Estilo SOLID, Fondo Oscuro Constante, Foco Naranja)
-// ===============================================
-
 ion-input.custom-input-solid {
-    margin-bottom: 20px;
-    height: 55px; 
+    margin-bottom: 16px;
+    min-height: 55px; // Usamos min-height para que el padding respire
     
-    // --- ESTADO NORMAL ---
-    --background: var(--ion-color-tertiary); 
-    --color: var(--ion-color-light); 
-    --border-width: 0 0 1px 0;
-    --border-color: var(--ion-color-dark-shade); 
-    --placeholder-color: var(--ion-color-secondary);
-    --label-color: var(--ion-color-secondary);
+    // --- ESTRUCTURA Y LÍMITES ---
+    --padding-start: 12px;
+    --padding-end: 12px;
+    --background: #252525;
+    --color: #868686; 
+    --border-radius: 8px;
+    --border-width: 1px;
+    --border-style: solid;
+    --border-color: #F66F17;
+    
+    // --- ESTILOS DE TEXTO ---
+    --placeholder-color: rgba(255, 255, 255, 0.5);
+    font-size: 16px;
     
     // --- ESTADOS INTERACTIVOS (HOVER/ACTIVATED/FOCUS) ---
     
@@ -109,10 +141,10 @@ ion-input.custom-input-solid {
 // ===============================================
 
 .main-button {
-    margin-top: 30px; 
+    color: white;
+    margin-top: 48px; 
     height: 50px;
     font-weight: bold;
-    text-transform: uppercase;
 }
 
 .login-link-container {
@@ -122,7 +154,7 @@ ion-input.custom-input-solid {
 
 .login-link-container p {
     color: var(--ion-color-medium); // El texto general es gris tenue
-    font-size: 14px;
+    font-size: 12px;
     text-align: center;
 }
 

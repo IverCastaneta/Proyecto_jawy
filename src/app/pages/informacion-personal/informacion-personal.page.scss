@@ -1,15 +1,22 @@
 ion-toolbar {
-  --background: var(--ion-color-tertiary);
-  --color: var(--ion-color-light);
+  display: flex;
+  align-items: center;
 }
 
-.logo-small {
-  font-family: 'poligraphergrotesk-semibold';
-  color: var(--ion-color-primary);
-  font-size: 32px;
-  letter-spacing: -2px;
-  transform: scaleY(1.2);
-  display: block;
+ion-header{
+  padding: 40px 0px 0px 8px;
+}
+.logo-container {
+  display: flex;
+  width: 100%;
+  padding-right: 8px; /* Compensación para que quede centrado respecto a la flecha */
+}
+
+.jawy-logo-small {
+  height: 40px;      /* Ajusta este valor según tu gusto */
+  width: auto;       /* Mantiene la proporción */
+  max-height: 45px;  /* Seguridad para que no rompa el header */
+  object-fit: contain;
 }
 
 .container {
@@ -21,7 +28,7 @@ ion-toolbar {
 }
 
 .header-text {
-  margin-bottom: 40px;
+  margin-bottom: 32px;
   h1 {
     font-size: 36px;
     margin-bottom: 5px;
@@ -50,7 +57,7 @@ ion-toolbar {
       --background: transparent;
       --color: var(--ion-color-light);
       --padding-start: 15px;
-      border: 1.5px solid #444; // Borde gris oscuro por defecto
+      border: 1.5px solid #F66F17; // Borde gris oscuro por defecto
       border-radius: 12px;
       font-family: 'poppins-regular';
       
@@ -70,7 +77,6 @@ ion-toolbar {
       ion-datetime-button {
         --background: transparent;
         --color: var(--ion-color-light);
-        margin: 0;
       }
     }
   }

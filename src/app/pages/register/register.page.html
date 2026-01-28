@@ -2,7 +2,7 @@
   <ion-toolbar color="dark">
     <div class="header-content">
       <ion-buttons slot="start">
-        <ion-back-button defaultHref="/login"></ion-back-button>
+        <ion-back-button defaultHref="/login" text=""></ion-back-button>
       </ion-buttons>
       
       <img src="./assets/img/logo.png" alt="Logo Jawy" class="jawy-logo-small">
@@ -13,7 +13,9 @@
 <ion-content [fullscreen]="true" class="register-content-final">
   <div class="form-container">
     
-    <h1 style="padding-top: 5vh;">¡Regístrate!</h1>
+    <h1 style="padding-top: 5vh;">
+      <span class="naranja">¡</span>Regístrate<span class="naranja">!</span>
+    </h1>
     <p class="subtitle">Ingresa tus datos personales y crea tu cuenta.</p>
 
     <form [formGroup]="form" (ngSubmit)="onSubmitForm()">

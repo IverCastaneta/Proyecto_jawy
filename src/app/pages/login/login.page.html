@@ -2,7 +2,7 @@
   <ion-toolbar color="tertiary">
     <div class="header-content">
       <ion-buttons slot="start">
-        <ion-back-button defaultHref="/"></ion-back-button>
+        <ion-back-button defaultHref="/" text=""></ion-back-button>
       </ion-buttons>
       
       <img src="./assets/img/logo.png" alt="Logo Jawy" class="jawy-logo-small">
@@ -13,7 +13,9 @@
 <ion-content [fullscreen]="true" class="login-content-final" color="tertiary">
   <div class="form-container">
     
-    <h1 style="padding-top: 50px;">¡Inicia sesión!</h1>
+    <h1 style="padding-top: 5vh;">
+    <span class="naranja">¡</span>Inicia sesión<span class="naranja">!</span>
+    </h1>
     <p class="subtitle">Ingresa a tu cuenta</p>
 
     <form [formGroup]="form" (ngSubmit)="onSubmitForm()">
@@ -22,7 +24,6 @@
         label="Nombre" 
         labelPlacement="floating" 
         formControlName="email"
-        fill="solid" 
         class="custom-input-solid"
       ></ion-input>
       
@@ -31,13 +32,11 @@
         labelPlacement="floating" 
         formControlName="password"
         type="password"
-        fill="solid" 
         class="custom-input-solid"
       ></ion-input>
       
       <ion-button 
-        expand="block" 
-        shape="round" 
+        expand="block"
         color="primary" 
         type="submit"
         class="main-button"

@@ -1,17 +1,21 @@
 ion-toolbar {
-  --background: var(--ion-color-tertiary);
-  --color: var(--ion-color-light);
+  display: flex;
 }
 
-.logo-small {
-  font-family: 'poligraphergrotesk-semibold';
-  color: var(--ion-color-primary);
-  font-size: 32px;
-  letter-spacing: -2px;
-  transform: scaleY(1.2);
-  display: block;
+ion-header{
+  padding: 40px 0px 0px 8px;
+}
+.logo-container {
+  display: flex;
+  width: 100%;
+  padding-right: 8px; /* Compensación para que quede centrado respecto a la flecha */
 }
 
+.jawy-logo-small {
+  height: 40px;      /* Ajusta este valor según tu gusto */
+  width: auto;       /* Mantiene la proporción */
+  max-height: 45px;  /* Seguridad para que no rompa el header */
+}
 .container {
   padding: 20px;
   background-color: var(--ion-color-tertiary);
