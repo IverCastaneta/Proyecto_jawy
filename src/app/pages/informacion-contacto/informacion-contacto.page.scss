@@ -1,6 +1,51 @@
+// 1. Forzamos el contenedor principal al color de tus inputs
+ion-header.ion-no-border {
+    background-color: #252525 !important;
+    --background: #252525 !important;
+}
+
+// 2. Forzamos la Toolbar y su fondo interno
 ion-toolbar {
-  --background: var(--ion-color-tertiary);
-  --color: var(--ion-color-light);
+    --background: #252525 !important;
+    --border-width: 0 !important;
+    background: #252525 !important;
+
+    // Esta es la "llave" maestra para el fondo real en Ionic
+    &::part(background) {
+        background: #252525 !important;
+    }
+}
+
+// Ajuste para el contenedor del logo
+.logo-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding-right: 48px; // Compensación por el botón back                                                          
+}
+.jawy-logo-small {
+    width: 64px; 
+    height: auto;
+}
+
+// 2. Forzamos la Toolbar y su fondo interno
+ion-toolbar {
+    --background: #151519 !important;
+    --border-width: 0 !important;
+    background: #151519 !important;
+
+    // Esta es la "llave" maestra para entrar al fondo real
+    &::part(background) {
+        background: #151519 !important;
+    }
+}
+
+// 3. Ajuste de contenido para que no haya "fugas" de color
+.header-content {
+    background-color: transparent !important;
+    margin-top: 40px; // Bajé un poco el margen para que no se salga del área
+    display: flex;
+    align-items: center;
 }
 
 .logo-small {
@@ -51,7 +96,7 @@ ion-toolbar {
       --background: transparent;
       --color: var(--ion-color-light);
       --padding-start: 15px;
-      border: 1.5px solid #444;
+      border: 1.5px solid #F66F17;
       border-radius: 12px;
       
       &.ion-focused {

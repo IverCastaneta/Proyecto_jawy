@@ -1,20 +1,22 @@
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" class="success-bg">
   <div class="container ion-text-center">
-    <div class="success-icon">
-      <ion-icon name="checkmark-circle" color="primary"></ion-icon>
+    
+  <div class="icon-wrapper" #successIcon>
+    <div class="dark-circle">
+      <ion-icon name="checkmark-sharp" class="check-icon"></ion-icon>
+    </div>
+  </div>
+    
+    <div class="text-content">
+      <h1>¡Todo Listo!</h1>
+      <p>Tu perfil como músico en la escena de <strong>La Paz</strong> ha sido configurado con éxito.</p>
+    </div>
+
+    <div class="footer-actions">
+      <ion-button expand="block" mode="ios" class="dark-button" (click)="completarRegistro()">
+        Volver a explorar
+      </ion-button>
     </div>
     
-    <h1>¡Todo listo!</h1>
-    <p>Tu perfil como músico en la escena de <strong>La Paz</strong> ha sido configurado con éxito.</p>
-
-    <div class="summary-card">
-      <p>Ahora podrás reservar espacios y promover tu arte en <strong>Jawy</strong>.</p>
-    </div>
-
-    <ion-button expand="block" mode="ios" (click)="completarRegistro()">
-      Empezar a usar Jawy
-    </ion-button>
-    
-    <p class="studio-tag">&#64;Paput studio</p>
   </div>
 </ion-content>

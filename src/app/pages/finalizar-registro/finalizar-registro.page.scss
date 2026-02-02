@@ -1,0 +1,60 @@
+.success-bg {
+  --background: #F66F17 !important; /* Naranja Jawy */
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 0 20px;
+}
+
+/* Estilo del Círculo e Icono */
+.icon-wrapper {
+  margin-bottom: 20px;
+  transform: scale(0); /* Empieza invisible para la animación */
+}
+
+.dark-circle {
+  width: 180px;
+  height: 180px;
+  background-color: #252525;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+.check-icon {
+  font-size: 100px;
+  color: #F66F17;
+}
+
+/* Tipografía */
+h1 {
+  font-size: 28px;
+  font-weight: 800;
+  color: #252525;
+  margin-bottom: 15px;
+}
+
+p {
+  font-size: 16px;
+  color: #252525;
+  opacity: 0.9;
+  line-height: 1.4;
+}
+
+/* Botón Oscuro */
+.dark-button {
+  --background: #252525;
+  --color: #F66F17;
+  --border-radius: 12px;
+  margin-top: 20px;
+  width: 100%;
+  height: 55px;
+  font-weight: 600;
+}
