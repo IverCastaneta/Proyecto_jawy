@@ -1,8 +1,36 @@
+// 1. Fondo del Header y Toolbar
+ion-header.ion-no-border, 
+ion-toolbar {
+    --background: #252525 !important;
+    background: #252525 !important;
+    --border-width: 0 !important;
+
+    &::part(background) {
+        background: #252525 !important;
+    }
+}
+
+.header-group {
+    display: flex;
+    align-items: center;
+    padding-left: 8px;
+    padding-top: 48px;
+}
+
+.jawy-logo-small {
+    width: 60px;
+    height: auto;
+    margin-left: 4px;
+}
+
+ion-back-button {
+    --color: #F66F17; 
+}
 .image-upload-box {
   width: 100%;
   height: 200px;
   background: #2a2a2e;
-  border-radius: 15px;
+  border-radius: 8px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -10,13 +38,42 @@
   border: 2px dashed #444;
   overflow: hidden;
   
-  ion-icon { font-size: 60px; color: #555; }
+  ion-icon { font-size: 60px; color: #F66F17; }
   img { width: 100%; height: 100%; object-fit: cover; }
 }
-
-.custom-select {
-  --background: #1e1e22;
-  border: 1px solid #444;
-  border-radius: 10px;
+.container{
+  padding: 20px;
+}
+label {
+    display: block;
+    padding-bottom: 8px; /* Aquí generamos los 20px de espacio que pediste */
+    color: var(--ion-color-light);
+}
+.custom-input, .custom-textarea, .custom-select {
+    --background: #1e1e22;
+    color: #868686;
+    border: 1px solid #F66F17;
+    border-radius: 8px;
+    margin-top: 0; /* Aseguramos que el margen no interfiera con el padding del label */
+    
+    /* Espaciado interno para que el placeholder no toque los bordes */
+    --padding-start: 15px; 
+    --padding-end: 15px;
+}
+.input-group{
+  padding-bottom: 20px;
+}
+.linea{
+  height: 2px;
+  width: 100%;
+  background: #252525;
+}
+#categoria {
+  padding-top: 32px;
+  padding-bottom: 32px;
+  border-radius: 8px;
   ion-select { font-family: 'poppins-regular'; --placeholder-color: var(--ion-color-primary); }
+}
+.footer-actions{
+  padding-top: 20px;
 }
