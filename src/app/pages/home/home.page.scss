@@ -1,5 +1,139 @@
+/* --- TEMA OSCURO --- */
 .dark-theme { --background: #121212; }
 
+/* --- BARRA DE BÚSQUEDA (HEADER) --- */
+.transparent-toolbar {
+  --background: transparent;
+  padding-top: 10px;
+}
+
+.glass-search-container {
+  background: rgba(30, 30, 30, 0.95);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin: 0 15px 5px;
+  height: 52px;
+  border-radius: 26px; /* Píldora perfecta */
+  display: flex;
+  align-items: center;
+  padding: 0 6px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+  position: relative;
+  z-index: 1000;
+
+  /* SOLUCIÓN 1: Iconos aplastados */
+  /* Le decimos al icono y al botón naranja que NUNCA se encojan */
+  .icon-box, .filter-circle {
+    flex-shrink: 0; 
+    min-width: 40px; 
+    min-height: 40px;
+  }
+
+  .icon-box {
+    padding-left: 10px;
+    color: #888;
+    font-size: 1.2rem;
+    display: flex; 
+    align-items: center;
+  }
+
+  .search-input {
+    flex: 1; /* Ocupa todo el espacio disponible */
+    --padding-start: 10px;
+    --background: transparent;
+    color: white;
+    font-size: 0.95rem;
+    font-weight: 500;
+    --placeholder-color: #666;
+  }
+
+  .filter-circle {
+    background: #F66F17;
+    border-radius: 50%;
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    color: white;
+    transition: transform 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+    
+    ion-icon { font-size: 1.3rem; }
+
+    &:active { transform: scale(0.9); }
+  }
+}
+
+/* --- OVERLAY DE RESULTADOS (SOLUCIÓN 2 y 3) --- */
+.search-results-overlay {
+  background: #121212;
+  min-height: 100vh; /* Cubre toda la pantalla */
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 900;
+  padding: 20px 16px; /* Espacio superior para que no choque */
+  
+  /* ANIMACIÓN SUAVE DE ENTRADA */
+  animation: slideFadeIn 0.3s ease-out forwards;
+}
+
+/* Definición de la animación */
+@keyframes slideFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-15px); /* Empieza un poco más arriba */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- LISTA DE RESULTADOS --- */
+.bg-transparent { background: transparent !important; }
+
+.result-item {
+  --background: #1e1e1e;
+  --color: white;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  --padding-start: 10px;
+  /* Animación escalonada para los items (opcional, se ve muy pro) */
+  animation: fadeInItem 0.4s ease-out;
+
+  ion-thumbnail {
+    --border-radius: 8px;
+    width: 50px; height: 50px;
+    margin-right: 15px;
+    
+    img { 
+      object-fit: cover; 
+      width: 100%; height: 100%; 
+      border-radius: 8px; 
+    }
+  }
+  
+  h2 { font-weight: 700; font-size: 1rem; margin-bottom: 4px; }
+  p { color: #F66F17; font-size: 0.85rem; font-weight: 600; }
+}
+
+@keyframes fadeInItem {
+  from { opacity: 0; transform: scale(0.98); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* --- ESTADO VACÍO --- */
+.empty-search {
+  text-align: center;
+  margin-top: 80px;
+  color: #444;
+  animation: fadeInItem 0.5s;
+  
+  ion-icon { font-size: 60px; margin-bottom: 15px; opacity: 0.5; }
+  p { font-size: 1.1rem; }
+}
+
+/* --- ESTILOS DEL HOME NORMAL (SIN CAMBIOS) --- */
 .section-header {
   display: flex;
   justify-content: space-between;
@@ -20,13 +154,14 @@
     margin: 8px;
     border-radius: 15px;
     background: #1e1e1e;
-    img { height: 120px; object-fit: cover; }
-    ion-card-title { font-size: 14px; text-align: center; color: #fff; }
+    img { height: 120px; width: 100%; object-fit: cover; }
+    ion-card-title { font-size: 14px; text-align: center; color: #fff; margin-top: 8px; }
   }
 }
 
 .places-container {
   padding: 0 8px;
+  padding-bottom: 80px; 
   
   .venue-card {
     background: #1e1e1e;
@@ -47,5 +182,31 @@
       gap: 4px; 
       color: #999; 
     }
+  }
+}
+
+/* --- OVERLAY DE RESULTADOS --- */
+.search-results-overlay {
+  background: #121212;
+  min-height: 100vh;
+  width: 100%;
+  position: absolute;
+  
+  /* CAMBIO CLAVE: Empujamos la lista hacia abajo para que no quede detrás del buscador */
+  top: 70px; /* Altura aproximada del header + barra */
+  left: 0;
+  z-index: 900;
+  
+  /* Ajuste de padding para que respire */
+  padding: 10px 16px 100px 16px; 
+  
+  /* Animación suave */
+  animation: slideFadeIn 0.3s ease-out forwards;
+}
+
+/* Si quieres que se vea aún mejor, añade esto para dispositivos con Notch (iPhone) */
+@media (min-height: 800px) {
+  .search-results-overlay {
+    top: 90px; /* Un poco más abajo en pantallas grandes */
   }
 }

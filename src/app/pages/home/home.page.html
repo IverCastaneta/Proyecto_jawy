@@ -1,45 +1,84 @@
-<ion-header [translucent]="true" class="ion-no-border">
-  <ion-toolbar>
-    <app-search-bar></app-search-bar>
+<ion-header class="ion-no-border">
+  <ion-toolbar class="transparent-toolbar">
+    <div class="glass-search-container animate__animated animate__fadeInDown">
+      <div class="icon-box">
+        <ion-icon name="search-outline"></ion-icon>
+      </div>
+      <ion-input 
+        placeholder="¿Qué quieres encontrar hoy?" 
+        [(ngModel)]="busqueda" 
+        (ionInput)="ejecutarBusqueda($event)"
+        (ionFocus)="activarBusqueda()"
+        class="search-input">
+      </ion-input>
+      <div class="filter-circle" (click)="cerrarBusqueda()">
+        <ion-icon [name]="isSearching ? 'close-outline' : 'options-outline'"></ion-icon>
+      </div>
+    </div>
   </ion-toolbar>
-  <app-toolbar></app-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" class="dark-theme">
-  
-  <div class="section-header">
-    <h2>Músicos en La Paz</h2>
-    <ion-note>Ver todos</ion-note>
+
+  <div class="search-results-overlay animate__animated animate__fadeIn" *ngIf="isSearching">
+    <div class="overlay-header" *ngIf="busqueda.length > 0">
+      <span>Resultados para "{{ busqueda }}"</span>
+    </div>
+
+    <ion-list class="bg-transparent" *ngIf="lugaresFiltered.length > 0">
+      <ion-item *ngFor="let lugar of lugaresFiltered" lines="none" class="result-item" [routerLink]="['/view-lugar', lugar.id]">
+        <ion-thumbnail slot="start">
+          <img [src]="lugar.foto || 'assets/default-venue.jpg'" />
+        </ion-thumbnail>
+        <ion-label>
+          <h2>{{ lugar.nombre }}</h2>
+          <p>{{ lugar.tipo }} • {{ lugar.precio }} Bs.</p>
+        </ion-label>
+        <ion-icon name="chevron-forward-outline" slot="end" color="medium"></ion-icon>
+      </ion-item>
+    </ion-list>
+
+    <div class="empty-search" *ngIf="busqueda.length > 0 && lugaresFiltered.length === 0">
+      <ion-icon name="search-outline"></ion-icon>
+      <p>No encontramos lugares con ese nombre.</p>
+    </div>
   </div>
 
-  <div class="horizontal-scroll">
-    <ion-card *ngFor="let musico of musicos" [routerLink]="['/view-profile', musico.id]" class="musico-card">
-      <img [src]="musico.fotoPerfil || 'assets/default-avatar.png'" />
-      <ion-card-header>
-        <ion-card-title>{{ musico.nombreArtistico }}</ion-card-title>
-      </ion-card-header>
-    </ion-card>
-  </div>
+  <div [hidden]="isSearching" class="animate__animated animate__fadeIn">
+    <div class="section-header">
+      <h2>Músicos en La Paz</h2>
+      <ion-note>Ver todos</ion-note>
+    </div>
 
-  <div class="section-header">
-    <h2>Lugares para tocar</h2>
-    <ion-note>Explorar espacios</ion-note>
-  </div>
+    <div class="horizontal-scroll">
+      <ion-card *ngFor="let musico of musicos" [routerLink]="['/view-profile', musico.id]" class="musico-card">
+        <img [src]="musico.fotoPerfil || 'assets/default-avatar.png'" />
+        <ion-card-header>
+          <ion-card-title>{{ musico.nombreArtistico }}</ion-card-title>
+        </ion-card-header>
+      </ion-card>
+    </div>
 
-  <div class="places-container">
-    <ion-card *ngFor="let lugar of lugares" [routerLink]="['/view-lugar', lugar.id]" class="venue-card">
-      <div class="image-wrapper">
-        <img [src]="lugar.foto || 'assets/default-venue.jpg'" />
-        <ion-badge color="warning" mode="ios" class="venue-badge">Destacado</ion-badge>
-      </div>
-      <ion-card-header>
-        <ion-card-title>{{ lugar.nombre }}</ion-card-title>
-        <ion-card-subtitle>
-          <ion-icon name="location-outline"></ion-icon>
-          {{ lugar.direccion }}
-        </ion-card-subtitle>
-      </ion-card-header>
-    </ion-card>
+    <div class="section-header">
+      <h2>Lugares para tocar</h2>
+      <ion-note>Explorar espacios</ion-note>
+    </div>
+
+    <div class="places-container">
+      <ion-card *ngFor="let lugar of lugares" [routerLink]="['/view-lugar', lugar.id]" class="venue-card">
+        <div class="image-wrapper">
+          <img [src]="lugar.foto || 'assets/default-venue.jpg'" />
+          <ion-badge color="warning" mode="ios" class="venue-badge">Destacado</ion-badge>
+        </div>
+        <ion-card-header>
+          <ion-card-title>{{ lugar.nombre }}</ion-card-title>
+          <ion-card-subtitle>
+            <ion-icon name="location-outline"></ion-icon>
+            {{ lugar.direccion }}
+          </ion-card-subtitle>
+        </ion-card-header>
+      </ion-card>
+    </div>
   </div>
   
 </ion-content>

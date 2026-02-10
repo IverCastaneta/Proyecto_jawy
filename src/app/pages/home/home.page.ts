@@ -9,9 +9,12 @@ import { DatabaseService } from 'src/app/services/database.service';
 })
 export class HomePage implements OnInit {
 
-  // Declaramos las variables correctamente
   musicos: any[] = [];
   lugares: any[] = [];
+  lugaresFiltered: any[] = [];
+  
+  isSearching: boolean = false;
+  busqueda: string = '';
 
   constructor(
     public db: DatabaseService,
@@ -23,18 +26,42 @@ export class HomePage implements OnInit {
     this.loadLugares();
   }
 
- loadLugares() {
-  this.db.fetchFirestoreCollection('lugares').subscribe(res => {
-    this.lugares = res;
-    console.log('¿Hay lugares?', this.lugares.length > 0);
-    console.table(this.lugares); // Esto te mostrará una tabla linda en la consola del navegador
-  });
-}
-
   loadUsers() {
-    // Cargamos todos los músicos desde la colección 'users'
     this.db.fetchFirestoreCollection('users').subscribe(res => {
-      this.musicos = res; // Debe llamarse 'musicos' para que el *ngFor lo encuentre
+      this.musicos = res;
     });
+  }
+
+  loadLugares() {
+    this.db.fetchFirestoreCollection('lugares').subscribe(res => {
+      this.lugares = res;
+      this.lugaresFiltered = []; 
+    });
+  }
+
+  activarBusqueda() {
+    this.isSearching = true;
+  }
+
+  cerrarBusqueda() {
+    this.isSearching = false;
+    this.busqueda = '';
+    this.lugaresFiltered = [];
+  }
+
+  ejecutarBusqueda(event: any) {
+    this.busqueda = event.detail.value;
+    const term = this.busqueda.toLowerCase();
+
+    if (!term.trim()) {
+      this.lugaresFiltered = [];
+      return;
+    }
+    
+    this.lugaresFiltered = this.lugares.filter(l => 
+      (l.nombre && l.nombre.toLowerCase().includes(term)) || 
+      (l.tipo && l.tipo.toLowerCase().includes(term)) ||
+      (l.direccion && l.direccion.toLowerCase().includes(term))
+    );
   }
 }

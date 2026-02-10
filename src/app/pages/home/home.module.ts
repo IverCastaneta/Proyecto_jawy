@@ -4,7 +4,6 @@ import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { HomePage } from './home.page';
 import { HomePageRoutingModule } from './home-routing.module';
-// 1. IMPORTA EL SHARED MODULE AQUÍ
 import { SharedModule } from 'src/app/modules/shared/shared.module'; 
 
 @NgModule({
@@ -13,7 +12,7 @@ import { SharedModule } from 'src/app/modules/shared/shared.module';
     FormsModule,
     IonicModule,
     HomePageRoutingModule,
-    SharedModule // 2. AGRÉGALO A LOS IMPORTS
+    SharedModule
   ],
   declarations: [HomePage]
 })

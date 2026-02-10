@@ -1,37 +1,35 @@
-
-
-<ion-content>
-  <h1  slot="fixed"  vertical="top" style="margin-left: 100px;">Añade un nuevo lugar</h1>
-  <app-back  routerLink="/view-profile/cCm4kpD0dNMYhAn2f7mjNNAEVKm2"></app-back>
-
-  <ion-card style="margin-top: 80px;">
-    <ion-card-content>
-      <form (ngSubmit)="submitLugar()">
-        <ion-item>
-          <ion-label position="floating">Nombre del Lugar</ion-label>
-          <ion-input type="text" [(ngModel)]="lugar.nombre" name="nombre" required></ion-input>
-        </ion-item>
-        
-        <ion-item>
-          <ion-label position="floating">Descripción</ion-label>
-          <ion-textarea [(ngModel)]="lugar.descripcion" name="descripcion" required></ion-textarea>
-        </ion-item>
-
-        <ion-item>
-          <ion-label position="floating">Precio</ion-label>
-          <ion-input type="number" [(ngModel)]="lugar.precio" name="precio" required></ion-input>
-        </ion-item>
-
-        <ion-item>
-          <ion-label position="floating">Ubicación</ion-label>
-          <ion-input type="text" [(ngModel)]="lugar.direccion" name="direccion" required></ion-input>
-        </ion-item>
-
-        <ion-button expand="block" type="submit" color="primary">Añadir Lugar</ion-button>
-      </form>
-    </ion-card-content>
-  </ion-card>
+<ion-row>
+  <ion-col size="6">
+    <ion-item class="custom-input">
+      <ion-label position="stacked">Precio Base (Bs)</ion-label>
+      <ion-input type="number" [(ngModel)]="lugar.precio" placeholder="Ej: 300"></ion-input>
+    </ion-item>
+  </ion-col>
   
+  <ion-col size="6">
+    <ion-item class="custom-input">
+      <ion-label position="stacked">Categoría</ion-label>
+      <ion-select [(ngModel)]="lugar.tipo" placeholder="Selecciona">
+        <ion-select-option value="Bar">Bar</ion-select-option>
+        <ion-select-option value="Café">Café</ion-select-option>
+        <ion-select-option value="Teatro">Teatro</ion-select-option>
+        <ion-select-option value="Aire Libre">Aire Libre</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-col>
+</ion-row>
 
-  
-</ion-content>
+<div class="services-section">
+  <p>¿Qué incluye el lugar?</p>
+  <div class="chips-selector">
+    <ion-chip [color]="hasService('Wifi') ? 'warning' : 'medium'" (click)="toggleService('Wifi')">
+      <ion-icon name="wifi"></ion-icon> <ion-label>WiFi</ion-label>
+    </ion-chip>
+    <ion-chip [color]="hasService('Camerinos') ? 'warning' : 'medium'" (click)="toggleService('Camerinos')">
+      <ion-icon name="shirt"></ion-icon> <ion-label>Camerinos</ion-label>
+    </ion-chip>
+    <ion-chip [color]="hasService('Sonido') ? 'warning' : 'medium'" (click)="toggleService('Sonido')">
+      <ion-icon name="mic"></ion-icon> <ion-label>Sonido Pro</ion-label>
+    </ion-chip>
+  </div>
+</div>

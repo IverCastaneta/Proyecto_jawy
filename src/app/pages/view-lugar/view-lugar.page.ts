@@ -48,4 +48,14 @@ export class ViewLugarPage implements OnInit {
       console.log('Solicitud enviada para:', lugar.nombre);
     }
   }
+  getIconForEquipment(item: string): string {
+  const text = item.toLowerCase();
+  if (text.includes('ampli')) return 'volume-high-outline';
+  if (text.includes('bateria')) return 'musical-notes-outline';
+  if (text.includes('mic')) return 'mic-outline';
+  if (text.includes('luces')) return 'flashlight-outline';
+  if (text.includes('wifi')) return 'wifi-outline';
+  if (text.includes('consola')) return 'settings-outline';
+  return 'checkmark-circle-outline'; // Icono por defecto
+}
 }
