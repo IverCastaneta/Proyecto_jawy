@@ -9,9 +9,16 @@
     <div class="hero-gradient">
       <ion-badge color="warning" mode="ios" class="type-badge">{{ lugar?.tipo || 'Destacado' }}</ion-badge>
       <h1 class="place-title">{{ lugar?.nombre }}</h1>
+
+      <div class="datos">
       <p class="place-address">
         <ion-icon name="location-sharp"></ion-icon> {{ lugar?.direccion }}
       </p>
+      <p class="place-owner">
+        <ion-icon name="person"></ion-icon> {{ lugar?.nombredueno }}
+      </p>
+      </div>
+
     </div>
   </div>
 
@@ -36,7 +43,7 @@
     </div>
 
     <section class="info-section">
-      <h3 class="section-label">Equipamiento y Servicios</h3>
+      <h3 class="section-label">El lugar cuenta con:</h3>
       <div class="equipment-grid" *ngIf="lugar?.equipamiento">
         <div class="equipment-pill" *ngFor="let item of lugar?.equipamiento">
           <ion-icon [name]="getIconForEquipment(item)"></ion-icon>
