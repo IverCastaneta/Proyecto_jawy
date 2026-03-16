@@ -1,240 +1,207 @@
-.dark-modal { --background: #121212; color: white; }
+.payment-modal {
+  --background: #121212;
+  color: white;
 
-.verification-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 80%;
-  
-  .tick-animation {
+  .sheet-handle {
+    width: 60px;
+    height: 5px;
+    background: #333;
+    border-radius: 3px;
+    margin: 10px auto 30px;
+  }
+
+.custom-header {
+    padding: 0 20px;
     margin-bottom: 20px;
-    .circle { stroke-dasharray: 100; stroke-dashoffset: 100; animation: dash 0.8s ease-in-out forwards; }
-    .check { stroke-dasharray: 50; stroke-dashoffset: 50; animation: dash 0.5s 0.6s ease-in-out forwards; }
-  }
-}
+    text-align: left; 
 
-@keyframes dash { to { stroke-dashoffset: 0; } }
+    /* ESTILO PARA EL NUEVO BOTÓN */
+    .back-btn-icon {
+      font-size: 28px;
+      color: #ffffff;
+      margin-bottom: 15px; /* Separación con el texto de abajo */
+      margin-left: -5px; /* Para alinearlo ópticamente con el texto */
+      cursor: pointer;
+      display: block; /* Asegura que se ponga en su propia línea arriba */
+      transition: transform 0.2s ease;
+      
+      &:active {
+        transform: translateX(-5px); /* Pequeño efecto al presionarlo */
+      }
+    }
 
-.confirm-btn { --background: #F66F17; --border-radius: 12px; margin-top: 25px; height: 50px; font-weight: 700; }
-.custom-input, .custom-textarea { --background: #1e1e1e; border: 1px solid #333; border-radius: 10px; margin-top: 5px; }
-.studio-tag { font-size: 10px; opacity: 0.4; margin-top: 20px; }
+    .subtitle {
+      // ... (tu código actual se mantiene igual)
+      color: #888;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
 
-.credit-card-ui {
-  width: 280px;
-  height: 160px;
-  border-radius: 20px;
-  padding: 20px;
-  margin-right: 15px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  color: white;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.4);
-  
-  &.visa { background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d); }
-  &.mastercard { background: linear-gradient(135deg, #232526, #414345); }
-  
-  .card-top { display: flex; justify-content: space-between; ion-icon { font-size: 30px; } }
-  .card-number { font-size: 1.2rem; letter-spacing: 2px; font-family: monospace; }
-  .card-bottom { display: flex; justify-content: space-between; font-size: 0.8rem; text-transform: uppercase; }
-}
+    .title-orange {
+      color: #F66F17;
+      font-size: 26px;
+      font-weight: 800;
+      margin: 0 0 15px 0;
+      letter-spacing: -0.5px;
+    }
 
-.cards-scroll {
-  display: flex;
-  overflow-x: auto;
-  padding: 10px 0;
-  &::-webkit-scrollbar { display: none; }
-}
-.payment-modal {
-  --background: #121212;
-  color: white;
+    .availability-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #999;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
 
-  .price-badge {
-    background: #F66F17;
-    color: white;
-    padding: 8px 20px;
-    border-radius: 20px;
-    font-weight: 800;
-    width: fit-content;
-    margin: 10px auto;
-  }
-
-  .custom-input, .custom-textarea, .card-input-item {
-    --background: #1e1e1e;
-    --color: white;
-    --border-radius: 12px;
-    margin-top: 8px;
-    border: 1px solid #333;
+      .dot {
+        width: 8px;
+        height: 8px;
+        background-color: #999;
+        border-radius: 50%;
+      }
+    }
   }
 
-  .payment-card-item {
-    --background: #1e1e1e;
-    --color: white;
-    margin-top: 10px;
-    border-radius: 12px;
-    border: 1px solid #333;
-  }
-
-  .qr-frame {
-    background: white;
-    padding: 10px;
-    border-radius: 15px;
-    display: inline-block;
-    margin-bottom: 10px;
-    img { width: 180px; }
-  }
-
-  .btn-back {
-    text-align: center;
-    color: #888;
-    margin-bottom: 15px;
-    cursor: pointer;
-  }
-
-  .icon-circle {
-    width: 80px;
-    height: 80px;
-    background: #2dd36f;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 20px auto;
-    ion-icon { font-size: 50px; color: white; }
-  }
-}
-/* Efecto de Ticket para Reservas Confirmadas */
-.confirmed-ticket {
-  border-left: 5px solid #2dd36f;
-  background: linear-gradient(135deg, #1e1e1e 0%, #112b1a 100%) !important;
-  animation: ticket-entrance 0.5s ease-out;
-
-  .ticket-status-bar {
-    background: #2dd36f;
-    color: black;
-    font-size: 10px;
-    font-weight: 900;
-    text-align: center;
-    padding: 2px;
-    text-transform: uppercase;
-  }
-}
-
-/* Animación de Pulso para el Badge de Éxito */
-.pulse-green {
-  animation: pulse-green-animation 2s infinite;
-}
-
-@keyframes pulse-green-animation {
-  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(45, 211, 111, 0.7); }
-  70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(45, 211, 111, 0); }
-  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(45, 211, 111, 0); }
-}
-
-@keyframes ticket-entrance {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.custom-date-btn {
-  --background: #1e1e1e;
-  --color: white;
-  --border-radius: 12px;
-  font-size: 1.1rem;
-  margin: 15px 0;
-}
-
-.big-check {
-  font-size: 80px;
-  animation: bounceIn 0.8s;
-}
-
-.qr-frame {
-  background: white;
-  padding: 10px;
-  border-radius: 15px;
-  display: inline-block;
-  margin-bottom: 10px;
-  img { width: 160px; height: 160px; }
-}
-
-.card-input-item {
-  --background: #1e1e1e;
-  --color: white;
-  border: 1px solid #333;
-  border-radius: 8px;
-  margin-bottom: 8px;
-}
-
-.payment-modal {
-  --background: #121212;
-  
-  /* Arreglo para que el modal no se corte */
   .calendar-wrapper {
-    min-height: 350px; 
+    min-height: 380px; 
     overflow: visible;
   }
 
-  ion-datetime {
+  /* --- CALENDARIO PREMIUM --- */
+  .premium-datetime {
+    --background: transparent;
+    margin: 0 auto;
+    
+    &::part(calendar-day) {
+      background-color: #2a2a2a;
+      color: #ffffff;
+      border-radius: 50%;
+      margin: 4px;
+      width: 38px;
+      height: 38px;
+      font-weight: 500;
+    }
+
+    &::part(calendar-day active) {
+      background-color: #F66F17;
+      color: #ffffff;
+      font-weight: 700;
+      box-shadow: 0 4px 10px rgba(246, 111, 23, 0.4); 
+    }
+
+    &::part(calendar-day today) {
+      border: 1px solid #F66F17;
+      color: #F66F17;
+      background-color: transparent;
+    }
+
+    &::part(day-of-week) {
+      color: #555555;
+      font-weight: 600;
+      font-size: 12px;
+    }
+
+    &::part(month-year-button) {
+      color: #999999;
+      font-weight: normal;
+      font-size: 16px;
+    }
+  }
+
+  /* --- OTROS ELEMENTOS --- */
+  .px-15 { padding: 0 20px; }
+
+  .custom-textarea, .glass-input {
     --background: #1e1e1e;
     --color: white;
-    border-radius: 15px;
-    margin: 10px auto;
+    --border-radius: 12px;
+    border: 1px solid #333;
+    margin-top: 8px;
   }
 
-  .saved-card-view {
-    background: linear-gradient(135deg, #1e3c72, #2a5298);
-    border-radius: 12px;
-    padding: 15px;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    color: white;
+  .main-btn-orange {
+    --background: #F66F17;
+    --border-radius: 12px;
+    height: 52px;
     font-weight: 700;
-  }
-}
-
-.calendar-container {
-  min-height: 350px; // Evita que el modal se "corte" al cargar el calendario
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  ion-datetime {
-    --background: transparent;
-    border-radius: 15px;
-    margin: 10px 0;
-  }
-}
-
-.price-badge {
-  background: #F66F17;
-  color: white;
-  padding: 8px 20px;
-  border-radius: 25px;
-  font-weight: 800;
-  display: inline-block;
-  margin-top: 10px;
-}
-
-.payment-modal {
-  --background: #121212;
-  
-  .calendar-wrapper {
-    min-height: 380px; // Altura mínima para que el calendario respire
+    margin: 20px;
   }
 
-  .icon-circle {
-    width: 80px;
-    height: 80px;
-    background: rgba(45, 211, 111, 0.1);
-    border: 2px solid #2dd36f;
-    border-radius: 50%;
+  .payment-selector {
+    background: transparent;
+    padding: 0 20px;
+    
+    .selector-item {
+      --background: #1e1e1e;
+      --color: white;
+      margin-top: 10px;
+      border-radius: 12px;
+      border: 1px solid #333;
+    }
+  }
+
+.success-screen-orange {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #F66F17; /* Tu naranja característico */
     display: flex;
-    align-items: center;
+    flex-direction: column;
     justify-content: center;
-    margin: 20px auto;
-    ion-icon { font-size: 50px; }
+    align-items: center;
+    z-index: 1000; /* Asegura que cubra todo */
+
+    .success-content {
+      padding: 0 30px;
+      text-align: center;
+      width: 100%;
+    }
+
+    .dark-circle {
+      width: 180px;
+      height: 180px;
+      background-color: #252525; /* Círculo oscuro */
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 40px;
+      
+      ion-icon { 
+        font-size: 100px; 
+        color: #F66F17; /* El checkmark es naranja */
+      }
+    }
+
+    .success-title {
+      color: #252525; /* Texto oscuro sobre fondo naranja */
+      font-size: 26px;
+      font-weight: 900;
+      line-height: 1.2;
+      margin: 0 0 15px 0;
+      letter-spacing: -0.5px;
+    }
+
+    .success-message {
+      color: #252525;
+      font-size: 15px;
+      font-weight: 500;
+      line-height: 1.4;
+      margin: 0 0 40px 0;
+      opacity: 0.9;
+    }
+
+    .btn-dark-return {
+      --background: #252525;
+      --color: #ffffff;
+      --border-radius: 12px;
+      height: 52px;
+      font-weight: 600;
+      font-size: 16px;
+      margin: 0;
+    }
   }
 }
