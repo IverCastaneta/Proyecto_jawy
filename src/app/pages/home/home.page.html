@@ -21,8 +21,21 @@
 <ion-content [fullscreen]="true" class="dark-theme">
 
   <div class="search-results-overlay animate__animated animate__fadeIn" *ngIf="isSearching">
-    <div class="overlay-header" *ngIf="busqueda.length > 0">
-      <span>Resultados para "{{ busqueda }}"</span>
+    
+    <div class="category-filters">
+      <div class="chips-scroll">
+        <ion-chip class="custom-chip" [class.active]="categoriaSeleccionada === 'Todos'" (click)="seleccionarCategoria('Todos')">
+          <ion-label>Todos</ion-label>
+        </ion-chip>
+        <ion-chip class="custom-chip" *ngFor="let cat of categorias" [class.active]="categoriaSeleccionada === cat" (click)="seleccionarCategoria(cat)">
+          <ion-label>{{ cat }}</ion-label>
+        </ion-chip>
+      </div>
+    </div>
+
+    <div class="overlay-header" *ngIf="busqueda.length > 0 || categoriaSeleccionada !== 'Todos'">
+      <span *ngIf="busqueda.length > 0">Resultados para "{{ busqueda }}"</span>
+      <span *ngIf="busqueda.length === 0 && categoriaSeleccionada !== 'Todos'">Filtrando por: {{ categoriaSeleccionada }}</span>
     </div>
 
     <ion-list class="bg-transparent" *ngIf="lugaresFiltered.length > 0">
@@ -38,9 +51,9 @@
       </ion-item>
     </ion-list>
 
-    <div class="empty-search" *ngIf="busqueda.length > 0 && lugaresFiltered.length === 0">
+    <div class="empty-search" *ngIf="(busqueda.length > 0 || categoriaSeleccionada !== 'Todos') && lugaresFiltered.length === 0">
       <ion-icon name="search-outline"></ion-icon>
-      <p>No encontramos lugares con ese nombre.</p>
+      <p>No encontramos lugares en esta categoría.</p>
     </div>
   </div>
 
@@ -71,7 +84,6 @@
           
           <div class="image-wrapper">
             <img [src]="lugar.foto || 'assets/default-venue.jpg'" />
-            <!-- <ion-badge color="warning" mode="ios" class="venue-badge">Destacado</ion-badge> -->
           </div>
 
           <div class="card-body">
