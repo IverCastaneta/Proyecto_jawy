@@ -1,66 +1,253 @@
 /* --- BASE & MÁRGENES --- */
-.profile-bg { --background: #121212; color: white; }
+.profile-bg { 
+  --background: #121212; 
+  color: white; 
+}
 
 .main-safe-container {
-  padding: 0 16px; /* Evita que las cosas toquen el borde */
-  max-width: 450px; 
+  padding: 0 20px; 
+  max-width: 500px; 
   margin: 0 auto;
   min-height: 100vh;
 }
 
-/* --- HEADER --- */
-.profile-header {
-  padding: 35px 0 20px;
-  display: flex; flex-direction: column; align-items: center;
-  .avatar-wrapper {
-    position: relative;
-    .main-avatar { width: 100px; height: 100px; border-radius: 50%; border: 3px solid #F66F17; padding: 4px; object-fit: cover; }
-    .edit-badge { position: absolute; bottom: 0; right: 0; background: #F66F17; border-radius: 50%; padding: 6px; display: flex; box-shadow: 0 4px 8px rgba(0,0,0,0.5); }
+/* --- SELECTOR DE PESTAÑAS TOP --- */
+.top-segment-container {
+  display: flex;
+  justify-content: center;
+  padding: 20px 0 10px;
+
+  .pill-segment {
+    --background: #1e1e1e; 
+    border-radius: 20px;
+    width: 220px;
+    height: 35px;
+    
+    ion-segment-button { 
+      --indicator-color: #F66F17; 
+      --color-checked: #ffffff; 
+      --color: #888;
+      font-weight: 700; 
+      font-size: 12px; 
+      min-height: 30px;
+      margin: 2px;
+      border-radius: 18px;
+    }
   }
-  .user-meta { text-align: center; h1 { font-size: 1.6rem; font-weight: 800; margin: 12px 0 4px; } .role-tag { color: #888; font-size: 13px; display: flex; align-items: center; justify-content: center; gap: 4px; } }
 }
 
-/* --- SEGMENTOS --- */
-.jawy-segment {
-  --background: #1e1e1e; border-radius: 12px;
-  ion-segment-button { --indicator-color: #F66F17; --color-checked: #fff; font-weight: 600; font-size: 14px!important; }
+/* --- HERO ROW (2 COLUMNAS: USUARIO Y ESTADÍSTICAS) --- */
+.profile-hero-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px; /* Espacio entre el bloque del usuario y las estadísticas */
+  margin-top: 20px;
+
+  /* Columna Izquierda */
+  .user-info-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .avatar-wrapper {
+      position: relative;
+      .main-avatar { 
+        width: 120px; 
+        height: 120px; 
+        border-radius: 50%; 
+        background-color: #e0e0e0; 
+        object-fit: cover; 
+      }
+      .edit-badge { 
+        position: absolute; 
+        bottom: 0; 
+        right: 0; 
+        background: #F66F17; 
+        border-radius: 50%; 
+        width: 32px;
+        height: 32px;
+        display: flex; 
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.4); 
+        border: 3px solid #121212; 
+        ion-icon { font-size: 16px; color: white; }
+      }
+    }
+
+    .user-meta-new {
+      text-align: center;
+      margin-top: 15px;
+
+      h1 { 
+        font-size: 24px; 
+        font-weight: 800; 
+        margin: 0 0 5px; 
+        letter-spacing: -0.5px;
+        color: white;
+      }
+      
+      .role-tag { 
+        color: #fff; 
+        font-size: 14px; 
+        font-weight: 600;
+        display: flex; 
+        align-items: center; 
+        justify-content: center; 
+        gap: 6px; 
+        margin: 0;
+        ion-icon { font-size: 16px; }
+      }
+    }
+  }
+
+  /* Columna Derecha */
+  .stats-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 90px;
+
+    .stat-item {
+      text-align: left;
+      margin: 10px 0;
+      h3 { font-size: 24px; font-weight: 800; margin: 0; color: #fff; }
+      p { font-size: 14px; color: #d1d1d1; margin: 4px 0 0; }
+    }
+
+    .h-line {
+      width: 100%;
+      height: 1px;
+      background-color: #444;
+      margin: 5px 0;
+    }
+  }
 }
 
-/* --- JAWY WALLET (RESPONSIVE) --- */
+/* --- LÍNEA DIVISORIA --- */
+.custom-divider {
+  width: 100%;
+  height: 1px;
+  background-color: #333;
+  margin: 30px 0;
+}
+
+/* --- TÍTULOS DE SECCIÓN --- */
+.section-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: #fff;
+  margin: 0 0 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  ion-icon { color: #fff; font-size: 18px; }
+  &.center-text { justify-content: center; }
+}
+
+/* --- CHIPS DE GÉNEROS --- */
+.chips-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+
+  .genre-chip {
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 500;
+
+    &.outline {
+      border: 1px solid #F66F17;
+      color: #e0e0e0;
+      background: transparent;
+    }
+
+    &.solid-orange {
+      background: #F66F17;
+      color: white;
+      border: 1px solid #F66F17;
+      font-weight: 700;
+    }
+  }
+}
+
+/* --- DESCRIPCIÓN --- */
+.desc-section {
+  .bio-text {
+    color: #e0e0e0;
+    font-size: 15px;
+    line-height: 1.6;
+    margin: 0;
+    font-style: normal;
+  }
+}
+
+/* --- LUGARES VISITADOS --- */
+.visited-section {
+  .empty-state {
+    text-align: center;
+    color: #888;
+    font-size: 14px;
+    padding: 20px 0;
+  }
+
+  .places-grid {
+    display: flex;
+    overflow-x: auto;
+    gap: 15px;
+    padding-bottom: 10px;
+    &::-webkit-scrollbar { display: none; }
+
+    .mini-place-card {
+      min-width: 120px;
+      margin: 0;
+      background: #1e1e1e;
+      border-radius: 12px;
+      img { width: 100%; height: 80px; object-fit: cover; }
+      p { margin: 8px; font-size: 12px; font-weight: 600; text-align: center; color: white; }
+    }
+  }
+}
+
+
+/* ======================================================= */
+/* LOS ESTILOS ANTIGUOS QUE SE MANTIENEN (TICKETS Y WALLET)*/
+/* ======================================================= */
+
+.wallet-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  .section-title { margin: 0; }
+}
+
 .jawy-card {
   width: 100%; aspect-ratio: 1.586 / 1; border-radius: 20px; position: relative; overflow: hidden;
   box-shadow: 0 12px 30px rgba(0,0,0,0.4); margin-bottom: 20px;
   background: linear-gradient(135deg, #2c2c2c 0%, #1a1a1a 100%);
-
   &.visa { background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); }
   &.mastercard { background: linear-gradient(135deg, #232526 0%, #414345 100%); }
-
   .card-body {
     padding: 22px; position: relative; z-index: 2; height: 100%;
     display: flex; flex-direction: column; justify-content: space-between;
-    
     .card-top-row { display: flex; justify-content: space-between; .chip-gold { width: 38px; height: 28px; background: linear-gradient(135deg, #d4af37, #f9f295); border-radius: 5px; } .btn-trash { --color: rgba(255,255,255,0.4); margin: -10px -10px 0 0; } }
-    
-    /* NÚMEROS PEQUEÑOS Y ELEGANTES */
-    .card-number-display { 
-      font-size: 1.2rem; letter-spacing: 2px; font-family: 'OCR A Std', monospace; 
-      white-space: nowrap; text-shadow: 0 2px 4px rgba(0,0,0,0.5); 
-    }
-    
+    .card-number-display { font-size: 1.2rem; letter-spacing: 2px; font-family: 'OCR A Std', monospace; white-space: nowrap; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
     .card-bottom-row { display: flex; justify-content: space-between; align-items: flex-end; .card-holder-info { span { font-size: 0.6rem; opacity: 0.6; display: block; } p { margin: 0; font-weight: 700; font-size: 0.85rem; } } .card-brand-type { font-size: 1.2rem; font-weight: 900; font-style: italic; } }
   }
   .card-glass-effect { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(45deg, rgba(255,255,255,0.06), transparent); backdrop-filter: blur(1.5px); }
 }
 
 .add-card-box {
-  border: 2px dashed #444; border-radius: 20px; height: 150px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #888;
+  border: 2px dashed #444; border-radius: 20px; height: 120px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #888;
   .plus-icon { background: #F66F17; color: white; border-radius: 50%; padding: 8px; font-size: 22px; margin-bottom: 10px; display: flex; }
 }
 
-/* --- TICKETS DE GESTIÓN (FORZADO DARK) --- */
 .jawy-ticket {
   background: #1e1e1e; border-radius: 14px; margin-bottom: 15px; border: 1px solid #222;
-  
   &.is-confirmed {
     border: 1px solid #2dd36f !important;
     --background: #1a1a1a; 
@@ -70,8 +257,19 @@
   }
 }
 
+.loader-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+  color: #888;
+  ion-spinner { margin-bottom: 15px; transform: scale(1.5); }
+}
+
 /* --- MEDIA QUERY MÓVIL PEQUEÑO --- */
 @media (max-width: 380px) {
-  .main-safe-container { padding: 0 12px; }
-  .jawy-card .card-body { padding: 16px; .card-number-display { font-size: 1.05rem; letter-spacing: 1.5px; } }
+  .main-safe-container { padding: 0 15px; }
+  .profile-hero-row { gap: 15px; }
+  .profile-hero-row .user-info-col .avatar-wrapper .main-avatar { width: 90px; height: 90px; }
 }
