@@ -20,6 +20,8 @@ export class ProfilePage {
   metodoSeleccionado: string = 'tarjeta'; 
   numTarjeta: string = '';
   quiereGuardar: boolean = true;
+
+  // --- VARIABLES PARA EL MODAL DE RECHAZO ---
   isRechazoModalOpen: boolean = false;
   solicitudARechazar: any = null;
   motivoRechazo: string = '';
