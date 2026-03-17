@@ -25,10 +25,16 @@
     </div>
 
     <div class="input-group ion-margin-top px-15">
-      <ion-textarea class="custom-textarea" rows="2" placeholder="Mensaje al dueño (Ej: Requerimientos...)" [(ngModel)]="mensaje"></ion-textarea>
+      <ion-label class="input-label">Título del Evento</ion-label>
+      <ion-input class="custom-input" placeholder="Ej: Tributo a Soda Stereo" [(ngModel)]="tituloEvento"></ion-input>
     </div>
 
-    <ion-button expand="block" mode="ios" class="main-btn-orange" (click)="enviarSolicitud()" [disabled]="!fecha">
+    <div class="input-group ion-margin-top px-15">
+      <ion-label class="input-label">Descripción breve</ion-label>
+      <ion-textarea class="custom-textarea" rows="2" placeholder="Ej: Será una tocada acústica con 2 invitados especiales..." [(ngModel)]="descripcionEvento"></ion-textarea>
+    </div>
+
+    <ion-button expand="block" mode="ios" class="main-btn-orange" (click)="enviarSolicitud()" [disabled]="!fecha || !tituloEvento || !descripcionEvento">
       Solicitar Reserva
     </ion-button>
   </div>
@@ -40,10 +46,10 @@
         <ion-icon name="checkmark-sharp"></ion-icon>
       </div>
       
-      <h1 class="success-title">¡Se completo la solicitud<br>exitosamente!</h1>
+      <h1 class="success-title">¡Se completó la solicitud<br>exitosamente!</h1>
       
       <p class="success-message">
-        Espera pacientemente a que el dueño del lugar nos de la aprobación.
+        Espera pacientemente a que el dueño del lugar nos dé la aprobación.
       </p>
       
       <ion-button expand="block" mode="ios" class="btn-dark-return" (click)="dismissModal()">

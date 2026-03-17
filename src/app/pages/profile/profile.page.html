@@ -14,13 +14,11 @@
       <div *ngSwitchCase="'info'" class="pane-fade animate__animated animate__fadeIn">
         
         <div class="profile-hero-row">
-          
           <div class="user-info-col">
             <div class="avatar-wrapper">
               <img [src]="usuario.fotoPerfil || 'assets/default-avatar.png'" class="main-avatar">
               <div class="edit-badge"><ion-icon name="pencil"></ion-icon></div>
             </div>
-
             <div class="user-meta-new">
               <h1>{{ usuario.nombreArtistico || usuario.nombre }}</h1>
               <p class="role-tag">
@@ -42,7 +40,6 @@
             </div>
             <div class="h-line"></div>
           </div>
-
         </div>
 
         <div class="custom-divider"></div>
@@ -134,12 +131,17 @@
 
         <div *ngIf="!cargando; else skeletons">
           <div class="tickets-list">
+            
             <ion-card *ngFor="let s of solicitudes" 
                       class="jawy-ticket" 
-                      [class.is-confirmed]="s.estado === 'confirmado'">
+                      [class.is-confirmed]="s.estado === 'confirmado'"
+                      [class.is-rejected]="s.estado === 'rechazado'">
 
               <div class="status-banner" *ngIf="s.estado === 'confirmado'">
                 <ion-icon name="sparkles"></ion-icon> EVENTO CONFIRMADO
+              </div>
+              <div class="status-banner rejected-banner" *ngIf="s.estado === 'rechazado'">
+                <ion-icon name="close-circle"></ion-icon> SOLICITUD RECHAZADA
               </div>
 
               <ion-item lines="none" class="ticket-inner">
@@ -157,8 +159,20 @@
                 </ion-badge>
               </ion-item>
 
+              <div class="event-details-box" *ngIf="s.tituloEvento">
+                <h4><ion-icon name="musical-notes"></ion-icon> {{ s.tituloEvento }}</h4>
+                <p>"{{ s.descripcionEvento }}"</p>
+                <p class="tech-msg" *ngIf="s.mensaje"><ion-icon name="chatbox-ellipses-outline"></ion-icon> {{ s.mensaje }}</p>
+              </div>
+
+              <div class="rejection-box" *ngIf="s.estado === 'rechazado' && s.motivoRechazo">
+                <p class="rej-title">Motivo del rechazo:</p>
+                <p class="rej-reason">{{ s.motivoRechazo }}</p>
+                <p class="rej-comment" *ngIf="s.comentarioRechazo">"{{ s.comentarioRechazo }}"</p>
+              </div>
+
               <div class="actions-row" *ngIf="(usuario.rol === 'dueno' || usuario.rol === 'dueño') && s.estado === 'pendiente'">
-                <ion-button fill="clear" color="danger" (click)="gestionarSolicitud(s.id, 'rechazado')">Rechazar</ion-button>
+                <ion-button fill="clear" color="danger" (click)="abrirModalRechazo(s)">Rechazar</ion-button>
                 <ion-button fill="solid" color="success" (click)="gestionarSolicitud(s.id, 'confirmado')" class="btn-confirm">Aceptar Reserva</ion-button>
               </div>
 
@@ -168,6 +182,7 @@
                 </ion-button>
               </div>
             </ion-card>
+            
           </div>
         </div>
       </div>
@@ -190,6 +205,42 @@
       <p>Cargando Perfil...</p>
     </div>
   </ng-template>
+
+  <ion-modal [isOpen]="isRechazoModalOpen" (didDismiss)="cerrarModalRechazo()" initialBreakpoint="0.75" [breakpoints]="[0, 0.75, 1]">
+    <ng-template>
+      <ion-content class="ion-padding dark-modal">
+        <div class="sheet-handle"></div>
+        
+        <div class="custom-header">
+          <h2 class="title-danger">Rechazar Solicitud</h2>
+          <p class="subtitle">Indícale al músico por qué no puedes aceptar su evento.</p>
+        </div>
+
+        <ion-list class="bg-transparent rejection-list">
+          <ion-radio-group [(ngModel)]="motivoRechazo">
+            <ion-item *ngFor="let motivo of motivosPredeterminados" lines="none" class="rejection-item" (click)="motivoRechazo = motivo">
+              <ion-radio slot="start" [value]="motivo" color="danger"></ion-radio>
+              <ion-label>{{ motivo }}</ion-label>
+            </ion-item>
+          </ion-radio-group>
+        </ion-list>
+
+        <div class="input-group ion-margin-top px-15">
+          <ion-label class="input-label">Detalles adicionales (Opcional)</ion-label>
+          <ion-textarea class="custom-textarea" rows="3" placeholder="Ej: Me gustaría que postules para el próximo mes..." [(ngModel)]="comentarioRechazo"></ion-textarea>
+        </div>
+
+        <ion-row class="ion-margin-top px-15 pb-20" style="margin-top: 20px;">
+          <ion-col size="5">
+            <ion-button expand="block" fill="clear" color="medium" (click)="cerrarModalRechazo()">Cancelar</ion-button>
+          </ion-col>
+          <ion-col size="7">
+            <ion-button expand="block" color="danger" class="btn-danger-custom" [disabled]="!motivoRechazo" (click)="confirmarRechazo()">Confirmar Rechazo</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
 
 </ion-content>
 

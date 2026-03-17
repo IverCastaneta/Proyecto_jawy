@@ -16,10 +16,21 @@ export class ProfilePage {
   reservas: any[] = [];
   solicitudes: any[] = [];
   cargando: boolean = true;
-  paso: number = 1; // Solo si decides usar pasos en el perfil
+  paso: number = 1; 
   metodoSeleccionado: string = 'tarjeta'; 
   numTarjeta: string = '';
   quiereGuardar: boolean = true;
+  isRechazoModalOpen: boolean = false;
+  solicitudARechazar: any = null;
+  motivoRechazo: string = '';
+  comentarioRechazo: string = '';
+  motivosPredeterminados: string[] = [
+    'Fecha ya ocupada o no disponible',
+    'El estilo musical no encaja con el lugar',
+    'El lugar estará en mantenimiento',
+    'Falta de requerimientos técnicos',
+    'Otro motivo'
+  ];
 
   constructor(
     public auth: AuthService,
@@ -99,6 +110,38 @@ export class ProfilePage {
       this.presentToast('Error al procesar la solicitud', 'warning');
     }
   }
+
+  // --- MÉTODOS DEL MODAL DE RECHAZO ---
+  abrirModalRechazo(solicitud: any) {
+    this.solicitudARechazar = solicitud;
+    this.motivoRechazo = '';
+    this.comentarioRechazo = '';
+    this.isRechazoModalOpen = true;
+  }
+
+  cerrarModalRechazo() {
+    this.isRechazoModalOpen = false;
+    setTimeout(() => { this.solicitudARechazar = null; }, 300);
+  }
+
+  async confirmarRechazo() {
+    if (!this.solicitudARechazar || !this.motivoRechazo) return;
+
+    try {
+      // Actualizamos el estado, el motivo y el comentario en Firestore
+      await this.db.updateFireStoreDocument('performances', this.solicitudARechazar.id, { 
+        estado: 'rechazado',
+        motivoRechazo: this.motivoRechazo,
+        comentarioRechazo: this.comentarioRechazo
+      });
+      
+      this.presentToast('Has rechazado esta solicitud', 'danger');
+      this.cerrarModalRechazo();
+    } catch (error) {
+      this.presentToast('Hubo un error al rechazar', 'warning');
+    }
+  }
+  // ------------------------------------
 
   async presentToast(mensaje: string, color: string) {
     const toast = await this.toastCtrl.create({

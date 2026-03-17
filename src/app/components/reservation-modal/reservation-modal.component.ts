@@ -17,7 +17,10 @@ export class ReservationModalComponent implements OnInit {
   
   paso: number = 1; 
   fecha: string = '';
-  mensaje: string = '';
+  
+  // NUEVAS VARIABLES PARA EL EVENTO
+  tituloEvento: string = '';
+  descripcionEvento: string = '';
 
   constructor(
     private modalCtrl: ModalController,
@@ -36,14 +39,15 @@ export class ReservationModalComponent implements OnInit {
 
   // --- LÓGICA DE SOLICITUD ---
   async enviarSolicitud() {
-    if (!this.fecha) {
-      this.presentToast('Por favor selecciona una fecha', 'warning');
+    // Pequeña validación extra por seguridad
+    if (!this.fecha || !this.tituloEvento || !this.descripcionEvento) {
+      this.presentToast('Por favor completa todos los campos', 'warning');
       return;
     }
 
     this.cargando = true;
 
-    // Estructuramos la reserva para que nazca como "pendiente"
+    // Estructuramos la reserva con los nuevos campos
     const nuevaSolicitud = {
       idMusico: this.usuario?.id || 'invitado',
       nombreMusico: this.usuario?.nombreArtistico || this.usuario?.nombre || 'Músico',
@@ -52,9 +56,13 @@ export class ReservationModalComponent implements OnInit {
       nombreLugar: this.lugar?.nombre,
       idDueno: this.lugar?.duenoId,
       fechaPerformance: this.fecha,
-      mensaje: this.mensaje,
+      
+      // NUEVOS DATOS ENVIADOS A FIREBASE
+      tituloEvento: this.tituloEvento,
+      descripcionEvento: this.descripcionEvento,
+      
       montoAcordado: this.lugar?.precio || 0,
-      estado: 'pendiente', // <--- ESTADO CLAVE
+      estado: 'pendiente', 
       fechaSolicitud: new Date()
     };
 
@@ -74,7 +82,6 @@ export class ReservationModalComponent implements OnInit {
     }
   }
 
-  // Utilidad para los mensajes emergentes
   async presentToast(msg: string, color: string) {
     const toast = await this.toastCtrl.create({
       message: msg,
@@ -85,4 +92,4 @@ export class ReservationModalComponent implements OnInit {
     });
     await toast.present();
   }
-} // <--- ¡Esta es la llave que faltaba para cerrar todo!
+}
