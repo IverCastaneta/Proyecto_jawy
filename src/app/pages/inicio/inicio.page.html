@@ -1,33 +1,39 @@
 <ion-content [fullscreen]="true">
-  <div class="welcome-container">
+  <div class="todo">
 
-    <div class="lottie-container">
+    <div class="logo">
       <img src="assets/animations/Logo.gif" alt="Logo animado Jawy">
     </div>
 
-  <div class="content">
-      <div class="text-section">
-      <h2>¡Bienvenido a <span class="highlight">Jawy</span>!</h2>
-      <p>
-        Reserva espacios para tus tocadas, promueve tu arte, ve los eventos locales 
-        y mucho más sobre la escena <strong>musical en La Paz</strong>
-      </p>
-    </div>
+    <div class="contenido">
+      
+      <div class="texto">
 
-    <div class="action-section">
-      <ion-button expand="block" mode="ios" class="main-button" routerLink="/login">
-        Inicia sesión
-      </ion-button>
+        <h3><strong>¡Bienvenido a <span class="destacado">Jawy</span>!</strong></h3>
+        <h6>
+          Reserva espacios para tus tocadas, promueve tu arte, ve los eventos locales 
+          y mucho más sobre la escena <strong>musical en La Paz</strong>.
+        </h6>
 
-      <ion-button expand="block" mode="ios" fill="outline" class="google-button" (click)="loginGoogle()">
-        Inicia sesión con Google
-      </ion-button>
+      </div>
 
-      <div class="register-link">
+      <div class="botones">
+
+        <ion-button expand="block" mode="ios" class="btn-jawy-primary" routerLink="/login">
+          Inicia sesión
+        </ion-button>
+
+        <ion-button expand="block" mode="ios" fill="outline" class="boton-google" (click)="loginGoogle()">
+          Inicia sesión con Google
+        </ion-button>
+
+      </div>
+
+      <div class="registro">
         <a routerLink="/register">¿No tienes cuenta? Registrate</a>
       </div>
+
     </div>
-  </div>
 
   </div>
 </ion-content>

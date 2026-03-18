@@ -1,17 +1,29 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { InicioPage } from './inicio.page';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
-describe('InicioPage', () => {
-  let component: InicioPage;
-  let fixture: ComponentFixture<InicioPage>;
+@Component({
+  selector: 'app-inicio',
+  templateUrl: './inicio.page.html',
+  styleUrls: ['./inicio.page.scss'],
+})
+export class InicioPage implements OnInit {
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(InicioPage);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+  constructor(
+    private authService: AuthService, 
+    private router: Router            
+  ) { }
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+  ngOnInit() {
+  }
+
+  // Renombrado al español
+  async iniciarSesionGoogle() {
+    try {
+      await this.authService.loginWithGoogle();
+    } catch (error) {
+      console.error('Error durante el proceso de login:', error);
+    }
+  }
+
+}

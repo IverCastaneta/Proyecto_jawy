@@ -1,79 +1,83 @@
-.welcome-container {
+.todo {
+  padding-top: 80px;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: center; 
   align-items: center;
   height: 100%;
-  padding: 40px 48px;
-  background-color: var(--ion-color-tertiary); // Tu negro profundo #151519
+  gap: 68px; 
   text-align: center;
 }
 
-.lottie-container{
-  width: 420px;
-  height:68px;
-  margin: 0;
-}
-
-.text-section {
-  h2 {
-    font-family: 'poligraphergrotesk-semibold';
-    font-size: 20.7px;
-    color: var(--ion-color-light);
-    .highlight { color: var(--ion-color-primary); }
-  }
-
-  p {
-    font-family: 'poppins-regular'; // Tu fuente Geist-Regular
-    font-size: 12px;
-    line-height: 1.5;
-    padding: 0 15px;
-    opacity: 0.9;
-  }
-}
-.content{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 67px;
-    align-self: stretch;
-}
-.action-section {
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center; 
   width: 100%;
+  
+  img {
+    width: 460px; 
+    height: auto; 
+    object-fit: contain; 
+    max-width: 100%; 
+    margin: 0;
+  }
+}
 
-  .main-button {
-    --background: var(--ion-color-primary);
-    --border-radius: 12px;
-    --box-shadow: none;
-    height: 40px;
-    font-weight: bold;
-    margin-bottom: 12px;
-    color: white;
+.contenido {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 0 48px;
+  gap: 68px;
+}
+
+.texto {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  h3 {
+    margin: 0;
+    
+    .destacado { 
+      color: var(--jawy-primary); 
+    }
   }
 
-  .google-button {
-    --color: var(--ion-color-primary);
-    --border-color: var(--ion-color-primary);
-    --border-radius: 12px;
-    --border-width: 1.5px;
-    height: 40px;
-  }
-
-  .register-link {
-    margin-top: 67px;
-    a {
-      color: var(--ion-color-primary);
-      text-decoration: underline;
-      font-size: 13px;
+  h6 {
+    line-height: 1.5;
+    margin: 0;
+    color: var(--jawy-text-light);
+    opacity: 0.9;
+    
+    strong {
+      color: var(--jawy-text-light);
+      font-weight: 800;
     }
   }
 }
 
-.footer {
-  p {
-    font-size: 11px;
-    opacity: 0.5;
-    color: var(--ion-color-light);
+.botones {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 12px;
+
+  .boton-google {
+    --color: var(--jawy-primary);
+    --border-color: var(--jawy-primary);
+    --border-width: 1.5px;
+    margin: 0;
+  }
+}
+
+.registro {
+  a {
+    color: var(--jawy-primary);
+    text-decoration: underline;
+    font-size: 14px;
+    font-weight: 600;
   }
 }

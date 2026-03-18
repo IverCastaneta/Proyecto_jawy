@@ -9,40 +9,87 @@
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
 @import "@ionic/angular/css/palettes/dark.system.css";
+
 @import "./theme/iwer.scss";
 @import "./theme/seba.scss";
 @import "./theme/variables.scss";
 
-@font-face {
-    font-family: "poligraphergrotesk-semibold";
-    src: url("./assets/fonts/Geist-Bold.ttf");
-}
-
-@font-face {
-    font-family: "poppins-regular";
-    src: url("./assets/fonts/Geist-Regular.ttf");
-}
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap');
 
 :root {
-    --ion-font-family: "poppins-regular";
+  --ion-font-family: 'Geist', sans-serif;
+
+  --jawy-bg: #151519;
+  --jawy-surface: #252525;
+  --jawy-primary: #F66F17;
+  --jawy-text-light: #ffffff;
+  --jawy-text-muted: #b3b3b3;
+
+  --jawy-padding-side: 20px;
+  --jawy-radius-btn: 12px;
+  --jawy-radius-card: 16px;
+
+  --ion-background-color: var(--jawy-bg);
+  --ion-text-color: var(--jawy-text-light);
+  --ion-color-primary: var(--jawy-primary);
 }
 
 ion-content {
-    --background: var( --ion-color-tertiary); 
+  --background: var(--jawy-bg);
+  --padding-bottom: 85px;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5 {
-    font-family: 'poligraphergrotesk-semibold';
-    color: var(--ion-color-light); 
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Geist', sans-serif;
+  font-weight: 400;
+  color: var(--jawy-text-light);
+  margin-top: 0;
+  line-height: normal;
 }
+
+h1 { font-size: 29.9px; }
+h2 { font-size: 24.9px; }
+h3 { font-size: 20.7px; }
+h4 { font-size: 17.3px; }
+h5 { font-size: 14.4px; }
+h6 { font-size: 12px; }
 
 p {
-    color: var(--ion-color-light); 
-    font-family: 'poppins-regular';
+  font-family: 'Geist', sans-serif;
+  font-weight: 400;
+  color: var(--jawy-text-muted);
+  line-height: normal;
+  font-size: 10px;
+}
+
+.text-paragraph-m { font-size: 8.3px; }
+.text-paragraph-s { font-size: 6.9px; }
+
+.jawy-container {
+  padding: 0 var(--jawy-padding-side);
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+ion-button {
+  --border-radius: var(--jawy-radius-btn);
+  font-size: 14.4px;
+  font-weight: 500;
+  min-height: 48px;
+  letter-spacing: 0.3px;
+  margin: 0;
+}
+
+.btn-jawy-primary {
+  --background: var(--jawy-primary);
+  --color: white;
+}
+
+.jawy-surface-card {
+  background: var(--jawy-surface);
+  border-radius: var(--jawy-radius-card);
+  padding: var(--jawy-padding-side);
+  border: 1px solid rgba(255, 255, 255, 0.05); 
 }
 
 .jawy-card {
@@ -92,8 +139,4 @@ p {
     .holder { font-size: 0.8rem; text-transform: uppercase; opacity: 0.8; }
     .brand { font-size: 1.5rem; font-weight: 900; font-style: italic; }
   }
-}
-
-ion-content {
-  --padding-bottom: 85px; 
 }
