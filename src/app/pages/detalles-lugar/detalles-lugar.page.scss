@@ -36,7 +36,7 @@ ion-toolbar {
 }
 
 // 3. Ajuste de contenido para que no haya "fugas" de color
-.header-content {
+.header {
     background-color: transparent !important;
     margin-top: 40px; // Bajé un poco el margen para que no se salga del área
     display: flex;

@@ -1,194 +1,103 @@
-ion-toolbar {
-    // Usamos DARK como fondo principal del header
-    --background: var(--ion-color-dark);
-    --border-width: 0; 
-    --color: var(--ion-color-light); // Íconos y texto en color Light (Blanco)
-}
-
-.header-content {
-    background-color: transparent !important;
-    margin-top: 40px; // Bajé un poco el margen para que no se salga del área
-    display: flex;
-    align-items: center;
-    padding-left: 12px;
+.header {
+  background-color: transparent !important;
+  margin-top: 40px; 
+  display: flex;
+  align-items: center;
+  padding-left: 12px;
 }
 
 ion-back-button {
-    --color: var(--ion-color-light); 
-    margin-right: 10px;
+  --color: var(--jawy-text-light); 
+  margin-right: 10px;
 }
+
 .jawy-logo-small {
-    width: 70px; 
-    height: auto;
-}
-.form-container{
-    padding-top: 50px;
-}
-.naranja {
-  color: #F66F17; /* El naranja que estamos usando para tus inputs */
+  width: 70px; 
+  height: auto;
 }
 
-// ===============================================
-// 2. CONTENIDO PRINCIPAL Y FORMULARIO
-// ===============================================
-
-.login-content-final {
-    // Usamos DARK como fondo principal de la página
-    --background: var(--ion-color-dark) !important; 
-    padding: 0 20px;
+.body {
+  display: flex;
+  flex-direction: column;
+  padding: 80px var(--jawy-padding-side) 20px; 
+  gap: 32px; 
 }
 
-.form-container {
-    padding-top: 5vh;
-    margin-top: 68px; 
-}
+.textos {
+  display: flex;
+  flex-direction: column;
+  gap: 4px; 
 
-h1 {
-    color: var(--ion-color-light); // Blanco
-    font-weight: bold;
+  h1 {
+    margin: 0;
     font-size: 30px; 
+    .destacado { color: var(--jawy-primary); }
+  }
+
+  p {
     margin: 0;
-    padding-left: 5px; 
-}
-
-.subtitle {
-    color: var(--ion-color-medium); // Gris tenue
     font-size: 16px;
-    margin: 5px 0 40px 5px; 
-}
-
-// ===============================================
-// 3. INPUTS (Estilo SOLID - Relleno oscuro)
-// ===============================================
-
-ion-input.custom-input-solid {
-    margin-bottom: 16px;
-    min-height: 55px; // Usamos min-height para que el padding respire
-    
-    // --- ESTRUCTURA Y LÍMITES ---
-    --padding-start: 12px;
-    --padding-end: 12px;
-    --background: #252525;
-    --color: #868686; 
-    --border-radius: 8px;
-    --border-width: 1px;
-    --border-style: solid;
-    --border-color: #F66F17;
-    
-    // --- ESTILOS DE TEXTO ---
-    --placeholder-color: rgba(255, 255, 255, 0.5);
-    font-size: 16px;
-    
-    // --- ESTADOS INTERACTIVOS (HOVER/ACTIVATED/FOCUS) ---
-    
-    // CLAVE: Mantiene el fondo oscuro constante en todos los estados
-    --background-focused: var(--ion-color-tertiary) !important; 
-    --background-hover: var(--ion-color-tertiary) !important;
-    --background-activated: var(--ion-color-tertiary) !important;
-    --color-focused: var(--ion-color-light) !important;
-    
-    --box-shadow: none; 
-    
-    &.ion-focused {
-        // Contorno Naranja en foco
-        box-shadow: 0 0 0 2px var(--ion-color-primary) !important;
-        --border-width: 0 !important;
-        
-        ion-label {
-            color: var(--ion-color-secondary) !important; 
-        }
-    }
-    
-    // Solución agresiva para el input nativo
-    ::part(native) {
-        background: var(--ion-color-tertiary) !important;
-        color: var(--ion-color-light) !important;
-    }
-}
-
-// ===============================================
-// 4. BOTONES Y FOOTER
-// ===============================================
-
-.main-button {
-    margin-top: 30px; 
-    height: 50px;
-    font-weight: bold;
-    // El color lo toma de color="mostaza2" en el HTML, que se mapea a primary
-}
-
-.register-link-container {
-    margin-top: 40px;
-}
-
-.register-link-container p {
-    color: var(--ion-color-light);
-    font-size: 12px;
-}
-
-.register-link {
-    // El enlace "Regístrate" en naranja (primary)
-    color: var(--ion-color-primary); 
-    font-weight: bold;
-    text-decoration: none; 
-}
-
-// ===============================================
-// 2. CONTENIDO PRINCIPAL Y FORMULARIO
-// ===============================================
-
-.login-content-final {
-    // FONDO OSCURO: Súper importante que use el !important y la variable correcta.
-    --background: var(--ion-color-dark) !important; 
-    
-    // Aseguramos el padding lateral para que no quede al borde
-    --padding-start: 20px;
-    --padding-end: 20px;
-    --padding-top: 0;
-    --padding-bottom: 0;
-}
-
-// Anulamos los márgenes negativos de ion-grid para que respete el padding del content
-ion-grid {
-    padding: 0;
-    margin: 0;
+    color: var(--jawy-text-muted);
+  }
 }
 
 .form-container {
-    padding-top: 5vh; // Espacio superior
-    // Eliminamos el padding lateral aquí ya que lo pusimos en ion-content
-}
-// ...
-
-// ===============================================
-// 3. INPUTS (Estilo SOLID - Foco Naranja y Fondo Oscuro Constante)
-// ===============================================
-
-ion-input.custom-input-solid {
-    // ... (otras variables)
-    
-    // --- ESTADOS INTERACTIVOS (HOVER / ACTIVATED) ---
-    
-    // CLAVE: Evita que el fondo se ponga blanco al pasar el ratón o tocar
-    --background-hover: var(--ion-color-tertiary) !important;
-    --background-activated: var(--ion-color-tertiary) !important;
-    
-    // CLAVE: Esto apunta al fondo del ítem implícito que envuelve el input
-    --ion-item-background-activated: var(--ion-color-tertiary) !important;
-    --ion-item-background-hover: var(--ion-color-tertiary) !important;
-
-    // ... (el resto de tu código para el estado normal y el foco naranja)
+  display: flex;
+  flex-direction: column;
+  gap: 32px; 
 }
 
-// Además, apunta al input nativo usando pseudo-clases de CSS para el hover/focus:
-ion-input.custom-input-solid:hover ::part(native),
-ion-input.custom-input-solid:focus ::part(native) {
-    background-color: var(--ion-color-tertiary) !important;
+.inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; 
 }
 
-// Apunta al color de texto/label para evitar el color rojo/negro al activarse (como en tu imagen)
-ion-input.custom-input-solid.ion-activated ion-label,
-ion-input.custom-input-solid.ion-focused ion-label,
-ion-input.custom-input-solid.ion-activated ::part(label) {
-     color: var(--ion-color-secondary) !important; // Mantiene el color gris sutil
+ion-input.contenido-input {
+  --background: var(--jawy-surface); 
+  --color: var(--jawy-text-inputs);
+  --padding-start: 16px;
+  --padding-end: 16px;
+  --border-radius: 12px;
+  --placeholder-color: var(--jawy-text-muted);
+  
+  border: 1px solid var(--jawy-primary);
+  border-radius: 12px;
+  min-height: 56px;
+  margin: 0; 
+  font-size: 16px;
+
+  &::part(native) {
+    padding-top: 10px;
+  }
+  
+  --background-focused: var(--jawy-surface) !important; 
+  --background-hover: var(--jawy-surface) !important;
+  --background-activated: var(--jawy-surface) !important;
+  --color-focused: var(--jawy-text-light) !important;
+
+  &.has-focus, &.ion-focused {
+    box-shadow: 0 0 0 2px rgba(246, 111, 23, 0.3) !important; 
+    ion-label {
+      color: var(--jawy-primary) !important; 
+    }
+  }
+}
+
+.footer {
+  text-align: center;
+  margin-top: 10px; 
+
+  p {
+    font-size: 14px;
+    color: var(--jawy-text-light);
+    margin: 0;
+  }
+
+  a {
+    color: var(--jawy-primary);
+    text-decoration: underline;
+    font-weight: 600;
+    margin-left: 5px;
+  }
 }

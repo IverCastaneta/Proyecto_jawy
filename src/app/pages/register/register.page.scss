@@ -1,166 +1,110 @@
-// 1. Forzamos el contenedor principal al color de tus inputs
-ion-header.ion-no-border {
-    background-color: #252525 !important;
-    --background: #252525 !important;
-}
-
-// 2. Forzamos la Toolbar y su fondo interno
-ion-toolbar {
-    --background: #252525 !important;
-    --border-width: 0 !important;
-    background: #252525 !important;
-
-    // Esta es la "llave" maestra para el fondo real en Ionic
-    &::part(background) {
-        background: #252525 !important;
-    }
-}
-
-// Ajuste para el contenedor del logo
-.logo-container {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    padding-right: 48px; // Compensación por el botón back                                                          
-}
-// 2. Forzamos la Toolbar y su fondo interno
-ion-toolbar {
-    --background: #151519 !important;
-    --border-width: 0 !important;
-    background: #151519 !important;
-
-    // Esta es la "llave" maestra para entrar al fondo real
-    &::part(background) {
-        background: #151519 !important;
-    }
-}
-
-// 3. Ajuste de contenido para que no haya "fugas" de color
 .header-content {
-    background-color: transparent !important;
-    margin-top: 40px; // Bajé un poco el margen para que no se salga del área
-    display: flex;
-    align-items: center;
-}
-.naranja {
-  color: #F66F17; /* El naranja que estamos usando para tus inputs */
+  background-color: transparent !important;
+  margin-top: 40px; 
+  display: flex;
+  align-items: center;
+  padding-left: 12px;
 }
 
 ion-back-button {
-    --color: var(--ion-color-light); 
-    margin-right: 8px;
+  --color: var(--jawy-text-light); 
+  margin-right: 10px;
 }
 
 .jawy-logo-small {
-    width: 64px; 
-    height: auto;
+  width: 70px; 
+  height: auto;
 }
 
-// ===============================================
-// 2. CONTENIDO PRINCIPAL Y FORMULARIO (FONDO Y ESPACIADO)
-// ===============================================
-
-.register-content-final {
-    --background: var(--ion-color-tertiary) !important; 
-    
-    // Aseguramos el padding lateral de 20px
-    --padding-start: 20px;
-    --padding-end: 20px;
-    --padding-bottom: 0;
+.body {
+  display: flex;
+  flex-direction: column;
+  padding: 40px var(--jawy-padding-side) 20px; 
+  gap: 32px; 
 }
 
-.form-container {
-    // Usamos el h1 para el padding superior como en la referencia
-    padding-top: 0; 
+.contenedor-principal {
+  display: flex;
+  flex-direction: column;
+  gap: 32px; 
 }
 
-h1 {
-    color: var(--ion-color-light); 
-    font-family: 'poligraphergrotesk-semibold'; // Usamos la fuente de título
-    font-weight: bold;
-    font-size: 30px; 
+.textos {
+  display: flex;
+  flex-direction: column;
+  gap: 4px; 
+
+  h1 {
     margin: 0;
-    // Añadimos el padding superior aquí para separar del header
-    padding-top: 5vh; 
-}
+    font-size: 30px; 
+    .destacado { color: var(--jawy-primary); }
+  }
 
-.subtitle {
-    color: var(--ion-color-medium); 
+  p {
+    margin: 0;
     font-size: 16px;
-    margin: 5px 0 40px 0; 
+    color: var(--jawy-text-muted);
+  }
 }
 
-ion-input.custom-input-solid {
-    margin-bottom: 16px;
-    min-height: 55px; // Usamos min-height para que el padding respire
-    
-    // --- ESTRUCTURA Y LÍMITES ---
-    --padding-start: 12px;
-    --padding-end: 12px;
-    --background: #252525;
-    --color: #868686; 
-    --border-radius: 8px;
-    --border-width: 1px;
-    --border-style: solid;
-    --border-color: #F66F17;
-    
-    // --- ESTILOS DE TEXTO ---
-    --placeholder-color: rgba(255, 255, 255, 0.5);
-    font-size: 16px;
-    
-    // --- ESTADOS INTERACTIVOS (HOVER/ACTIVATED/FOCUS) ---
-    
-    // CLAVE: Mantiene el fondo oscuro constante en todos los estados
-    --background-focused: var(--ion-color-tertiary) !important; 
-    --background-hover: var(--ion-color-tertiary) !important;
-    --background-activated: var(--ion-color-tertiary) !important;
-    --color-focused: var(--ion-color-light) !important;
-    
-    --box-shadow: none; 
-    
-    &.ion-focused {
-        // Contorno Naranja en foco
-        box-shadow: 0 0 0 2px var(--ion-color-primary) !important;
-        --border-width: 0 !important;
-        
-        ion-label {
-            color: var(--ion-color-secondary) !important; 
-        }
+.formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 32px; 
+}
+
+.inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 24px; 
+}
+
+ion-input.contenido-input {
+  --background: var(--jawy-surface); 
+  --color: var(--jawy-text-inputs);
+  --padding-start: 16px;
+  --padding-end: 16px;
+  --border-radius: 12px;
+  --placeholder-color: var(--jawy-text-muted);
+  
+  border: 1px solid var(--jawy-primary);
+  border-radius: 12px;
+  min-height: 56px;
+  margin: 0; 
+  font-size: 16px;
+
+  &::part(native) {
+    padding-top: 10px;
+  }
+  
+  --background-focused: var(--jawy-surface) !important; 
+  --background-hover: var(--jawy-surface) !important;
+  --background-activated: var(--jawy-surface) !important;
+  --color-focused: var(--jawy-text-light) !important;
+
+  &.has-focus, &.ion-focused {
+    box-shadow: 0 0 0 2px rgba(246, 111, 23, 0.3) !important; 
+    ion-label {
+      color: var(--jawy-primary) !important; 
     }
-    
-    // Solución agresiva para el input nativo
-    ::part(native) {
-        background: var(--ion-color-tertiary) !important;
-        color: var(--ion-color-light) !important;
-    }
+  }
 }
 
+.footer {
+  text-align: center;
+  margin-top: 10px; 
+  padding-bottom: 20px;
 
-// ===============================================
-// 4. BOTONES Y ENLACE DE LOGIN
-// ===============================================
+  p {
+    font-size: 14px;
+    color: var(--jawy-text-muted); 
+    margin: 0;
+  }
 
-.main-button {
-    color: white;
-    margin-top: 48px; 
-    height: 50px;
+  a.login-link {
+    color: var(--jawy-primary);
+    text-decoration: none;
     font-weight: bold;
-}
-
-.login-link-container {
-    margin-top: 40px;
-    padding-bottom: 30px; // Espacio inferior
-}
-
-.login-link-container p {
-    color: var(--ion-color-medium); // El texto general es gris tenue
-    font-size: 12px;
-    text-align: center;
-}
-
-.login-link {
-    // La parte del enlace es naranja
-    color: var(--ion-color-primary); 
-    font-weight: bold;
-    text-decoration: none; 
+    margin-left: 5px;
+  }
 }

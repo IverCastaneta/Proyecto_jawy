@@ -1,54 +1,48 @@
-<ion-header class="ion-no-border">
-  <ion-toolbar color="tertiary">
-    <div class="header-content">
+<ion-header>
+    <div class="header">
       <ion-buttons slot="start">
-        <ion-back-button defaultHref="/" text=""></ion-back-button>
+        <ion-back-button defaultHref="/" text="" icon="chevron-back-outline"></ion-back-button>
       </ion-buttons>
       
       <img src="./assets/img/logo.png" alt="Logo Jawy" class="jawy-logo-small">
     </div>
-  </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="login-content-final" color="tertiary">
-  <div class="form-container">
-    
-    <h1 style="padding-top: 5vh;">
-    <span class="naranja">¡</span>Inicia sesión<span class="naranja">!</span>
-    </h1>
-    <p class="subtitle">Ingresa a tu cuenta</p>
+<ion-content [fullscreen]="true">
+  <div class="body">
 
-    <form [formGroup]="form" (ngSubmit)="onSubmitForm()">
+    <div class="textos">
+      <h1><strong><span class="destacado">¡</span>Inicia sesión<span class="destacado">!</span></strong></h1>
+      <p>Ingresa a tu cuenta</p>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmitForm()" class="form-container">
       
-      <ion-input 
-        label="Nombre" 
-        labelPlacement="floating" 
-        formControlName="email"
-        class="custom-input-solid"
-      ></ion-input>
+      <div class="inputs">
+        <ion-input 
+          label="Nombre o Correo" 
+          labelPlacement="floating" 
+          formControlName="email"
+          class="contenido-input">
+        </ion-input>
+        
+        <ion-input
+          label="Contraseña" 
+          labelPlacement="floating" 
+          formControlName="password"
+          type="password"
+          class="contenido-input">
+        </ion-input>
+      </div>
       
-      <ion-input
-        label="Contraseña" 
-        labelPlacement="floating" 
-        formControlName="password"
-        type="password"
-        class="custom-input-solid"
-      ></ion-input>
-      
-      <ion-button 
-        expand="block"
-        color="primary" 
-        type="submit"
-        class="main-button"
-      > 
+      <ion-button expand="block" mode="ios" class="btn-jawy-primary" type="submit"> 
         Ingresar
       </ion-button>
+
     </form>
     
-    <div class="register-link-container">
-      <p class="ion-text-center">¿No tienes cuenta? 
-        <a routerLink="/register/" class="register-link">Regístrate</a>
-      </p>
+    <div class="footer">
+      <p>¿No tienes cuenta? <a routerLink="/register">Regístrate</a></p>
     </div>
 
   </div>
