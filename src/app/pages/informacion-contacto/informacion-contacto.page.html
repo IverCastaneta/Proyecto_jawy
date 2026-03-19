@@ -1,45 +1,55 @@
-<ion-header class="ion-no-border">
-  <ion-toolbar>
-    <div class="header">
-      <ion-buttons slot="start">
-        <ion-back-button defaultHref="/informacion-personal" text=""></ion-back-button>
-      </ion-buttons>
-      
-      <img src="./assets/img/logo.png" alt="Logo Jawy" class="jawy-logo-small">
-    </div>
-  </ion-toolbar>
-</ion-header>
 <ion-content [fullscreen]="true">
-  <div class="container">
-    
-    <div class="header-text">
-      <h1><span class="orange-q">¿</span>Cómo te van a contactar<span class="orange-q">?</span></h1>
-      <p>Llena los espacios para que puedan conocerte mejor</p>
-    </div>
+  
+  <header class="header animate__animated animate__fadeIn">
+    <ion-buttons>
+      <ion-back-button defaultHref="/informacion-personal" text="" icon="chevron-back-outline"></ion-back-button>
+    </ion-buttons>
+    <img src="./assets/img/logo.png" alt="Logo Jawy" class="jawy-logo-small">
+  </header>
 
-    <form [formGroup]="contactoForm" class="form-container">
+  <div class="body animate__animated animate__fadeIn">
+    <main class="contenedor-principal">
       
-      <div class="input-group">
-        <label>Correo electrónico</label>
-        <ion-item lines="none" class="custom-input">
-          <ion-input type="email" placeholder="ejemplo@gmail.com" formControlName="email"></ion-input>
-        </ion-item>
+      <div class="textos">
+        <h1><strong><span class="destacado">¿</span>Cómo te van a contactar<span class="destacado">?</span></strong></h1>
+        <p>Llena los espacios para que puedan conocerte mejor</p>
       </div>
 
-      <div class="input-group">
-        <label>Número de contacto</label>
-        <ion-item lines="none" class="custom-input">
-          <ion-input type="tel" placeholder="+591 00000000" formControlName="telefono"></ion-input>
-        </ion-item>
-      </div>
+      <form [formGroup]="contactoForm" class="formulario">
+        
+        <div class="inputs">
+          
+          <div class="grupo-input">
+            <label>Correo electrónico</label>
+            <ion-input 
+              type="email" 
+              placeholder="ejemplo@gmail.com" 
+              formControlName="email" 
+              class="jawy-text-inputs">
+            </ion-input>
+          </div>
 
-    </form>
+          <div class="grupo-input">
+            <label>Número de contacto</label>
+            <ion-input 
+              type="tel" 
+              placeholder="+591 00000000" 
+              formControlName="telefono" 
+              class="jawy-text-inputs">
+            </ion-input>
+          </div>
 
-    <div class="footer-actions">
-      <ion-button expand="block" mode="ios" (click)="siguiente()" [disabled]="!contactoForm.valid">
-        Siguiente
-      </ion-button>
-    </div>
+        </div>
 
+        <footer class="footer">
+          <ion-button expand="block" mode="ios" class="btn-jawy-primary" (click)="siguiente()" [disabled]="!contactoForm.valid">
+            Siguiente
+          </ion-button>
+        </footer>
+
+      </form>
+
+    </main>
   </div>
+
 </ion-content>

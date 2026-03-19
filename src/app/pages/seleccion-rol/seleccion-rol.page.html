@@ -1,41 +1,44 @@
-<ion-header class="ion-no-border">
-  <ion-toolbar color="tertiary">
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/inicio" text="" icon="chevron-back"></ion-back-button>
-    </ion-buttons>
-       <img src="./assets/img/logo.png" alt="Logo Jawy" class="jawy-logo-small">
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
-  <div class="container">
-    
-    <div class="header-text">
-      <h1><span class="orange-q">¿</span>Quién eres<span class="orange-q">?</span></h1>
-      <p>Elige lo que mejor te describa</p>
-    </div>
+  
+  <header class="header-content animate__animated animate__fadeIn">
+    <ion-buttons>
+      <ion-back-button defaultHref="/inicio" text="" icon="chevron-back-outline"></ion-back-button>
+    </ion-buttons>
+    <img src="./assets/img/logo.png" alt="Logo Jawy" class="jawy-logo-small">
+  </header>
 
-    <ion-grid>
-      <ion-row>
-        <ion-col size="6" *ngFor="let rol of roles">
-          <div class="role-card" 
-               [class.selected]="rolSeleccionado === rol.id" 
-               (click)="seleccionar(rol.id)">
-            <div class="image-placeholder">
+  <div class="body animate__animated animate__fadeIn">
+    <main class="contenedor-principal">
+      
+      <div class="textos">
+        <h1><strong><span class="destacado">¿</span>Quién eres<span class="destacado">?</span></strong></h1>
+        <p>Elige lo que mejor te describa</p>
+      </div>
+
+      <ion-grid class="cuadricula-roles">
+        <ion-row>
+          <ion-col size="6" *ngFor="let rol of roles">
+            <div class="role-card" 
+                 [class.selected]="rolSeleccionado === rol.id" 
+                 (click)="seleccionar(rol.id)">
+              <div class="imagen-rol">
+                <img [src]="rol.imagenUrl" [alt]="'Icono de ' + rol.nombre">
               </div>
-            <div class="role-footer">
-              {{ rol.nombre }}
+              <div class="role-footer">
+                {{ rol.nombre }}
+              </div>
             </div>
-          </div>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
 
-    <div class="footer-actions">
-      <ion-button expand="block" mode="ios" (click)="siguiente()" [disabled]="!rolSeleccionado">
-        Siguiente
-      </ion-button>
-    </div>
+      <footer class="footer">
+        <ion-button expand="block" mode="ios" class="btn-jawy-primary" (click)="siguiente()" [disabled]="!rolSeleccionado">
+          Siguiente
+        </ion-button>
+      </footer>
 
+    </main>
   </div>
+
 </ion-content>

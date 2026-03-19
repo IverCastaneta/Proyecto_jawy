@@ -8,7 +8,7 @@
 @import "@ionic/angular/css/text-alignment.css";
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
-@import "@ionic/angular/css/palettes/dark.system.css";
+@import "@ionic/angular/css/palettes/dark.always.css";
 
 @import "./theme/iwer.scss";
 @import "./theme/seba.scss";
@@ -18,6 +18,7 @@
 
 :root {
   --ion-font-family: 'Geist', sans-serif;
+  color-scheme: dark !important;
 
   --jawy-bg: #151519;
   --jawy-surface: #252525;
@@ -35,6 +36,57 @@
   --ion-color-primary: var(--jawy-primary);
 }
 
+/* --- FIX DEFINITIVO PARA CALENDARIO (MODO RUEDA iOS) --- */
+
+ion-datetime {
+  --background: var(--jawy-surface) !important;
+  --color: var(--jawy-text-light) !important;
+
+  /* Atacamos el degradado del contenedor principal */
+  &::part(fade) {
+    background-image: none !important;
+    display: none !important;
+  }
+}
+
+/* Atacamos los componentes internos que vimos en tu inspector */
+ion-picker-internal, 
+ion-picker-column-internal,
+ion-picker {
+  --fade-background: var(--jawy-surface) !important;
+  background: var(--jawy-surface) !important;
+
+  /* Esta es la clave para iOS: eliminamos la máscara y el degradado */
+  &::part(fade) {
+    background-image: none !important;
+    mask-image: none !important;
+    -webkit-mask-image: none !important;
+    display: none !important;
+  }
+}
+
+/* Estilo de los elementos de la rueda */
+ion-picker-column-internal {
+  &::part(wheel-item) {
+    color: var(--jawy-text-light) !important;
+  }
+  &::part(wheel-item-active) {
+    color: #ffffff !important;
+    font-weight: bold;
+  }
+}
+
+/* Forzar fondo oscuro en el popover */
+ion-popover {
+  --background: var(--jawy-surface) !important;
+  &::part(content) {
+    background: var(--jawy-surface) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5) !important;
+  }
+}
+
+/* --- ESTILOS GENERALES REESCRITOS --- */
+
 ion-content {
   --background: var(--jawy-bg);
   --padding-bottom: 85px;
@@ -42,43 +94,22 @@ ion-content {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Geist', sans-serif;
-  font-weight: 400;
   color: var(--jawy-text-light);
-  margin-top: 0;
-  line-height: normal;
+  margin: 0;
 }
 
 h1 { font-size: 29.9px; }
-h2 { font-size: 24.9px; }
-h3 { font-size: 20.7px; }
-h4 { font-size: 17.3px; }
-h5 { font-size: 14.4px; }
-h6 { font-size: 12px; }
 
 p {
   font-family: 'Geist', sans-serif;
-  font-weight: 400;
   color: var(--jawy-text-muted);
-  line-height: normal;
   font-size: 10px;
-}
-
-.text-paragraph-m { font-size: 8.3px; }
-.text-paragraph-s { font-size: 6.9px; }
-
-.jawy-container {
-  padding: 0 var(--jawy-padding-side);
-  max-width: 500px;
-  margin: 0 auto;
 }
 
 ion-button {
   --border-radius: var(--jawy-radius-btn);
   font-size: 14.4px;
-  font-weight: 500;
   min-height: 48px;
-  letter-spacing: 0.3px;
-  margin: 0;
 }
 
 .btn-jawy-primary {
@@ -86,58 +117,6 @@ ion-button {
   --color: white;
 }
 
-.jawy-surface-card {
-  background: var(--jawy-surface);
-  border-radius: var(--jawy-radius-card);
-  padding: var(--jawy-padding-side);
-  border: 1px solid rgba(255, 255, 255, 0.05); 
-}
-
-.jawy-card {
-  width: 100%;
-  height: 200px;
-  border-radius: 20px;
-  padding: 25px;
-  position: relative;
-  overflow: hidden;
-  color: white;
-  box-shadow: 0 15px 35px rgba(0,0,0,0.5);
-  background: linear-gradient(135deg, #1a1a1a 0%, #2c2c2c 100%);
-  transition: transform 0.3s ease;
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
-  }
-
-  .card-chip {
-    width: 45px;
-    height: 35px;
-    background: linear-gradient(135deg, #d4af37, #f9f295);
-    border-radius: 5px;
-    margin-bottom: 20px;
-  }
-
-  .card-number {
-    font-size: 1.4rem;
-    letter-spacing: 3px;
-    font-family: 'OCR A Std', monospace;
-    margin: 15px 0;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-  }
-
-  .card-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    margin-top: 20px;
-    
-    .holder { font-size: 0.8rem; text-transform: uppercase; opacity: 0.8; }
-    .brand { font-size: 1.5rem; font-weight: 900; font-style: italic; }
-  }
+ion-datetime-button {
+  width: 100% !important;
 }

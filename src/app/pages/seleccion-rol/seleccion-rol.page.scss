@@ -1,91 +1,97 @@
-ion-toolbar {
+.header-content {
+  background-color: transparent !important;
+  margin-top: 40px; 
   display: flex;
+  align-items: center;
+  padding-left: 12px;
 }
 
-ion-header{
-  padding: 40px 0px 0px 8px;
-}
-.logo-container {
-  display: flex;
-  width: 100%;
-  padding-right: 8px; /* Compensación para que quede centrado respecto a la flecha */
+ion-back-button {
+  --color: var(--jawy-text-light); 
+  margin-right: 10px;
 }
 
 .jawy-logo-small {
-  height: 40px;      /* Ajusta este valor según tu gusto */
-  width: auto;       /* Mantiene la proporción */
-  max-height: 45px;  /* Seguridad para que no rompa el header */
-}
-.container {
-  padding: 20px;
-  background-color: var(--ion-color-tertiary);
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
+  width: 70px; 
+  height: auto;
 }
 
-.header-text {
-  margin-bottom: 30px;
+.body {
+  display: flex;
+  flex-direction: column;
+  padding: 40px var(--jawy-padding-side) 20px; 
+  min-height: 100%;
+}
+
+.contenedor-principal {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  flex: 1; 
+}
+
+.textos {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
   h1 {
-    font-size: 36px;
-    margin-bottom: 5px;
-    .orange-q { color: var(--ion-color-primary); }
+    margin: 0;
+    font-size: 30px;
+    .destacado { color: var(--jawy-primary); }
   }
+
   p {
+    margin: 0;
     font-size: 16px;
-    opacity: 0.8;
+    color: var(--jawy-text-muted);
   }
+}
+
+.cuadricula-roles {
+  padding: 0;
 }
 
 .role-card {
-  background: #2a2a2e; // Un gris ligeramente más claro que el fondo
+  background: var(--jawy-surface);
   border-radius: 15px;
   overflow: hidden;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   transition: 0.3s;
   border: 2px solid transparent;
 
   &.selected {
-    border-color: var(--ion-color-primary);
+    border-color: var(--jawy-primary);
     transform: scale(1.03);
   }
 
-  .image-placeholder {
-    height: 100px;
-    background-image: linear-gradient(45deg, #333 25%, transparent 25%), 
-                      linear-gradient(-45deg, #333 25%, transparent 25%), 
-                      linear-gradient(45deg, transparent 75%, #333 75%), 
-                      linear-gradient(-45deg, transparent 75%, #333 75%);
-    background-size: 20px 20px;
-    background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
-    opacity: 0.3;
+
+.imagen-rol {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+    padding: 20px; 
+
+    img {
+      width: 173px; 
+      height: 153px; 
+      
+      object-fit: contain;
+    }
   }
 
   .role-footer {
-    background: var(--ion-color-primary);
-    color: var(--ion-color-light);
+    background: var(--jawy-primary);
+    color: var(--jawy-text-light);
     text-align: center;
     padding: 8px 5px;
     font-weight: 600;
     font-size: 14px;
-    font-family: 'poppins-regular';
   }
 }
 
-.footer-actions {
+.footer {
   margin-top: auto;
-  text-align: center;
-
-  ion-button {
-    --background: var(--ion-color-primary);
-    --border-radius: 12px;
-    height: 55px;
-    font-weight: bold;
-  }
-
-  .studio-tag {
-    font-size: 12px;
-    opacity: 0.5;
-    margin-top: 20px;
-  }
+  padding-bottom: 20px;
 }

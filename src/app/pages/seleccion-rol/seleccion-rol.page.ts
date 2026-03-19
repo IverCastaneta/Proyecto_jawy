@@ -8,27 +8,25 @@ import { Router } from '@angular/router';
 })
 export class SeleccionRolPage implements OnInit {
 
-  rolSeleccionado: string = '';
+  rolSeleccionado: number | null = null;
 
   roles = [
-    { id: 'musico', nombre: 'Musico' },
-    { id: 'banda', nombre: 'Banda' },
-    { id: 'dueno', nombre: 'Dueño de lugar' },
-    { id: 'productor', nombre: 'Productor' },
-    { id: 'otro', nombre: 'Otro' }
+    { id: 1, nombre: 'Músico', imagenUrl: 'assets/img/roles/musico.svg' },
+    { id: 2, nombre: 'Banda', imagenUrl: 'assets/img/roles/banda.svg' },
+    { id: 3, nombre: 'Dueño de lugar', imagenUrl: 'assets/img/roles/dueno_lugar.svg' },
+    { id: 4, nombre: 'Productor', imagenUrl: 'assets/img/roles/productor.svg' },
   ];
 
   constructor(private router: Router) { }
 
   ngOnInit() { }
 
-  seleccionar(id: string) {
+  seleccionar(id: number) {
     this.rolSeleccionado = id;
   }
 
   siguiente() {
-    if (this.rolSeleccionado) {
-      // Guardamos como un objeto JSON inicial
+    if (this.rolSeleccionado !== null) {
       const registroInicial = {
         rol: this.rolSeleccionado
       };

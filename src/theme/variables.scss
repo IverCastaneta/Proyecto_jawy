@@ -1,107 +1,74 @@
-// Archivo de variables de color (variables.scss o theme/variables.css)
-
 :root {
-    /* ----------------------------------- */
-    /* Colores Principales de la Paleta (Basados en tu imagen) */
-    /* ----------------------------------- */
+  /* Colores Principales Jawy */
+  --ion-color-primary: #F66F17;
+  --ion-color-primary-rgb: 246, 111, 23;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 255, 255, 255;
+  --ion-color-primary-shade: #d86214;
+  --ion-color-primary-tint: #f77d2e;
 
-    // Primary: Naranja de Acento (#F66F17) - Para botones e interacción principal
-    --ion-color-primary: #F66F17;
-    --ion-color-primary-rgb: 246, 111, 23;
-    --ion-color-primary-contrast: #000000;
-    --ion-color-primary-contrast-rgb: 0, 0, 0;
-    --ion-color-primary-shade: #d86214;
-    --ion-color-primary-tint: #f77d2e;
+  --ion-color-secondary: #868686;
+  --ion-color-secondary-rgb: 134, 134, 134;
+  --ion-color-secondary-contrast: #000000;
+  --ion-color-secondary-contrast-rgb: 0, 0, 0;
+  --ion-color-secondary-shade: #767676;
+  --ion-color-secondary-tint: #929292;
 
-    // Secondary: Gris Medio (#868686) - Para elementos secundarios, texto neutral.
-    --ion-color-secondary: #868686;
-    --ion-color-secondary-rgb: 134, 134, 134;
-    --ion-color-secondary-contrast: #000000;
-    --ion-color-secondary-contrast-rgb: 0, 0, 0;
-    --ion-color-secondary-shade: #767676;
-    --ion-color-secondary-tint: #929292;
+  --ion-color-tertiary: #151519;
+  --ion-color-tertiary-rgb: 21, 21, 25;
+  --ion-color-tertiary-contrast: #ffffff;
+  --ion-color-tertiary-contrast-rgb: 255, 255, 255;
+  --ion-color-tertiary-shade: #121216;
+  --ion-color-tertiary-tint: #2c2c30;
 
-    // Tertiary: Negro Profundo (#151519) - Para fondos de tarjetas o elementos internos.
-    --ion-color-tertiary: #151519;
-    --ion-color-tertiary-rgb: 21, 21, 25;
-    --ion-color-tertiary-contrast: #ffffff;
-    --ion-color-tertiary-contrast-rgb: 255, 255, 255;
-    --ion-color-tertiary-shade: #121216;
-    --ion-color-tertiary-tint: #2c2c30;
+  --ion-color-dark: #252525;
+  --ion-color-dark-rgb: 37, 37, 37;
+  --ion-color-dark-contrast: #ffffff;
+  --ion-color-dark-contrast-rgb: 255, 255, 255;
+  --ion-color-dark-shade: #212121;
+  --ion-color-dark-tint: #3b3b3b;
 
-    // Dark: Negro Principal de Fondo (#252525)
-    --ion-color-dark: #252525;
-    --ion-color-dark-rgb: 37, 37, 37;
-    --ion-color-dark-contrast: #FAFAFA; // Usamos el color light como contraste
-    --ion-color-dark-contrast-rgb: 250, 250, 250;
-    --ion-color-dark-shade: #212121;
-    --ion-color-dark-tint: #3b3b3b;
+  --ion-color-light: #FAFAFA;
+  --ion-color-light-rgb: 250, 250, 250;
+  --ion-color-light-contrast: #000000;
+  --ion-color-light-contrast-rgb: 0, 0, 0;
 
-    // Medium: Gris para elementos neutros (Mismo que secondary)
-    --ion-color-medium: #868686;
-    --ion-color-medium-rgb: 134, 134, 134;
-    --ion-color-medium-contrast: #000000;
-    --ion-color-medium-contrast-rgb: 0, 0, 0;
-    --ion-color-medium-shade: #767676;
-    --ion-color-medium-tint: #929292;
-
-    // Light: Blanco para Texto y Contraste (#FAFAFA)
-    --ion-color-light: #FAFAFA;
-    --ion-color-light-rgb: 250, 250, 250;
-    --ion-color-light-contrast: #000000;
-    --ion-color-light-contrast-rgb: 0, 0, 0;
-    --ion-color-light-shade: #dcdcdc;
-    --ion-color-light-tint: #fbfbfb;
-
-
-    /* ----------------------------------- */
-    /* Colores de Estado (Predeterminados y Optimizados para Tema Oscuro) */
-    /* ----------------------------------- */
-
-    // Success (verde)
-    --ion-color-success: #2fcf80;
-    --ion-color-success-rgb: 47, 207, 128;
-    --ion-color-success-contrast: #000000;
-    --ion-color-success-contrast-rgb: 0, 0, 0;
-    --ion-color-success-shade: #29b570;
-    --ion-color-success-tint: #44d38c;
-
-    // Warning (amarillo/ámbar)
-    --ion-color-warning: #ffc409;
-    --ion-color-warning-rgb: 255, 196, 9;
-    --ion-color-warning-contrast: #000000;
-    --ion-color-warning-contrast-rgb: 0, 0, 0;
-    --ion-color-warning-shade: #e0ac08;
-    --ion-color-warning-tint: #ffca22;
-
-    // Danger (rojo)
-    --ion-color-danger: #eb445a;
-    --ion-color-danger-rgb: 235, 68, 90;
-    --ion-color-danger-contrast: #ffffff;
-    --ion-color-danger-contrast-rgb: 255, 255, 255;
-    --ion-color-danger-shade: #cf3c4f;
-    --ion-color-danger-tint: #ed576e;
+  /* Colores de Estado */
+  --ion-color-success: #2fcf80;
+  --ion-color-warning: #ffc409;
+  --ion-color-danger: #eb445a;
 }
 
-// -------------------------------------------------------------
-// Clases CSS Personalizadas (Opcional)
-// -------------------------------------------------------------
+/* BLOQUE CRÍTICO: Definición de pasos para modo oscuro.
+   Esto elimina las franjas blancas en los calendarios y selectores.
+*/
+.ios body, .md body, body {
+  --ion-background-color: #151519;
+  --ion-background-color-rgb: 21, 21, 25;
 
-// Clase para usar el color principal de acento con el nombre "mostaza"
-:root {
-    --ion-color-mostaza: var(--ion-color-primary);
-    --ion-color-mostaza-rgb: var(--ion-color-primary-rgb);
-    --ion-color-mostaza-contrast: var(--ion-color-primary-contrast);
-    --ion-color-mostaza-contrast-rgb: var(--ion-color-primary-contrast-rgb);
-    --ion-color-mostaza-shade: var(--ion-color-primary-shade);
-    --ion-color-mostaza-tint: var(--ion-color-primary-tint);
-}
+  --ion-text-color: #ffffff;
+  --ion-text-color-rgb: 255, 255, 255;
 
-.ion-color-mostaza {
-    --ion-color-base: var(--ion-color-mostaza);
-    --ion-color-base-rgb: var(--ion-color-mostaza-rgb);
-    --ion-color-contrast: var(--ion-color-mostaza-contrast);
-    --ion-color-contrast-rgb: var(--ion-color-mostaza-contrast-rgb);
-    --ion-color-shade: var(--ion-color-mostaza-shade);
-    --ion-color-tint: var(--ion-color-mostaza-tint);
+  --ion-color-step-50: #1a1a1e;
+  --ion-color-step-100: #1f1f23;
+  --ion-color-step-150: #252525; // Tu color de superficie
+  --ion-color-step-200: #2a2a2e;
+  --ion-color-step-250: #2f2f33;
+  --ion-color-step-300: #353539;
+  --ion-color-step-350: #3a3a3e;
+  --ion-color-step-400: #404044;
+  --ion-color-step-450: #454549;
+  --ion-color-step-500: #4b4b4f;
+  --ion-color-step-550: #505054;
+  --ion-color-step-600: #56565a;
+  --ion-color-step-650: #5b5b5f;
+  --ion-color-step-700: #616165;
+  --ion-color-step-750: #66666a;
+  --ion-color-step-800: #6c6c70;
+  --ion-color-step-850: #717175;
+  --ion-color-step-900: #77777b;
+  --ion-color-step-950: #7c7c80;
+
+  --ion-item-background: #252525;
+  --ion-card-background: #252525;
 }

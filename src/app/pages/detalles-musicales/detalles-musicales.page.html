@@ -1,59 +1,72 @@
-<ion-header class="ion-no-border">
-  <ion-toolbar>
-    <div class="header">
-      <ion-buttons slot="start">
-        <ion-back-button defaultHref="/informacion-contacto" text=""></ion-back-button>
-      </ion-buttons>
-      
-      <img src="./assets/img/logo.png" alt="Logo Jawy" class="jawy-logo-small">
-    </div>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
-  <div class="container">
-    
-    <div class="header-text">
-      <h1>Hablanos de tí</h1>
-      <p>Llena los espacios para que puedan conocerte mejor</p>
-    </div>
+  
+  <header class="header animate__animated animate__fadeIn">
+    <ion-buttons>
+      <ion-back-button defaultHref="/informacion-contacto" text="" icon="chevron-back-outline"></ion-back-button>
+    </ion-buttons>
+    <img src="./assets/img/logo.png" alt="Logo Jawy" class="jawy-logo-small">
+  </header>
 
-    <div class="section-group">
-      <label class="section-label">¿Y tú eres?...</label>
-      <ion-item lines="none" class="custom-select">
-        <ion-select label="" placeholder="Seleccione un rol" toggleIcon="chevron-down" [(ngModel)]="rolEspecifico">
-          <ion-select-option value="solista">Solista</ion-select-option>
-          <ion-select-option value="integrante">Integrante de banda</ion-select-option>
-          <ion-select-option value="sesionista">Músico de sesión</ion-select-option>
-        </ion-select>
-      </ion-item>
-    </div>
+  <div class="body animate__animated animate__fadeIn">
+    <main class="contenedor-principal">
+      
+      <div class="textos">
+        <h1><strong>Hablanos de tí</strong></h1>
+        <p>Llena los espacios para que puedan conocerte mejor</p>
+      </div>
 
-    <div class="section-group">
-      <label class="section-label">¿Qué tocas?</label>
-      <ion-list lines="full" class="dark-list">
-        <ion-item *ngFor="let inst of instrumentos">
-          <ion-label>{{ inst.nombre }}</ion-label>
-          <ion-checkbox slot="end" [(ngModel)]="inst.isChecked"></ion-checkbox>
-        </ion-item>
-      </ion-list>
-    </div>
+      <div class="formulario">
+        
+        <div class="inputs">
+          
+          <div class="grupo-input">
+            <h4>¿Y tú eres?...</h4>
+            <ion-select 
+              class="jawy-text-inputs jawy-select" 
+              placeholder="Seleccione un rol" 
+              toggleIcon="chevron-down" 
+              [(ngModel)]="rolEspecifico">
+              <ion-select-option value="solista">Solista</ion-select-option>
+              <ion-select-option value="integrante">Integrante de banda</ion-select-option>
+              <ion-select-option value="sesionista">Músico de sesión</ion-select-option>
+            </ion-select>
+          </div>
 
-    <div class="section-group">
-      <label class="section-label">¿Qué genero de música tocas?</label>
-      <ion-list lines="full" class="dark-list">
-        <ion-item *ngFor="let gen of generos">
-          <ion-label>{{ gen.nombre }}</ion-label>
-          <ion-checkbox slot="end" [(ngModel)]="gen.isChecked"></ion-checkbox>
-        </ion-item>
-      </ion-list>
-    </div>
+          <div class="linea"></div>
+          
+          <div class="grupo-input">
+            <h4>¿Qué tocas?</h4>
+            <div class="jawy-list-container">
+              <ion-item *ngFor="let inst of instrumentos" lines="none" class="jawy-checkbox-item">
+                <ion-label>{{ inst.nombre }}</ion-label>
+                <ion-checkbox slot="end" [(ngModel)]="inst.isChecked"></ion-checkbox>
+              </ion-item>
+            </div>
+          </div>
+          
+          <div class="linea"></div>
 
-    <div class="footer-actions">
-      <ion-button expand="block" mode="ios" (click)="siguiente()">
-        Siguiente
-      </ion-button>
-    </div>
+          <div class="grupo-input">
+            <h4>¿Qué genero de música tocas?</h4>
+            <div class="jawy-list-container">
+              <ion-item *ngFor="let gen of generos" lines="none" class="jawy-checkbox-item">
+                <ion-label>{{ gen.nombre }}</ion-label>
+                <ion-checkbox slot="end" [(ngModel)]="gen.isChecked"></ion-checkbox>
+              </ion-item>
+            </div>
+          </div>
 
+        </div>
+
+        <footer class="footer">
+          <ion-button expand="block"  (click)="siguiente()">
+            Siguiente
+          </ion-button>
+        </footer>
+
+      </div>
+
+    </main>
   </div>
+
 </ion-content>

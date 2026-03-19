@@ -31,7 +31,6 @@ export class InformacionContactoPage implements OnInit {
     
     localStorage.setItem('temp_registro', JSON.stringify(registroTotal));
     
-    // Siguiente paso en el ecosistema de Jawy
     this.router.navigate(['/detalles-musicales']); 
   }
 }
