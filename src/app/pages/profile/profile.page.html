@@ -1,8 +1,8 @@
 <ion-content [fullscreen]="true" class="jawy-profile-bg">
 
-  <div class="main-safe-container" *ngIf="usuario; else cargandoPerfil">
+  <div class="main-safe-area" *ngIf="usuario; else cargandoPerfil">
 
-    <div class="top-segment-container animate__animated animate__fadeInDown">
+    <div class="top-segment-area animate__animated animate__fadeInDown">
       <ion-segment [(ngModel)]="segmentoActual" mode="ios" class="jawy-pill-segment">
         <ion-segment-button value="info"> <ion-label>Perfil</ion-label> </ion-segment-button>
         <ion-segment-button value="gestion"> <ion-label>Gestión</ion-label> </ion-segment-button>
@@ -11,7 +11,7 @@
 
     <main [ngSwitch]="segmentoActual" class="tab-content">
 
-      <div *ngSwitchCase="'info'" class="pane-fade animate__animated animate__fadeIn">
+      <div *ngSwitchCase="'info'" class="pane-fade animate__animated animate__fadeIn profile-layout">
         
         <div class="profile-hero-row">
           <div class="user-info-col">
@@ -19,13 +19,20 @@
               <img [src]="usuario.fotoPerfil || 'assets/default-avatar.png'" class="main-avatar">
               <div class="edit-badge"><ion-icon name="pencil"></ion-icon></div>
             </div>
-            <div class="user-meta-new">
-              <h1>{{ usuario.nombreArtistico || usuario.nombre }}</h1>
-              <p class="role-tag">
-                <ion-icon name="pulse-outline"></ion-icon>
-                {{ (usuario.rol === 'dueno' || usuario.rol === 'dueño') ? 'Dueño de lugar' : 'Banda musical' }}
-              </p>
-            </div>
+          <div class="user-meta-new">
+            <h1>{{ usuario.nombreArtistico || usuario.nombre }}</h1>
+            <p class="role-tag">
+              <ion-icon name="pulse-outline"></ion-icon>
+              
+              <span *ngIf="usuario.rol === 'dueno' || usuario.rol === 'dueño'">Dueño de lugar</span>
+              
+              <span *ngIf="usuario.rol !== 'dueno' && usuario.rol !== 'dueño'">
+                {{ usuario.rol | titlecase }} 
+                <ng-container *ngIf="usuario.tipoArtista"> - {{ usuario.tipoArtista | titlecase }}</ng-container>
+              </span>
+
+            </p>
+          </div>
           </div>
 
           <div class="stats-wrapper">
@@ -42,39 +49,41 @@
           </div>
         </div>
 
-        <div class="jawy-divider"></div>
+        <div class="linea"></div>
 
-        <div class="seccion-badges" *ngIf="misInstrumentos && misInstrumentos.length > 0">
-          <h4>Instrumentos</h4>
-          <div class="contenedor-badges">
-            <ion-badge *ngFor="let instrumento of misInstrumentos" class="badge-jawy">
-              {{ instrumento }}
-            </ion-badge>
+        <div class="skills-section" *ngIf="(misInstrumentos && misInstrumentos.length > 0) || (misGeneros && misGeneros.length > 0)">
+          <div class="seccion-badges" *ngIf="misInstrumentos && misInstrumentos.length > 0">
+            <h3 class="section-title">Instrumentos</h3>
+            <div class="badges-group">
+              <ion-badge *ngFor="let instrumento of misInstrumentos" class="badge-jawy">
+                {{ instrumento }}
+              </ion-badge>
+            </div>
+          </div>
+
+          <div class="seccion-badges" *ngIf="misGeneros && misGeneros.length > 0">
+            <h3 class="section-title">Géneros Musicales</h3>
+            <div class="badges-group">
+              <ion-badge *ngFor="let genero of misGeneros" class="badge-jawy">
+                {{ genero }}
+              </ion-badge>
+            </div>
           </div>
         </div>
 
-        <div class="seccion-badges" *ngIf="misGeneros && misGeneros.length > 0">
-          <h4>Géneros Musicales</h4>
-          <div class="contenedor-badges">
-            <ion-badge *ngFor="let genero of misGeneros" class="badge-jawy">
-              {{ genero }}
-            </ion-badge>
-          </div>
-        </div>
-
-        <div class="jawy-divider" *ngIf="(misInstrumentos && misInstrumentos.length > 0) || (misGeneros && misGeneros.length > 0)"></div>
+        <div class="linea" *ngIf="(misInstrumentos && misInstrumentos.length > 0) || (misGeneros && misGeneros.length > 0)"></div>
 
         <section class="desc-section">
-          <h2 class="section-title">Descripción <ion-icon name="pencil"></ion-icon></h2>
+          <h3 class="section-title">Descripción <ion-icon name="pencil"></ion-icon></h3>
           <p class="bio-text">
             "{{ usuario.biografia || 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' }}"
           </p>
         </section>
 
-        <div class="jawy-divider"></div>
+        <div class="linea"></div>
 
         <section class="visited-section">
-          <h2 class="section-title center-text">Lugares visitados</h2>
+          <h3 class="section-title center-text">Lugares visitados</h3>
           
           <div class="empty-state" *ngIf="!reservas || reservas.length === 0">
             <p>Aún no hay visitas registradas.</p>
@@ -88,11 +97,11 @@
           </div>
         </section>
 
-        <div class="jawy-divider" style="margin-top: 40px;"></div>
+        <div class="linea"></div>
 
         <section class="wallet-section">
           <div class="wallet-header">
-            <h2 class="section-title">Mi Billetera</h2>
+            <h3 class="section-title">Mi Billetera</h3>
             <ion-button fill="clear" size="small" class="btn-jawy-text" (click)="presentAlertNuevaTarjeta()" *ngIf="usuario?.metodosPago?.length">
               Añadir <ion-icon name="add-outline" slot="end"></ion-icon>
             </ion-button>
@@ -129,11 +138,11 @@
             </div>
           </div>
         </section>
-        <br><br>
+        
       </div>
 
-      <div *ngSwitchCase="'gestion'" class="pane-fade animate__animated animate__fadeIn" style="padding-top: 20px;">
-        <h3 class="section-title" style="margin-bottom: 20px;">Actividad Reciente</h3>
+      <div *ngSwitchCase="'gestion'" class="pane-fade animate__animated animate__fadeIn profile-layout">
+        <h3 class="section-title">Actividad Reciente</h3>
 
         <div *ngIf="!cargando; else skeletons">
           <div class="tickets-list">
@@ -155,7 +164,7 @@
                   <img [src]="s.fotoMusico || 'assets/default-avatar.png'">
                 </ion-avatar>
                 <ion-label>
-                  <h2 class="title-bold">{{ (usuario.rol === 'dueno' || usuario.rol === 'dueño') ? s.nombreMusico : s.nombreLugar }}</h2>
+                  <h3 class="title-bold">{{ (usuario.rol === 'dueno' || usuario.rol === 'dueño') ? s.nombreMusico : s.nombreLugar }}</h3>
                   <p class="subtitle-gray"><ion-icon name="calendar-outline"></ion-icon> {{ s.fechaPerformance | date:'dd/MM/yyyy' }}</p>
                 </ion-label>
                 <ion-badge slot="end" 
@@ -220,7 +229,7 @@
         <div class="sheet-handle"></div>
         
         <div class="custom-header">
-          <h2 class="title-danger">Rechazar Solicitud</h2>
+          <h3 class="title-danger">Rechazar Solicitud</h3>
           <p class="subtitle">Indícale al músico por qué no puedes aceptar su evento.</p>
         </div>
 
