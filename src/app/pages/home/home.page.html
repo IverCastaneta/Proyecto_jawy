@@ -1,6 +1,6 @@
 <ion-header class="ion-no-border">
   <ion-toolbar class="transparent-toolbar">
-    <div class="glass-search-container animate__animated animate__fadeInDown">
+    <div class="glass-search-box animate__animated animate__fadeInDown">
       <div class="icon-box">
         <ion-icon name="search-outline"></ion-icon>
       </div>
@@ -18,7 +18,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="dark-theme">
+<ion-content [fullscreen]="true">
 
   <div class="search-results-overlay animate__animated animate__fadeIn" *ngIf="isSearching">
     
@@ -38,7 +38,7 @@
       <span *ngIf="busqueda.length === 0 && categoriaSeleccionada !== 'Todos'">Filtrando por: {{ categoriaSeleccionada }}</span>
     </div>
 
-    <ion-list class="bg-transparent" *ngIf="lugaresFiltered.length > 0">
+    <ion-list class="results-list" *ngIf="lugaresFiltered.length > 0">
       <ion-item *ngFor="let lugar of lugaresFiltered" lines="none" class="result-item" [routerLink]="['/view-lugar', lugar.id]">
         <ion-thumbnail slot="start">
           <img [src]="lugar.foto || 'assets/default-venue.jpg'" />
@@ -57,7 +57,7 @@
     </div>
   </div>
 
-  <div [hidden]="isSearching" class="animate__animated animate__fadeIn">
+  <div [hidden]="isSearching" class="main-layout animate__animated animate__fadeIn">
     
     <div class="section-header">
       <h2>Músicos en La Paz</h2>
@@ -78,40 +78,33 @@
       <ion-note>Explorar espacios</ion-note>
     </div>
 
-    <div class="lugares">
-      <div class="places-container">
-        <ion-card *ngFor="let lugar of lugares" [routerLink]="['/view-lugar', lugar.id]" class="venue-card">
+    <div class="places-layout">
+      <ion-card *ngFor="let lugar of lugares" [routerLink]="['/view-lugar', lugar.id]" class="venue-card">
+        <div class="image-wrapper">
+          <img [src]="lugar.foto || 'assets/default-venue.jpg'" />
+        </div>
+        <div class="card-body">
+          <div class="venue-header">
+            <h2 class="venue-title">{{ lugar.nombre }}</h2>
+            <svg class="brand-icon" xmlns="http://www.w3.org/2000/svg" width="17" height="30" viewBox="0 0 17 30" fill="none">
+              <path d="M11.2394 20.5734H11.4876L12.1545 2.40623H16.2707L14.3096 30H9.27088L8.341 15.1777L8.12359 8.21761H7.87533L7.70493 15.1777L6.78974 30H1.40143L0 9.00793H3.66517L4.60386 20.5426H4.85212L5.06953 15.0397L6.03026 0H10.0304L11.0072 15.0397L11.2394 20.5734Z" fill="var(--jawy-primary, #F66F17)"/>
+            </svg>
+          </div>
+
+          <div class="section-line"></div>
           
-          <div class="image-wrapper">
-            <img [src]="lugar.foto || 'assets/default-venue.jpg'" />
-          </div>
-
-          <div class="card-body">
-            
-            <div class="section-title">
-              <h2 class="venue-title">{{ lugar.nombre }}</h2>
-              <svg class="brand-icon" xmlns="http://www.w3.org/2000/svg" width="17" height="30" viewBox="0 0 17 30" fill="none">
-                <path d="M11.2394 20.5734H11.4876L12.1545 2.40623H16.2707L14.3096 30H9.27088L8.341 15.1777L8.12359 8.21761H7.87533L7.70493 15.1777L6.78974 30H1.40143L0 9.00793H3.66517L4.60386 20.5426H4.85212L5.06953 15.0397L6.03026 0H10.0304L11.0072 15.0397L11.2394 20.5734Z" fill="#F66F17"/>
-              </svg>
+          <div class="section-data">
+            <div class="detail-item">
+              <ion-icon name="location"></ion-icon>
+              <p>{{ lugar.direccion }}</p>
             </div>
-
-            <div class="section-line"></div>
-
-            <div class="section-data">
-              <div class="detail-item">
-                <ion-icon name="location"></ion-icon>
-                <p>{{ lugar.direccion }}</p>
-              </div>
-              <div class="detail-item">
-                <ion-icon name="time"></ion-icon>
-                <p>Fechas disponibles a partir de 08/12/2025</p>
-              </div>
+            <div class="detail-item">
+              <ion-icon name="time"></ion-icon>
+              <p>Fechas disponibles a partir de 08/12/2025</p>
             </div>
-
           </div>
-
-        </ion-card>
-      </div>
+        </div>
+      </ion-card>
     </div>
 
   </div>
