@@ -1,9 +1,9 @@
-<ion-content [fullscreen]="true" class="profile-bg">
+<ion-content [fullscreen]="true" class="jawy-profile-bg">
 
   <div class="main-safe-container" *ngIf="usuario; else cargandoPerfil">
 
     <div class="top-segment-container animate__animated animate__fadeInDown">
-      <ion-segment [(ngModel)]="segmentoActual" mode="ios" class="pill-segment">
+      <ion-segment [(ngModel)]="segmentoActual" mode="ios" class="jawy-pill-segment">
         <ion-segment-button value="info"> <ion-label>Perfil</ion-label> </ion-segment-button>
         <ion-segment-button value="gestion"> <ion-label>Gestión</ion-label> </ion-segment-button>
       </ion-segment>
@@ -42,30 +42,36 @@
           </div>
         </div>
 
-        <div class="custom-divider"></div>
+        <div class="jawy-divider"></div>
 
-        <section class="genres-section">
-          <h2 class="section-title">Generos</h2>
-          <div class="chips-grid">
-            <div class="genre-chip outline" *ngFor="let g of ['Rock & Roll', 'Rock-Pop', 'Metal', 'Folklore', 'Rock Clásico', 'Ambiente', 'Indie']">
-              {{ g }}
-            </div>
-            <div class="genre-chip solid-orange">
-              Añadir genero +
-            </div>
+        <div class="seccion-badges" *ngIf="misInstrumentos && misInstrumentos.length > 0">
+          <h4>Instrumentos</h4>
+          <div class="contenedor-badges">
+            <ion-badge *ngFor="let instrumento of misInstrumentos" class="badge-jawy">
+              {{ instrumento }}
+            </ion-badge>
           </div>
-        </section>
+        </div>
 
-        <div class="custom-divider"></div>
+        <div class="seccion-badges" *ngIf="misGeneros && misGeneros.length > 0">
+          <h4>Géneros Musicales</h4>
+          <div class="contenedor-badges">
+            <ion-badge *ngFor="let genero of misGeneros" class="badge-jawy">
+              {{ genero }}
+            </ion-badge>
+          </div>
+        </div>
+
+        <div class="jawy-divider" *ngIf="(misInstrumentos && misInstrumentos.length > 0) || (misGeneros && misGeneros.length > 0)"></div>
 
         <section class="desc-section">
           <h2 class="section-title">Descripción <ion-icon name="pencil"></ion-icon></h2>
           <p class="bio-text">
-            "{{ usuario.biografia || 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.' }}"
+            "{{ usuario.biografia || 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' }}"
           </p>
         </section>
 
-        <div class="custom-divider"></div>
+        <div class="jawy-divider"></div>
 
         <section class="visited-section">
           <h2 class="section-title center-text">Lugares visitados</h2>
@@ -82,17 +88,17 @@
           </div>
         </section>
 
-        <div class="custom-divider" style="margin-top: 40px;"></div>
+        <div class="jawy-divider" style="margin-top: 40px;"></div>
 
         <section class="wallet-section">
           <div class="wallet-header">
             <h2 class="section-title">Mi Billetera</h2>
-            <ion-button fill="clear" size="small" color="warning" (click)="presentAlertNuevaTarjeta()" *ngIf="usuario?.metodosPago?.length">
+            <ion-button fill="clear" size="small" class="btn-jawy-text" (click)="presentAlertNuevaTarjeta()" *ngIf="usuario?.metodosPago?.length">
               Añadir <ion-icon name="add-outline" slot="end"></ion-icon>
             </ion-button>
           </div>
 
-          <div class="add-card-box animate__animated animate__fadeIn" 
+          <div class="jawy-add-card-box animate__animated animate__fadeIn" 
                *ngIf="!usuario?.metodosPago?.length"
                (click)="presentAlertNuevaTarjeta()">
             <div class="plus-icon"><ion-icon name="add"></ion-icon></div>
@@ -100,7 +106,7 @@
           </div>
 
           <div class="cards-grid" *ngIf="usuario?.metodosPago?.length">
-            <div class="jawy-card animate__animated animate__flipInX" 
+            <div class="jawy-credit-card animate__animated animate__flipInX" 
                  *ngFor="let t of usuario.metodosPago"
                  [ngClass]="t.marca.toLowerCase()">
               <div class="card-glass-effect"></div>
@@ -193,8 +199,10 @@
   <ng-template #skeletons>
     <div class="skeleton-pane">
       <ion-card *ngFor="let i of [1,2]" class="jawy-ticket" style="opacity: 0.4;">
-        <ion-item lines="none"><ion-avatar slot="start"><ion-skeleton-text animated></ion-skeleton-text></ion-avatar>
-        <ion-label><ion-skeleton-text animated style="width: 70%"></ion-skeleton-text></ion-label></ion-item>
+        <ion-item lines="none">
+          <ion-avatar slot="start"><ion-skeleton-text animated></ion-skeleton-text></ion-avatar>
+          <ion-label><ion-skeleton-text animated style="width: 70%"></ion-skeleton-text></ion-label>
+        </ion-item>
       </ion-card>
     </div>
   </ng-template>
@@ -227,7 +235,7 @@
 
         <div class="input-group ion-margin-top px-15">
           <ion-label class="input-label">Detalles adicionales (Opcional)</ion-label>
-          <ion-textarea class="custom-textarea" rows="3" placeholder="Ej: Me gustaría que postules para el próximo mes..." [(ngModel)]="comentarioRechazo"></ion-textarea>
+          <ion-textarea class="jawy-text-inputs jawy-textarea" rows="3" placeholder="Ej: Me gustaría que postules para el próximo mes..." [(ngModel)]="comentarioRechazo"></ion-textarea>
         </div>
 
         <ion-row class="ion-margin-top px-15 pb-20" style="margin-top: 20px;">
@@ -245,7 +253,7 @@
 </ion-content>
 
 <ion-footer class="ion-no-border">
-  <ion-toolbar>
+  <ion-toolbar class="jawy-footer-toolbar">
     <app-tab></app-tab>
   </ion-toolbar>
-</ion-footer>|
+</ion-footer>

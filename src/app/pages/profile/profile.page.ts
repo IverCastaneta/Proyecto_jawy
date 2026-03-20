@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { DatabaseService } from 'src/app/services/database.service';
 import { ToastController, AlertController } from '@ionic/angular';
@@ -8,7 +8,7 @@ import { ToastController, AlertController } from '@ionic/angular';
   templateUrl: './profile.page.html',
   styleUrls: ['./profile.page.scss'],
 })
-export class ProfilePage {
+export class ProfilePage implements OnInit {
 
   segmentoActual: string = 'info';
   usuario: any;
@@ -21,7 +21,9 @@ export class ProfilePage {
   numTarjeta: string = '';
   quiereGuardar: boolean = true;
 
-  // --- VARIABLES PARA EL MODAL DE RECHAZO ---
+  misInstrumentos: string[] = [];
+  misGeneros: string[] = [];
+
   isRechazoModalOpen: boolean = false;
   solicitudARechazar: any = null;
   motivoRechazo: string = '';
@@ -40,6 +42,10 @@ export class ProfilePage {
     private toastCtrl: ToastController,
     private alertCtrl: AlertController
   ) { }
+
+  ngOnInit() {
+    this.cargarBadges();
+  }
 
   detectarMarca(numero: string): string {
     if (numero.startsWith('4')) return 'Visa';
@@ -65,6 +71,21 @@ export class ProfilePage {
   cargarTodo() {
     this.cargarDatosSegunRol();
     this.cargarSolicitudesSegunRol();
+    this.cargarBadges();
+  }
+
+  cargarBadges() {
+    if (this.usuario && (this.usuario.instrumentos || this.usuario.generos)) {
+      this.misInstrumentos = this.usuario.instrumentos || [];
+      this.misGeneros = this.usuario.generos || [];
+    } else {
+      const datosGuardados = localStorage.getItem('temp_registro');
+      if (datosGuardados) {
+        const registro = JSON.parse(datosGuardados);
+        this.misInstrumentos = registro.instrumentos || [];
+        this.misGeneros = registro.generos || [];
+      }
+    }
   }
 
   cargarDatosSegunRol() {
@@ -113,7 +134,6 @@ export class ProfilePage {
     }
   }
 
-  // --- MÉTODOS DEL MODAL DE RECHAZO ---
   abrirModalRechazo(solicitud: any) {
     this.solicitudARechazar = solicitud;
     this.motivoRechazo = '';
@@ -130,7 +150,6 @@ export class ProfilePage {
     if (!this.solicitudARechazar || !this.motivoRechazo) return;
 
     try {
-      // Actualizamos el estado, el motivo y el comentario en Firestore
       await this.db.updateFireStoreDocument('performances', this.solicitudARechazar.id, { 
         estado: 'rechazado',
         motivoRechazo: this.motivoRechazo,
@@ -143,7 +162,6 @@ export class ProfilePage {
       this.presentToast('Hubo un error al rechazar', 'warning');
     }
   }
-  // ------------------------------------
 
   async presentToast(mensaje: string, color: string) {
     const toast = await this.toastCtrl.create({

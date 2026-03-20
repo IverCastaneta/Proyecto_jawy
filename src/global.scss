@@ -36,27 +36,27 @@
   --ion-color-primary: var(--jawy-primary);
 }
 
-/* --- FIX DEFINITIVO PARA CALENDARIO (MODO RUEDA iOS) --- */
+
 
 ion-datetime {
   --background: var(--jawy-surface) !important;
   --color: var(--jawy-text-light) !important;
 
-  /* Atacamos el degradado del contenedor principal */
+
   &::part(fade) {
     background-image: none !important;
     display: none !important;
   }
 }
 
-/* Atacamos los componentes internos que vimos en tu inspector */
+
 ion-picker-internal, 
 ion-picker-column-internal,
 ion-picker {
   --fade-background: var(--jawy-surface) !important;
   background: var(--jawy-surface) !important;
 
-  /* Esta es la clave para iOS: eliminamos la máscara y el degradado */
+
   &::part(fade) {
     background-image: none !important;
     mask-image: none !important;
@@ -65,7 +65,7 @@ ion-picker {
   }
 }
 
-/* Estilo de los elementos de la rueda */
+
 ion-picker-column-internal {
   &::part(wheel-item) {
     color: var(--jawy-text-light) !important;
@@ -76,7 +76,7 @@ ion-picker-column-internal {
   }
 }
 
-/* Forzar fondo oscuro en el popover */
+
 ion-popover {
   --background: var(--jawy-surface) !important;
   &::part(content) {
@@ -85,7 +85,6 @@ ion-popover {
   }
 }
 
-/* --- ESTILOS GENERALES REESCRITOS --- */
 
 ion-content {
   --background: var(--jawy-bg);
@@ -98,6 +97,24 @@ h1, h2, h3, h4, h5, h6 {
   margin: 0;
 }
 
+h1 { font-size: 29.9px; }
+h2 { font-size: 24.9px; }
+h3 { font-size: 20.7px; }
+h4 { font-size: 17.3px; }
+h5 { font-size: 14.4px; }
+h6 { font-size: 12px; }
+
+
+p {
+  color: var(--jawy-text-muted);
+  font-family: var(--ion-font-family);
+  margin: 0;
+}
+
+
+.paragraph-l { font-size: 10px; }
+.paragraph-m { font-size: 8.3px; }
+.paragraph-s { font-size: 6.9px; }
 h1 { font-size: 29.9px; }
 
 p {
