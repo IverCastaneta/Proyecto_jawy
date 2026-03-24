@@ -20,27 +20,27 @@
   --ion-font-family: 'Geist', sans-serif;
   color-scheme: dark !important;
 
-  --jawy-bg: #151519;
-  --jawy-surface: #252525;
-  --jawy-primary: #F66F17;
-  --jawy-text-light: #ffffff;
-  --jawy-text-muted: #b3b3b3;
-  --jawy-text-inputs: #868686;
+  --black: #151519;
+  --dark-grey: #252525;
+  --orange: #F66F17;
+  --white: #FAFAFA;
+  --white-muted: #b3b3b3;
+  --grey: #868686;
 
   --jawy-padding-side: 20px;
   --jawy-radius-btn: 12px;
   --jawy-radius-card: 16px;
 
-  --ion-background-color: var(--jawy-bg);
-  --ion-text-color: var(--jawy-text-light);
-  --ion-color-primary: var(--jawy-primary);
+  --ion-background-color: var(--black);
+  --ion-text-color: var(--white);
+  --ion-color-primary: var(--orange);
 }
 
 
 
 ion-datetime {
-  --background: var(--jawy-surface) !important;
-  --color: var(--jawy-text-light) !important;
+  --background: var(--dark-grey) !important;
+  --color: var(--white) !important;
 
 
   &::part(fade) {
@@ -53,8 +53,8 @@ ion-datetime {
 ion-picker-internal, 
 ion-picker-column-internal,
 ion-picker {
-  --fade-background: var(--jawy-surface) !important;
-  background: var(--jawy-surface) !important;
+  --fade-background: var(--dark-grey) !important;
+  background: var(--dark-grey) !important;
 
 
   &::part(fade) {
@@ -68,7 +68,7 @@ ion-picker {
 
 ion-picker-column-internal {
   &::part(wheel-item) {
-    color: var(--jawy-text-light) !important;
+    color: var(--white) !important;
   }
   &::part(wheel-item-active) {
     color: #ffffff !important;
@@ -78,22 +78,22 @@ ion-picker-column-internal {
 
 
 ion-popover {
-  --background: var(--jawy-surface) !important;
+  --background: var(--dark-grey) !important;
   &::part(content) {
-    background: var(--jawy-surface) !important;
+    background: var(--dark-grey) !important;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5) !important;
   }
 }
 
 
 ion-content {
-  --background: var(--jawy-bg);
+  --background: var(--black);
   --padding-bottom: 85px;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Geist', sans-serif;
-  color: var(--jawy-text-light);
+  color: var(--white);
   margin: 0;
 }
 
@@ -104,22 +104,15 @@ h4 { font-size: 17.3px; }
 h5 { font-size: 14.4px; }
 h6 { font-size: 12px; }
 
-
-p {
-  color: var(--jawy-text-muted);
-  font-family: var(--ion-font-family);
-  margin: 0;
-}
-
-
 .paragraph-l { font-size: 10px; }
 .paragraph-m { font-size: 8.3px; }
 .paragraph-s { font-size: 6.9px; }
 
 p {
-  font-family: 'Geist', sans-serif;
-  color: var(--jawy-text-muted);
-  font-size: 10px;
+  font-family: var(--ion-font-family);
+  color: var(--white-muted);
+  font-size: 10px; 
+  margin: 0;
 }
 
 ion-button {
@@ -129,7 +122,7 @@ ion-button {
 }
 
 .btn-jawy-primary {
-  --background: var(--jawy-primary);
+  --background: var(--orange);
   --color: white;
 }
 

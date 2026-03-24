@@ -7,7 +7,7 @@
 }
 
 ion-back-button {
-  --color: var(--jawy-text-light); 
+  --color: var(--white); 
   margin-right: 10px;
 }
 
@@ -35,10 +35,10 @@ ion-back-button {
   h1 {
     margin: 0;
     font-size: 30px;
-    .destacado { color: var(--jawy-primary); }
+    .destacado { color: var(--orange); }
   }
 
-  p { margin: 0; font-size: 16px; color: var(--jawy-text-muted); }
+  p { margin: 0; font-size: 16px; color: var(--white-muted); }
 }
 
 .formulario {
@@ -60,20 +60,20 @@ ion-back-button {
   gap: 10px;
 
   label {
-    color: var(--jawy-text-light);
+    color: var(--white);
     font-size: 14px;
     font-weight: 500;
   }
 }
 
 .jawy-text-inputs {
-  --background: var(--jawy-surface); 
-  --color: var(--jawy-text-light);
+  --background: var(--dark-grey); 
+  --color: var(--white);
   --padding-start: 16px;
   --placeholder-color: #777;
   overflow: hidden;
   
-  border: 1px solid var(--jawy-primary);
+  border: 1px solid var(--orange);
   border-radius: 12px;
   min-height: 56px;
   font-size: 14px;
@@ -90,28 +90,28 @@ ion-back-button {
   justify-content: space-between;
   align-items: center;
   border: 1px solid transparent; 
-  background: var(--jawy-surface);
+  background: var(--dark-grey);
   cursor: pointer;
   padding: 0; 
 
   ion-datetime-button {
     flex: 1;
     margin: 0;
-    background: var(--jawy-surface);
+    background: var(--dark-grey);
     
     &::part(native) {
-      background: var(--jawy-surface);
+      background: var(--dark-grey);
       display: flex; 
       width: 100%; 
       justify-content: flex-start; 
       padding-left: 16px;
-      color: var(--jawy-text-inputs);
+      color: var(--grey);
       box-shadow: none;
     }
   }
 
   .icono-flecha {
-    color: var(--jawy-text-inputs);
+    color: var(--grey);
     font-size: 20px;
     margin-right: 16px;
     opacity: 0.8;
@@ -119,20 +119,20 @@ ion-back-button {
 }
 
 ion-datetime {
-  --background: var(--jawy-surface);
-  --color: var(--jawy-text-light);
-  --color-activated: var(--jawy-primary);
+  --background: var(--dark-grey);
+  --color: var(--white);
+  --color-activated: var(--orange);
   border-radius: 16px;
 
-  &::part(calendar-day) { color: var(--jawy-text-light); }
+  &::part(calendar-day) { color: var(--white); }
   &::part(calendar-day active) {
-    background: var(--jawy-primary);
+    background: var(--orange);
     color: white;
   }
 }
 
 ion-popover::part(content) {
-  background: var(--jawy-surface);
+  background: var(--dark-grey);
   border-radius: 16px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
 }
@@ -143,6 +143,6 @@ ion-popover::part(content) {
 }
 
 .btn-jawy-primary {
-  --background: var(--jawy-primary);
+  --background: var(--orange);
   --color: white;
 }

@@ -1,63 +1,68 @@
-<ion-content [fullscreen]="true" class="dark-theme-bg">
+<ion-content [fullscreen]="true">
   
-  <div class="top-nav-overlay">
-    <app-back routerLink="/home"></app-back>
-  </div>
+<div class="top-nav-overlay">
+  <ion-button routerLink="/home" mode="md" class="btn-back-md" fill="clear">
+    <ion-icon name="arrow-back-sharp" slot="icon-only"></ion-icon>
+  </ion-button>
+</div>
 
-  <div class="place-hero" style="margin-bottom: 40px;">
-    <img [src]="lugar?.foto || 'assets/default-venue.jpg'" class="hero-img" />
-    <div class="hero-gradient">
-      <ion-badge color="warning" mode="ios" class="type-badge">{{ lugar?.tipo || 'Destacado' }}</ion-badge>
-      <h1 class="place-title">{{ lugar?.nombre }}</h1>
-
-      <div class="datos">
-      <p class="place-address">
-        <ion-icon name="location-sharp"></ion-icon> {{ lugar?.direccion }}
-      </p>
-      <p class="place-owner">
-        <ion-icon name="person"></ion-icon> {{ lugar?.nombredueno }}
-      </p>
-      </div>
-
-    </div>
-  </div>
-
-  <div class="main-content-wrapper">
+  <div class="page-layout">
     
-    <div class="stats-floating-card animate__animated animate__fadeInUp">
-      <div class="stat-unit">
-        <ion-icon name="cash-outline"></ion-icon>
-        <small>PRECIO</small>
-        <strong>{{ lugar?.precio || '0' }} Bs.</strong>
-      </div>
-      <div class="stat-unit divider-left">
-        <ion-icon name="people-outline"></ion-icon>
-        <small>CAPACIDAD</small>
-        <strong>{{ lugar?.capacidad || 'N/A' }}</strong>
-      </div>
-      <div class="stat-unit divider-left">
-        <ion-icon name="star"></ion-icon>
-        <small>RATING</small>
-        <strong>4.9</strong>
-      </div>
-    </div>
-
-    <section class="info-section">
-      <h3 class="section-label">El lugar cuenta con:</h3>
-      <div class="equipment-grid" *ngIf="lugar?.equipamiento">
-        <div class="equipment-pill" *ngFor="let item of lugar?.equipamiento">
-          <ion-icon [name]="getIconForEquipment(item)"></ion-icon>
-          <span>{{ item }}</span>
+    <div class="place-hero">
+      <img [src]="lugar?.foto || 'assets/default-venue.jpg'" class="hero-img" />
+      <div class="hero-gradient">
+        <ion-badge color="warning" mode="ios" class="type-badge">{{ lugar?.tipo || 'Destacado' }}</ion-badge>
+        <h1 class="place-title"><strong>{{ lugar?.nombre }}</strong></h1>
+        <div class="datos">
+          <p><ion-icon name="location-sharp"></ion-icon> {{ lugar?.direccion }}</p>
+          <p><ion-icon name="person"></ion-icon> {{ lugar?.nombredueno }}</p>
         </div>
       </div>
-      <p class="no-data-text" *ngIf="!lugar?.equipamiento?.length">No se especificó equipamiento extra.</p>
-    </section>
+    </div>
 
-    <section class="info-section">
-      <h3 class="section-label">Sobre el lugar</h3>
-      <p class="description-body">{{ lugar?.descripcion }}</p>
-    </section>
+    <div class="linea-hero"></div>
 
+    <div class="info-layout">
+      
+      <div class="stats-card animate__animated animate__fadeInUp">
+        <div class="stat-unit">
+          <ion-icon name="cash-outline"></ion-icon>
+          <small>PRECIO</small>
+          <strong>{{ lugar?.precio || '0' }} Bs.</strong>
+        </div>
+        <div class="stat-unit divider-left">
+          <ion-icon name="people-outline"></ion-icon>
+          <small>CAPACIDAD</small>
+          <strong>{{ lugar?.capacidad || 'N/A' }}</strong>
+        </div>
+        <div class="stat-unit divider-left">
+          <ion-icon name="star"></ion-icon>
+          <small>RATING</small>
+          <strong>4.9</strong>
+        </div>
+      </div>
+
+      <div class="linea"></div>
+
+      <section class="info-section">
+        <h3 class="section-label">El lugar cuenta con:</h3>
+        <div class="equipment-grid" *ngIf="lugar?.equipamiento">
+          <div class="equipment-pill" *ngFor="let item of lugar?.equipamiento">
+            <ion-icon [name]="getIconForEquipment(item)"></ion-icon>
+            <span>{{ item }}</span>
+          </div>
+        </div>
+        <p class="no-data-text" *ngIf="!lugar?.equipamiento?.length">No se especificó equipamiento extra.</p>
+      </section>
+
+      <div class="linea"></div>
+
+      <section class="info-section">
+        <h3 class="section-label">Sobre el lugar</h3>
+        <p class="description-body">{{ lugar?.descripcion }}</p>
+      </section>
+
+    </div>
   </div>
 </ion-content>
 

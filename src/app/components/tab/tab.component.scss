@@ -1,8 +1,8 @@
 .jawy-tab-bar {
-  --background: var(--jawy-bg); 
+  --background: var(--black); 
   --border: 0px !important;
   --box-shadow: none !important;
-  border-top: 1px solid var(--jawy-surface); 
+  border-top: 1px solid var(--dark-grey); 
   
   height: calc(64px + env(safe-area-inset-bottom));
   padding:4px 12px;
@@ -12,8 +12,8 @@
 }
 
 ion-tab-button {
-  --color: var(--jawy-text-muted);
-  --color-selected: var(--jawy-primary);
+  --color: var(--white-muted);
+  --color-selected: var(--orange);
   --ripple-color: transparent; 
   background: transparent;
 

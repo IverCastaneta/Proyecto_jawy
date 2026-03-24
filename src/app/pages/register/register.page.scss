@@ -7,7 +7,7 @@
 }
 
 ion-back-button {
-  --color: var(--jawy-text-light); 
+  --color: var(--white); 
   margin-right: 10px;
 }
 
@@ -37,13 +37,13 @@ ion-back-button {
   h1 {
     margin: 0;
     font-size: 30px; 
-    .destacado { color: var(--jawy-primary); }
+    .destacado { color: var(--orange); }
   }
 
   p {
     margin: 0;
     font-size: 16px;
-    color: var(--jawy-text-muted);
+    color: var(--white-muted);
   }
 }
 
@@ -60,14 +60,14 @@ ion-back-button {
 }
 
 ion-input.contenido-input {
-  --background: var(--jawy-surface); 
-  --color: var(--jawy-text-inputs);
+  --background: var(--dark-grey); 
+  --color: var(--grey);
   --padding-start: 16px;
   --padding-end: 16px;
   --border-radius: 12px;
-  --placeholder-color: var(--jawy-text-muted);
+  --placeholder-color: var(--white-muted);
   
-  border: 1px solid var(--jawy-primary);
+  border: 1px solid var(--orange);
   border-radius: 12px;
   min-height: 56px;
   margin: 0; 
@@ -77,15 +77,15 @@ ion-input.contenido-input {
     padding-top: 10px;
   }
   
-  --background-focused: var(--jawy-surface) !important; 
-  --background-hover: var(--jawy-surface) !important;
-  --background-activated: var(--jawy-surface) !important;
-  --color-focused: var(--jawy-text-light) !important;
+  --background-focused: var(--dark-grey) !important; 
+  --background-hover: var(--dark-grey) !important;
+  --background-activated: var(--dark-grey) !important;
+  --color-focused: var(--white) !important;
 
   &.has-focus, &.ion-focused {
     box-shadow: 0 0 0 2px rgba(246, 111, 23, 0.3) !important; 
     ion-label {
-      color: var(--jawy-primary) !important; 
+      color: var(--orange) !important; 
     }
   }
 }
@@ -97,12 +97,12 @@ ion-input.contenido-input {
 
   p {
     font-size: 14px;
-    color: var(--jawy-text-muted); 
+    color: var(--white-muted); 
     margin: 0;
   }
 
   a.login-link {
-    color: var(--jawy-primary);
+    color: var(--orange);
     text-decoration: none;
     font-weight: bold;
     margin-left: 5px;

@@ -7,7 +7,7 @@
 }
 
 ion-back-button {
-  --color: var(--jawy-text-light); 
+  --color: var(--white); 
   margin-right: 10px;
 }
 
@@ -42,14 +42,14 @@ ion-back-button {
     letter-spacing: -0.5px;
     
     .destacado {
-      color: var(--jawy-primary);
+      color: var(--orange);
     }
   }
 
   p {
     margin: 0;
     font-size: 16px;
-    color: var(--jawy-text-muted);
+    color: var(--white-muted);
   }
 }
 
@@ -72,19 +72,19 @@ ion-back-button {
   gap: 10px;
 
   label {
-    color: var(--jawy-text-light);
+    color: var(--white);
     font-size: 14px;
     font-weight: 500;
   }
 }
 
 .jawy-text-inputs {
-  --background: var(--jawy-surface); 
-  --color: var(--jawy-text-light);
+  --background: var(--dark-grey); 
+  --color: var(--white);
   --padding-start: 16px;
   --placeholder-color: #777;
   overflow: hidden;
-  border: 1px solid var(--jawy-primary);
+  border: 1px solid var(--orange);
   border-radius: 12px;
   min-height: 56px;
   font-size: 14px;
@@ -104,6 +104,6 @@ ion-back-button {
 }
 
 .btn-jawy-primary {
-  --background: var(--jawy-primary);
+  --background: var(--orange);
   --color: white;
 }

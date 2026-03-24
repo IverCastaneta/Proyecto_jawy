@@ -43,18 +43,18 @@
     margin: 0;
     
     .destacado { 
-      color: var(--jawy-primary); 
+      color: var(--orange); 
     }
   }
 
   h6 {
     line-height: 1.5;
     margin: 0;
-    color: var(--jawy-text-light);
+    color: var(--white);
     opacity: 0.9;
     
     strong {
-      color: var(--jawy-text-light);
+      color: var(--white);
       font-weight: 800;
     }
   }
@@ -67,8 +67,8 @@
   gap: 12px;
 
   .boton-google {
-    --color: var(--jawy-primary);
-    --border-color: var(--jawy-primary);
+    --color: var(--orange);
+    --border-color: var(--orange);
     --border-width: 1.5px;
     margin: 0;
   }
@@ -76,7 +76,7 @@
 
 .registro {
   a {
-    color: var(--jawy-primary);
+    color: var(--orange);
     text-decoration: underline;
     font-size: 14px;
     font-weight: 600;
