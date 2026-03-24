@@ -64,7 +64,7 @@
       <ion-note>Ver todos</ion-note>
     </div>
 
-    <div class="horizontal-scroll">
+    <div class="horizontal-scroll" *ngIf="!cargandoMusicos; else skeletonMusicos">
       <ion-card *ngFor="let musico of musicos" [routerLink]="['/view-profile', musico.id]" class="musico-card">
         <img [src]="musico.fotoPerfil || 'assets/default-avatar.png'" />
         <ion-card-header>
@@ -78,7 +78,7 @@
       <ion-note>Explorar espacios</ion-note>
     </div>
 
-    <div class="places-layout">
+    <div class="places-layout" *ngIf="!cargandoLugares; else skeletonLugares">
       <ion-card *ngFor="let lugar of lugares" [routerLink]="['/view-lugar', lugar.id]" class="venue-card">
         <div class="image-wrapper">
           <img [src]="lugar.foto || 'assets/default-venue.jpg'" />
@@ -109,6 +109,44 @@
 
   </div>
   
+  <ng-template #skeletonMusicos>
+    <div class="horizontal-scroll">
+      <ion-card *ngFor="let i of [1,2,3]" class="musico-card" style="box-shadow: none; border: 1px solid rgba(255,255,255,0.05);">
+        <ion-skeleton-text animated style="height: 120px; width: 100%; margin: 0;"></ion-skeleton-text>
+        <ion-card-header style="padding: 10px;">
+          <ion-skeleton-text animated style="height: 14px; width: 80%; margin: 0 auto; border-radius: 4px;"></ion-skeleton-text>
+        </ion-card-header>
+      </ion-card>
+    </div>
+  </ng-template>
+
+  <ng-template #skeletonLugares>
+    <div class="places-layout">
+      <ion-card *ngFor="let i of [1,2]" class="venue-card" style="box-shadow: none; border: 1px solid rgba(255,255,255,0.05);">
+        <div class="image-wrapper">
+          <ion-skeleton-text animated style="width: 100%; height: 100%; margin: 0;"></ion-skeleton-text>
+        </div>
+        <div class="card-body">
+          <div class="venue-header">
+            <ion-skeleton-text animated style="width: 60%; height: 22px; border-radius: 4px;"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 17px; height: 30px;"></ion-skeleton-text>
+          </div>
+          <div class="section-line"></div>
+          <div class="section-data">
+            <div class="detail-item">
+              <ion-icon name="location" style="opacity: 0.3;"></ion-icon>
+              <ion-skeleton-text animated style="width: 80%; height: 13px; border-radius: 4px;"></ion-skeleton-text>
+            </div>
+            <div class="detail-item">
+              <ion-icon name="time" style="opacity: 0.3;"></ion-icon>
+              <ion-skeleton-text animated style="width: 70%; height: 13px; border-radius: 4px;"></ion-skeleton-text>
+            </div>
+          </div>
+        </div>
+      </ion-card>
+    </div>
+  </ng-template>
+
 </ion-content>
 
 <ion-footer class="ion-no-border">

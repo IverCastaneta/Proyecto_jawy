@@ -1,7 +1,11 @@
 ion-content {
-  --background: var(--black, #151519);
+  --background: var(--black);
 }
 
+ion-skeleton-text {
+  --background: rgba(255, 255, 255, 0.08); 
+  --background-rgb: 255, 255, 255; 
+}
 .transparent-toolbar {
   --background: transparent;
   padding-top: 10px;

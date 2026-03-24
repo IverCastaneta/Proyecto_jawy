@@ -1,8 +1,9 @@
 .top-nav-overlay {
-  position: absolute;
+  position: fixed;
   top: max(45px, env(safe-area-inset-top));
   left: 20px;
   z-index: 100;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
 
   .btn-back-md {
     --background:var(--orange); 
