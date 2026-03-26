@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core'; // <-- Importación agregada aquí
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -18,6 +18,7 @@ import { ReservationModalComponent } from 'src/app/components/reservation-modal/
     SharedModule,
     ViewLugarPageRoutingModule
   ],
-  declarations: [ViewLugarPage]
+  declarations: [ViewLugarPage], // <-- Coma agregada aquí
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ViewLugarPageModule {}

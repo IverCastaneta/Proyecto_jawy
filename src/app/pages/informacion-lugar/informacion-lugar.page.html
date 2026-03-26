@@ -1,52 +1,76 @@
-<ion-header class="ion-no-border">
-  <ion-toolbar color="tertiary">
-    <ion-buttons slot="start" class="header-group">
-      <ion-back-button defaultHref="/informacion-personal" text="" icon="chevron-back"></ion-back-button>
-      
-      <img src="./assets/img/logo.png" alt="Logo Jawy" class="jawy-logo-small">
+<ion-content [fullscreen]="true">
+  <header class="header-content animate__animated animate__fadeIn">
+    <ion-buttons>
+      <ion-back-button defaultHref="/informacion-personal" text="" icon="chevron-back-outline"></ion-back-button>
     </ion-buttons>
-  </ion-toolbar>
-</ion-header>
+    <img src="./assets/img/logo.png" alt="Logo Jawy" class="jawy-logo-small">
+  </header>
 
-  <ion-content [fullscreen]="true">
-    <div class="container">
-      <div class="header-text">
-        <h1>Hablanos de tu lugar</h1>
-        <p>Llena los espacios para que podamos darnos una idea de como es tu lugar.</p>
+  <div class="page-layout animate__animated animate__fadeIn">
+    
+    <div class="textos-header">
+      <h1><strong>Hablanos de tu lugar</strong></h1>
+      <h4>Llena los espacios para que podamos darnos una idea de cómo es tu lugar.</h4>
+    </div>
+
+    <form [formGroup]="lugarForm" class="form-container">
+      
+      <div class="image-upload-container">
+        <input type="file" #fileInput (change)="onFileSelected($event)" accept="image/*" multiple style="display: none;">
+        
+        <div class="image-upload-box" (click)="seleccionarFoto()" [class.has-image]="fotosLugar.length > 0">
+          <img [src]="fotosLugar[0]" *ngIf="fotosLugar.length > 0" class="main-preview">
+          
+          <div class="upload-placeholder" *ngIf="fotosLugar.length === 0">
+            <ion-icon name="add"></ion-icon>
+            <span>Añadir fotos del lugar</span>
+          </div>
+        </div>
+
+        <div class="thumbnails-container" *ngIf="fotosLugar.length > 0">
+          <div class="thumbnail-wrapper" *ngFor="let foto of fotosLugar; let i = index">
+            <img [src]="foto" class="thumbnail">
+            <ion-button fill="clear" class="btn-delete-thumb" (click)="eliminarFoto(i)">
+              <ion-icon name="close-circle"></ion-icon>
+            </ion-button>
+          </div>
+          
+          <div class="thumbnail-add" (click)="seleccionarFoto()" *ngIf="fotosLugar.length < 5">
+            <ion-icon name="add"></ion-icon>
+          </div>
+        </div>
+        <p class="photo-hint" *ngIf="fotosLugar.length > 0">Sube hasta 5 fotos. La primera será tu portada.</p>
       </div>
 
-      <div class="image-upload-box" (click)="seleccionarFoto()">
-        <img [src]="lugarPreview" *ngIf="lugarPreview">
-        <ion-icon name="add" *ngIf="!lugarPreview"></ion-icon>
-        <input type="file" #fileInput (change)="onFileSelected($event)" accept="image/*" style="display: none;">
-      </div>
-
-      <form [formGroup]="lugarForm" class="form-container">
-        <div class="input-group">
-          <label>Nombre del lugar</label>
-          <ion-item lines="none" class="custom-input">
+      <div class="input-container">
+        <div class="form-section">
+          <h5>Nombre del lugar</h5>
+          <ion-item lines="none" class="input-jawy">
             <ion-input type="text" placeholder="¿Cómo se llama tu lugar?" formControlName="nombreLugar"></ion-input>
           </ion-item>
         </div>
 
-        <div class="input-group">
-          <label>Dirección exacta</label>
-          <ion-item lines="none" class="custom-input">
+        <div class="form-section">
+          <h5>Dirección exacta</h5>
+          <ion-item lines="none" class="input-jawy">
             <ion-input type="text" placeholder="¿En qué ubicación te encuentras?" formControlName="direccion"></ion-input>
           </ion-item>
         </div>
 
-        <div class="input-group">
-          <label>Breve descripción</label>
-          <ion-item lines="none" class="custom-textarea">
-            <ion-textarea placeholder="Describe brevemente el espacio en el que te encuentras" rows="3" formControlName="descripcion"></ion-textarea>
+        <div class="form-section">
+          <h5>Breve descripción</h5>
+          <ion-item lines="none" class="input-jawy">
+            <ion-textarea placeholder="Describe el espacio..." [autoGrow]="true" rows="3" formControlName="descripcion"></ion-textarea>
           </ion-item>
         </div>
+      </div>
+
+      <div class="list-container">
         <div class="linea"></div>
-        <div class="input-group" id="categoria">
-          <label>¿Qué tipo de local manejas?...</label>
-          <ion-item lines="none" class="custom-select">
-            <ion-select placeholder="Selecciona tu tipo de negocio" toggleIcon="chevron-down" formControlName="tipoLocal">
+        <div class="form-section">
+          <h5>¿Qué tipo de local manejas?</h5>
+          <ion-item lines="none" class="input-jawy">
+            <ion-select placeholder="Selecciona el tipo" toggleIcon="chevron-down" formControlName="tipoLocal">
               <ion-select-option value="bar">Bar / Pub</ion-select-option>
               <ion-select-option value="cafe">Café Cultural</ion-select-option>
               <ion-select-option value="teatro">Teatro / Foro</ion-select-option>
@@ -54,13 +78,16 @@
             </ion-select>
           </ion-item>
         </div>
-      <div class="linea"></div>
-      </form>
-
-      <div class="footer-actions">
-        <ion-button expand="block" mode="ios" (click)="siguiente()" [disabled]="!lugarForm.valid">
-          Siguiente
-        </ion-button>
+        <div class="linea"></div>
       </div>
+
+    </form>
+
+    <div class="footer-actions">
+      <ion-button expand="block" mode="ios" class="btn-jawy-primary" (click)="siguiente()" [disabled]="!lugarForm.valid">
+        Siguiente
+      </ion-button>
     </div>
-  </ion-content>
+
+  </div>
+</ion-content>

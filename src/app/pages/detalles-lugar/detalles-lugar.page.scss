@@ -1,125 +1,145 @@
-// 1. Forzamos el contenedor principal al color de tus inputs
-ion-header.ion-no-border {
-    background-color: #252525 !important;
-    --background: #252525 !important;
+.header-content {
+  background-color: transparent;
+  margin-top: max(40px, env(safe-area-inset-top)); 
+  display: flex;
+  align-items: center;
+  padding-left: 12px;
 }
 
-// 2. Forzamos la Toolbar y su fondo interno
-ion-toolbar {
-    --background: #252525 !important;
-    --border-width: 0 !important;
-    background: #252525 !important;
+ion-back-button { --color: var(--white); margin-right: 10px; }
+.jawy-logo-small { width: 70px; height: auto; }
+ion-content { --background: var(--black); }
 
-    // Esta es la "llave" maestra para el fondo real en Ionic
-    &::part(background) {
-        background: #252525 !important;
-    }
+.page-layout {
+  display: flex;
+  flex-direction: column;
+  padding: 40px var(--jawy-padding-side);
+  min-height: calc(100% - 80px); 
+  gap: 32px;
 }
 
-// Ajuste para el contenedor del logo
-.logo-container {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    padding-right: 48px; // Compensación por el botón back                                                          
-}
-// 2. Forzamos la Toolbar y su fondo interno
-ion-toolbar {
-    --background: #151519 !important;
-    --border-width: 0 !important;
-    background: #151519 !important;
-
-    // Esta es la "llave" maestra para entrar al fondo real
-    &::part(background) {
-        background: #151519 !important;
-    }
+.textos-header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  h1 { margin: 0; font-size: 30px; color: var(--white); }
+  h4 { margin: 0; font-weight: 400; font-size: 16px; color: var(--white-muted); }
 }
 
-// 3. Ajuste de contenido para que no haya "fugas" de color
-.header {
-    background-color: transparent !important;
-    margin-top: 40px; // Bajé un poco el margen para que no se salga del área
-    display: flex;
-    align-items: center;
-}
-.naranja {
-  color: #F66F17; /* El naranja que estamos usando para tus inputs */
+.form-container { display: flex; flex-direction: column; gap: 32px; }
+.input-container { display: flex; flex-direction: column; gap: 24px; }
+
+.form-section {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  h4 { margin: 0; font-size: 18px; font-weight: 600; color: var(--white); }
 }
 
-ion-back-button {
-    --color: var(--ion-color-light); 
-    margin-right: 8px;
-}
+.input-jawy {
+  --background: var(--dark-grey); 
+  --color: var(--white);
+  --padding-start: 16px;
+  --padding-end: 16px;
+  --border-radius: 8px;
+  border: 1px solid var(--orange);
+  border-radius: 8px;
+  overflow: hidden;
 
-.jawy-logo-small {
-    width: 64px; 
-    height: auto;
-}
-
-.logo-small {
-  font-family: 'poligraphergrotesk-semibold';
-  color: var(--ion-color-primary);
-  font-size: 32px;
-  letter-spacing: -2px;
-  transform: scaleY(1.2);
-  display: block;
-}
-
-.container {
-  padding: 20px;
-  background-color: var(--ion-color-tertiary);
-  min-height: 100%;
-}
-
-.header-text {
-  margin-bottom: 40px;
-  h1 { font-size: 32px; font-weight: 700; margin-bottom: 5px; }
-  p { font-size: 14px; opacity: 0.7; line-height: 1.2; }
-}
-
-.section-group {
-  margin-bottom: 30px;
-  .section-label {
-    display: block;
-    font-weight: 600;
-    font-size: 17px;
-    margin-bottom: 15px;
-    color: var(--ion-color-light);
+  &.ion-focused, &:focus-within {
+    box-shadow: 0 0 0 2px rgba(246, 111, 23, 0.3);
   }
+
+  ion-select, ion-input { --background: transparent; width: 100%; }
 }
 
-.custom-select {
-  --background: #1e1e22;
-  --border-radius: 10px;
-  border: 1px solid #333;
-  ion-select { font-family: 'poppins-regular'; }
-}
+.currency-label { color: var(--orange); font-weight: 700; font-size: 18px; }
 
-.dark-list {
-  background: #1e1e22;
-  border-radius: 12px;
-  border: 1px solid #333;
-  ion-item {
-    --background: transparent;
-    --color: var(--ion-color-light);
-    --border-color: #333;
-    font-size: 14px;
-    font-family: 'poppins-regular';
+.list-jawy {
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+
+  .checkbox-item {
+    --background: var(--dark-grey); 
+    --inner-border-width: 0;
+
+
+    ion-label { color: var(--white); font-size: 16px; }
     ion-checkbox {
-      --checkbox-background-checked: var(--ion-color-primary);
-      --border-color-checked: var(--ion-color-primary);
+      --size: 22px;
+      --checkbox-background-checked: var(--orange);
+      --border-color-checked: var(--orange);
+      --border-color: rgba(255, 255, 255, 0.3);
     }
   }
+}
+
+.add-rule-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  .flex-input { flex: 1; }
+}
+
+.btn-add-jawy {
+  --background: var(--orange);
+  --border-radius: 12px;
+  --color: var(--white);
+  height: 56px;
+  width: 56px;
+  margin: 0;
+  font-size: 26px;
+  --box-shadow: none;
+}
+
+.rules-tags-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.rule-tag {
+  background: var(--dark-grey);
+  border-left: 4px solid var(--orange);
+  padding: 16px;
+  border-radius: 4px 12px 12px 4px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  animation: fadeInRule 0.3s ease-out;
+  
+  span { 
+    color: var(--white); 
+    font-size: 15px; 
+    font-weight: 400;
+    flex: 1;
+    padding-right: 10px;
+  }
+
+  ion-icon { 
+    color: #ff4961; 
+    font-size: 20px; 
+    cursor: pointer;
+    opacity: 0.8;
+    &:hover { opacity: 1; }
+  }
+}
+
+@keyframes fadeInRule {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .footer-actions {
-  text-align: center;
-  margin-top: 40px;
+  margin-top: auto;
+  padding: 20px 0;
   ion-button {
-    --background: var(--ion-color-primary);
     --border-radius: 12px;
-    height: 55px;
-    font-weight: bold;
+    height: 56px;
+    --background: var(--orange);
+    font-weight: 700;
+    font-size: 16px;
   }
-  .studio-tag { font-size: 12px; opacity: 0.5; margin-top: 20px; }
 }

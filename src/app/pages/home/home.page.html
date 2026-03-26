@@ -41,11 +41,11 @@
     <ion-list class="results-list" *ngIf="lugaresFiltered.length > 0">
       <ion-item *ngFor="let lugar of lugaresFiltered" lines="none" class="result-item" [routerLink]="['/view-lugar', lugar.id]">
         <ion-thumbnail slot="start">
-          <img [src]="lugar.foto || 'assets/default-venue.jpg'" />
+          <img [src]="lugar.fotos?.length ? lugar.fotos[0] : (lugar.foto || 'assets/default-venue.jpg')" />
         </ion-thumbnail>
         <ion-label>
           <h2>{{ lugar.nombre }}</h2>
-          <p>{{ lugar.tipo }} • {{ lugar.precio }} Bs.</p>
+          <p>{{ lugar.tipo }} • {{ lugar.precioCover ? lugar.precioCover + ' Bs.' : 'Gratis' }}</p>
         </ion-label>
         <ion-icon name="chevron-forward-outline" slot="end" color="medium"></ion-icon>
       </ion-item>
@@ -81,7 +81,7 @@
     <div class="places-layout" *ngIf="!cargandoLugares; else skeletonLugares">
       <ion-card *ngFor="let lugar of lugares" [routerLink]="['/view-lugar', lugar.id]" class="venue-card">
         <div class="image-wrapper">
-          <img [src]="lugar.foto || 'assets/default-venue.jpg'" />
+          <img [src]="lugar.fotos?.length ? lugar.fotos[0] : (lugar.foto || 'assets/default-venue.jpg')" />
         </div>
         <div class="card-body">
           <div class="venue-header">

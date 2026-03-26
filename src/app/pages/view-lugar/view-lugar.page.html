@@ -1,21 +1,29 @@
 <ion-content [fullscreen]="true">
   
-<div class="top-nav-overlay">
-  <ion-button routerLink="/home" mode="md" class="btn-back-md" fill="clear">
-    <ion-icon name="arrow-back-sharp" slot="icon-only"></ion-icon>
-  </ion-button>
-</div>
+  <div class="top-nav-overlay">
+    <ion-button routerLink="/home" mode="md" class="btn-back-md" fill="clear">
+      <ion-icon name="arrow-back-sharp" slot="icon-only"></ion-icon>
+    </ion-button>
+  </div>
 
   <div class="page-layout">
     
     <div class="place-hero">
-      <img [src]="lugar?.foto || 'assets/default-venue.jpg'" class="hero-img" />
+      <swiper-container *ngIf="lugar?.fotos?.length > 0; else unifoto" pagination="true" loop="true" class="hero-swiper">
+        <swiper-slide *ngFor="let pic of lugar.fotos">
+          <img [src]="pic" class="hero-img" />
+        </swiper-slide>
+      </swiper-container>
+
+      <ng-template #unifoto>
+        <img [src]="lugar?.foto || 'assets/default-venue.jpg'" class="hero-img" />
+      </ng-template>
+
       <div class="hero-gradient">
-        <ion-badge color="warning" mode="ios" class="type-badge">{{ lugar?.tipo || 'Destacado' }}</ion-badge>
+        <ion-badge color="warning" mode="ios" class="type-badge">{{ lugar?.tipoLocal || 'Destacado' }}</ion-badge>
         <h1 class="place-title"><strong>{{ lugar?.nombre }}</strong></h1>
         <div class="datos">
           <p><ion-icon name="location-sharp"></ion-icon> {{ lugar?.direccion }}</p>
-          <p><ion-icon name="person"></ion-icon> {{ lugar?.nombredueno }}</p>
         </div>
       </div>
     </div>
@@ -28,12 +36,12 @@
         <div class="stat-unit">
           <ion-icon name="cash-outline"></ion-icon>
           <small>PRECIO</small>
-          <strong>{{ lugar?.precio || '0' }} Bs.</strong>
+          <strong>{{ lugar?.precioCover || '' }}</strong>
         </div>
         <div class="stat-unit divider-left">
           <ion-icon name="people-outline"></ion-icon>
           <small>CAPACIDAD</small>
-          <strong>{{ lugar?.capacidad || 'N/A' }}</strong>
+          <strong>{{ lugar?.capacidad || '' }}</strong>
         </div>
         <div class="stat-unit divider-left">
           <ion-icon name="star"></ion-icon>
@@ -46,7 +54,7 @@
 
       <section class="info-section">
         <h3 class="section-label">El lugar cuenta con:</h3>
-        <div class="equipment-grid" *ngIf="lugar?.equipamiento">
+        <div class="equipment-grid" *ngIf="lugar?.equipamiento?.length > 0">
           <div class="equipment-pill" *ngFor="let item of lugar?.equipamiento">
             <ion-icon [name]="getIconForEquipment(item)"></ion-icon>
             <span>{{ item }}</span>
@@ -54,6 +62,19 @@
         </div>
         <p class="no-data-text" *ngIf="!lugar?.equipamiento?.length">No se especificó equipamiento extra.</p>
       </section>
+
+      <ng-container *ngIf="lugar?.reglas?.length > 0">
+        <div class="linea"></div>
+        <section class="info-section">
+          <h3 class="section-label">Reglas del lugar</h3>
+          <div class="rules-list">
+            <div class="rule-item" *ngFor="let regla of lugar.reglas">
+              <div class="rule-bullet"></div>
+              <span class="rule-text">{{ regla }}</span>
+            </div>
+          </div>
+        </section>
+      </ng-container>
 
       <div class="linea"></div>
 

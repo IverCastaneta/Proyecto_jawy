@@ -45,6 +45,12 @@ ion-skeleton-text {
     font-size: 0.95rem;
     font-weight: 500;
     --placeholder-color: #666;
+    search-results-overlay {
+    padding-top: max(100px, calc(env(safe-area-inset-top) + 80px)); 
+    
+    height: 100%;
+    overflow-y: auto; 
+  }
   }
 
   .filter-circle {

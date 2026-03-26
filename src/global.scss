@@ -94,6 +94,7 @@ ion-content {
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Geist', sans-serif;
   color: var(--white);
+  font-weight: 300;
   margin: 0;
 }
 
@@ -121,6 +122,12 @@ ion-button {
   min-height: 48px;
 }
 
+.linea{
+  width: 100%;
+  height: 2px;
+  background-color: var(--dark-grey); 
+}
+
 .btn-jawy-primary {
   --background: var(--orange);
   --color: white;
@@ -128,4 +135,12 @@ ion-button {
 
 ion-datetime-button {
   width: 100% !important;
+}
+
+ion-input, ion-textarea, ion-select {
+  --highlight-color-focused: transparent !important;
+  --highlight-color-valid: transparent !important;
+  --highlight-color-invalid: transparent !important;
+  --border-width: 0 !important;
+  --border-style: none !important;
 }

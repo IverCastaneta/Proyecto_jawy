@@ -1,51 +1,92 @@
-<ion-header class="ion-no-border">
-  <ion-toolbar>
-    <div class="header">
-      <ion-buttons slot="start">
-        <ion-back-button defaultHref="/información-lugar" text=""></ion-back-button>
-      </ion-buttons>
-      
-      <img src="./assets/img/logo.png" alt="Logo Jawy" class="jawy-logo-small">
-    </div>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
-  <div class="container">
+  <header class="header-content animate__animated animate__fadeIn">
+    <ion-buttons>
+      <ion-back-button defaultHref="/informacion-lugar" text="" icon="chevron-back-outline"></ion-back-button>
+    </ion-buttons>
+    <img src="./assets/img/logo.png" alt="Logo Jawy" class="jawy-logo-small">
+  </header>
+
+  <div class="page-layout animate__animated animate__fadeIn">
     
-    <div class="header-text">
-      <h1>Hablanos de tu lugar</h1>
-      <p>Llena los espacios para que podamos darnos una idea de como es tu lugar.</p>
+    <div class="textos-header">
+      <h1><strong>Hablanos de tu lugar</strong></h1>
+      <h4>Completa los detalles técnicos y las normas de tu espacio.</h4>
     </div>
 
-    <div class="section-group">
-      <label class="section-label">¿Para cuantas personas es tu espacio?</label>
-      <ion-item lines="none" class="custom-select">
-        <ion-select placeholder="Seleccione capacidad" toggleIcon="chevron-down" [(ngModel)]="capacidad">
-          <ion-select-option value="0-10">0-10</ion-select-option>
-          <ion-select-option value="10-30">10-30</ion-select-option>
-          <ion-select-option value="30-60">30-60</ion-select-option>
-          <ion-select-option value="60-100">60-100</ion-select-option>
-          <ion-select-option value="100+">Más de 100</ion-select-option>
-        </ion-select>
-      </ion-item>
-    </div>
+    <div class="form-container">
 
-    <div class="section-group">
-      <label class="section-label">¿Con qué cuenta tu espacio?</label>
-      <ion-list lines="full" class="dark-list">
-        <ion-item *ngFor="let item of equipamiento">
-          <ion-label>{{ item.nombre }}</ion-label>
-          <ion-checkbox slot="end" [(ngModel)]="item.isChecked"></ion-checkbox>
-        </ion-item>
-      </ion-list>
+      <div class="linea"></div>
+      
+      <div class="list-container">
+        <div class="form-section">
+          <h4>¿Para cuántas personas es tu espacio?</h4>
+          <ion-item lines="none" class="input-jawy">
+            <ion-select placeholder="Seleccione capacidad" toggleIcon="chevron-down" [(ngModel)]="capacidad">
+              <ion-select-option value="0-10">0 - 10</ion-select-option>
+              <ion-select-option value="10-30">10 - 30</ion-select-option>
+              <ion-select-option value="30-60">30 - 60</ion-select-option>
+              <ion-select-option value="60-100">60 - 100</ion-select-option>
+              <ion-select-option value="100+">Más de 100</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </div>
+      </div>
+
+      <div class="linea"></div>
+
+      <div class="list-container">
+        <div class="form-section">
+          <h4>¿Con qué cuenta tu espacio?</h4>
+          <ion-list class="list-jawy">
+            <ion-item *ngFor="let item of equipamiento" class="checkbox-item" lines="none">
+              <ion-label>{{ item.nombre }}</ion-label>
+              <ion-checkbox slot="end" [(ngModel)]="item.isChecked"></ion-checkbox>
+            </ion-item>
+          </ion-list>
+        </div>
+      </div>
+
+      <div class="linea"></div>
+
+      <div class="input-container">
+        <div class="form-section">
+          <h4>Reglas del local</h4>
+          <div class="add-rule-row">
+            <ion-item lines="none" class="input-jawy flex-input">
+              <ion-input type="text" placeholder="Ej. No fumar" [(ngModel)]="nuevaRegla" (keyup.enter)="agregarRegla()"></ion-input>
+            </ion-item>
+            <ion-button class="btn-add-jawy" (click)="agregarRegla()" [disabled]="!nuevaRegla.trim()">
+              <ion-icon name="add"></ion-icon>
+            </ion-button>
+          </div>
+
+          <div class="rules-tags-container" *ngIf="reglasLista.length > 0">
+            <div class="rule-tag animate__animated animate__tagIn" *ngFor="let regla of reglasLista; let i = index">
+              <span>{{ regla }}</span>
+              <ion-icon name="close-outline" (click)="eliminarRegla(i)"></ion-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="linea"></div>
+
+      <div class="input-container">
+        <div class="form-section">
+          <h4>Precio del cover (Opcional)</h4>
+          <ion-item lines="none" class="input-jawy">
+            <ion-input type="number" placeholder="Ej. 50" [(ngModel)]="precioCover"></ion-input>
+
+          </ion-item>
+        </div>
+      </div>
+
     </div>
 
     <div class="footer-actions">
-      <ion-button expand="block" mode="ios" (click)="siguiente()" [disabled]="!capacidad">
+      <ion-button expand="block" mode="ios" class="btn-jawy-primary" (click)="siguiente()" [disabled]="!capacidad">
         Siguiente
       </ion-button>
-      <p class="studio-tag">&#64;Paput studio</p>
     </div>
 
   </div>

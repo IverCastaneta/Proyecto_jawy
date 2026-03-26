@@ -42,13 +42,16 @@ export class HomePage implements OnInit {
   loadLugares() {
     this.db.fetchFirestoreCollection('lugares').subscribe(res => {
       this.lugares = res;
-      this.lugaresFiltered = []; 
       this.cargandoLugares = false;
+      if (this.isSearching) {
+        this.filtrarResultados();
+      }
     });
   }
 
   activarBusqueda() {
     this.isSearching = true;
+    this.filtrarResultados();
   }
 
   cerrarBusqueda() {
@@ -64,29 +67,26 @@ export class HomePage implements OnInit {
   }
 
   ejecutarBusqueda(event: any) {
-    this.busqueda = event.detail.value;
+    this.busqueda = event.detail.value || '';
     this.filtrarResultados();
   }
 
   filtrarResultados() {
     const term = this.busqueda.toLowerCase().trim();
 
-    if (!term && this.categoriaSeleccionada === 'Todos') {
-      this.lugaresFiltered = [];
-      return;
-    }
-
     this.lugaresFiltered = this.lugares.filter(l => {
       let coincideTexto = true;
       if (term) {
         coincideTexto = (l.nombre && l.nombre.toLowerCase().includes(term)) || 
                         (l.tipo && l.tipo.toLowerCase().includes(term)) ||
+                        (l.tipoLocal && l.tipoLocal.toLowerCase().includes(term)) ||
                         (l.direccion && l.direccion.toLowerCase().includes(term));
       }
 
       let coincideCategoria = true;
       if (this.categoriaSeleccionada !== 'Todos') {
-        coincideCategoria = l.tipo === this.categoriaSeleccionada;
+        coincideCategoria = (l.tipo === this.categoriaSeleccionada) || 
+                            (l.tipoLocal === this.categoriaSeleccionada);
       }
 
       return coincideTexto && coincideCategoria;
