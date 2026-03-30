@@ -36,6 +36,10 @@ export class ProfilePage implements OnInit {
     'Otro motivo'
   ];
 
+  isEditLugarModalOpen: boolean = false;
+  lugarEditData: any = {};
+  guardandoLugar: boolean = false;
+
   constructor(
     public auth: AuthService,
     public db: DatabaseService,
@@ -222,4 +226,63 @@ export class ProfilePage implements OnInit {
     this.usuario.metodosPago = nuevasTarjetas;
     this.presentToast('Tarjeta eliminada', 'medium');
   }
+
+abrirModalEditLugar(event?: Event) {
+    // Esto evita que al tocar el lapicito, también se haga clic en la tarjeta de fondo y nos lleve a otra página
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
+    this.lugarEditData = JSON.parse(JSON.stringify(this.miLugar));
+    
+    if (!this.lugarEditData.tipoLocal && this.lugarEditData.tipo) {
+      this.lugarEditData.tipoLocal = this.lugarEditData.tipo;
+    }
+    if (!this.lugarEditData.equipamiento) {
+      this.lugarEditData.equipamiento = [];
+    }
+    
+    this.isEditLugarModalOpen = true;
+  }
+
+  cerrarModalEditLugar() {
+    this.isEditLugarModalOpen = false;
+  }
+
+  async guardarCambiosLugar() {
+    if (!this.lugarEditData.nombre || !this.lugarEditData.direccion) {
+      this.presentToast('Por favor completa el nombre y la dirección', 'warning');
+      return;
+    }
+
+    this.guardandoLugar = true;
+
+    try {
+      const datosActualizados = {
+        nombre: this.lugarEditData.nombre,
+        direccion: this.lugarEditData.direccion,
+        descripcion: this.lugarEditData.descripcion || '',
+        capacidad: this.lugarEditData.capacidad || '',
+        equipamiento: this.lugarEditData.equipamiento || [],
+        tipoLocal: this.lugarEditData.tipoLocal || 'Pub',
+        tipo: this.lugarEditData.tipoLocal || 'Pub', 
+        precioCover: this.lugarEditData.precioCover || 0
+      };
+
+      await this.db.updateFireStoreDocument('lugares', this.miLugar.id, datosActualizados);
+      
+      this.miLugar = { ...this.miLugar, ...datosActualizados };
+      
+      this.presentToast('Información actualizada correctamente', 'success');
+      this.cerrarModalEditLugar();
+
+    } catch (error) {
+      console.error(error);
+      this.presentToast('Hubo un error al actualizar los datos', 'danger');
+    } finally {
+      this.guardandoLugar = false;
+    }
+  }
+
 }

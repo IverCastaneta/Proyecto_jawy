@@ -4,11 +4,11 @@
     <ion-buttons>
       <ion-back-button defaultHref="/detalles-musicales" text="" icon="chevron-back-outline"></ion-back-button>
     </ion-buttons>
-    <img src="./assets/img/logo.png" alt="Logo Jawy" class="jawy-logo-small">
+    <img src="./assets/img/logo.png" alt="Logo Jawy" class="jawyLogo">
   </header>
 
   <div class="body animate__animated animate__fadeIn">
-    <main class="contenedor-principal">
+    <main class="todoBody">
       
       <div class="textos">
         <h1><strong>Háblanos de tí</strong></h1>
@@ -31,10 +31,10 @@
             <input type="file" #fileInput (change)="onFileSelected($event)" accept="image/*" style="display: none;">
           </div>
 
-          <div class="grupo-input">
+          <div class="Input">
             <label>Descripción</label>
             <ion-textarea 
-              class="jawy-text-inputs jawy-textarea"
+              class="inputsRegistro jawy-textarea"
               placeholder="Danos una breve descripción de quien eres" 
               [autoGrow]="true" 
               rows="4"
@@ -45,7 +45,7 @@
         </div>
 
         <footer class="pie">
-          <ion-button expand="block" mode="ios" class="btn-jawy-primary" (click)="siguiente()" [disabled]="!descripcion">
+          <ion-button expand="block" mode="ios" class="btnFill" (click)="siguiente()" [disabled]="!descripcion">
             Siguiente
           </ion-button>
         </footer>

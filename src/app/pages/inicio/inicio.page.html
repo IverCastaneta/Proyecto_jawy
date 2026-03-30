@@ -1,4 +1,9 @@
 <ion-content [fullscreen]="true">
+
+  <div class="bgGif">
+    <img src="assets/img/BG_Inicio.gif" class="background-gif" alt="Fondo Jawy">
+  </div>
+
   <div class="todo">
 
     <div class="logo">
@@ -8,25 +13,21 @@
     <div class="contenido">
       
       <div class="texto">
-
         <h3><strong>¡Bienvenido a <span class="destacado">Jawy</span>!</strong></h3>
         <h6>
           Reserva espacios para tus tocadas, promueve tu arte, ve los eventos locales 
           y mucho más sobre la escena <strong>musical en La Paz</strong>.
         </h6>
-
       </div>
 
       <div class="botones">
-
-        <ion-button expand="block" mode="ios" class="btn-jawy-primary" routerLink="/login">
+        <ion-button expand="block" mode="ios" class="btnFill" routerLink="/login">
           <strong>Inicia sesión</strong>
         </ion-button>
 
         <ion-button expand="block" mode="ios" fill="outline" class="boton-google" (click)="loginGoogle()">
           Inicia sesión con Google
         </ion-button>
-
       </div>
 
       <div class="registro">

@@ -1,9 +1,9 @@
 <ion-content [fullscreen]="true">
-  <header class="header-content animate__animated animate__fadeIn">
+  <header class="header animate__animated animate__fadeIn">
     <ion-buttons>
       <ion-back-button defaultHref="/informacion-lugar" text="" icon="chevron-back-outline"></ion-back-button>
     </ion-buttons>
-    <img src="./assets/img/logo.png" alt="Logo Jawy" class="jawy-logo-small">
+    <img src="./assets/img/logo.png" alt="Logo Jawy" class="jawyLogo">
   </header>
 
   <div class="page-layout animate__animated animate__fadeIn">
@@ -84,7 +84,7 @@
     </div>
 
     <div class="footer-actions">
-      <ion-button expand="block" mode="ios" class="btn-jawy-primary" (click)="siguiente()" [disabled]="!capacidad">
+      <ion-button expand="block" mode="ios" class="btnFill" (click)="siguiente()" [disabled]="!capacidad">
         Siguiente
       </ion-button>
     </div>

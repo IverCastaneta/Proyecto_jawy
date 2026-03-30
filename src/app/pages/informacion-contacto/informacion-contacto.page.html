@@ -4,11 +4,11 @@
     <ion-buttons>
       <ion-back-button defaultHref="/informacion-personal" text="" icon="chevron-back-outline"></ion-back-button>
     </ion-buttons>
-    <img src="./assets/img/logo.png" alt="Logo Jawy" class="jawy-logo-small">
+    <img src="./assets/img/logo.png" alt="Logo Jawy" class="jawyLogo">
   </header>
 
   <div class="body animate__animated animate__fadeIn">
-    <main class="contenedor-principal">
+    <main class="todoBody">
       
       <div class="textos">
         <h1><strong><span class="destacado">¿</span>Cómo te van a contactar<span class="destacado">?</span></strong></h1>
@@ -19,30 +19,30 @@
         
         <div class="inputs">
           
-          <div class="grupo-input">
+          <div class="Input">
             <label>Correo electrónico</label>
             <ion-input 
               type="email" 
               placeholder="ejemplo@gmail.com" 
               formControlName="email" 
-              class="jawy-text-inputs">
+              class="inputsRegistro">
             </ion-input>
           </div>
 
-          <div class="grupo-input">
+          <div class="Input">
             <label>Número de contacto</label>
             <ion-input 
               type="tel" 
               placeholder="+591 00000000" 
               formControlName="telefono" 
-              class="jawy-text-inputs">
+              class="inputsRegistro">
             </ion-input>
           </div>
 
         </div>
 
         <footer class="footer">
-          <ion-button expand="block" mode="ios" class="btn-jawy-primary" (click)="siguiente()" [disabled]="!contactoForm.valid">
+          <ion-button expand="block" mode="ios" class="btnFill" (click)="siguiente()" [disabled]="!contactoForm.valid">
             Siguiente
           </ion-button>
         </footer>

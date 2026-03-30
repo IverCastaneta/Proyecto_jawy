@@ -4,11 +4,11 @@
     <ion-buttons>
       <ion-back-button defaultHref="/informacion-contacto" text="" icon="chevron-back-outline"></ion-back-button>
     </ion-buttons>
-    <img src="./assets/img/logo.png" alt="Logo Jawy" class="jawy-logo-small">
+    <img src="./assets/img/logo.png" alt="Logo Jawy" class="jawyLogo">
   </header>
 
   <div class="body animate__animated animate__fadeIn">
-    <main class="contenedor-principal">
+    <main class="todoBody">
       
       <div class="textos">
         <h1><strong>Hablanos de tí</strong></h1>
@@ -19,10 +19,10 @@
         
         <div class="inputs">
           
-          <div class="grupo-input">
+          <div class="Input">
             <h4>¿Y tú eres?...</h4>
             <ion-select 
-              class="jawy-text-inputs jawy-select" 
+              class="inputsRegistro jawy-select" 
               placeholder="Seleccione un rol" 
               toggleIcon="chevron-down" 
               [(ngModel)]="rolEspecifico">
@@ -34,7 +34,7 @@
 
           <div class="linea"></div>
           
-          <div class="grupo-input">
+          <div class="Input">
             <h4>¿Qué tocas?</h4>
             <div class="jawy-list-container">
               <ion-item *ngFor="let inst of instrumentos" lines="none" class="jawy-checkbox-item">
@@ -46,7 +46,7 @@
           
           <div class="linea"></div>
 
-          <div class="grupo-input">
+          <div class="Input">
             <h4>¿Qué genero de música tocas?</h4>
             <div class="jawy-list-container">
               <ion-item *ngFor="let gen of generos" lines="none" class="jawy-checkbox-item">

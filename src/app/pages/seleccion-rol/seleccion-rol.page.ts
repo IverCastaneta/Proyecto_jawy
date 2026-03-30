@@ -10,7 +10,7 @@ export class SeleccionRolPage implements OnInit {
 
   rolSeleccionado: string | null = null;
 
-  // Los 4 roles oficiales con sus IDs en texto para la base de datos
+ 
   roles = [
     { id: 'musico', nombre: 'Músico', imagenUrl: 'assets/img/roles/musico.svg' },
     { id: 'banda', nombre: 'Banda', imagenUrl: 'assets/img/roles/banda.svg' },

@@ -1,17 +1,17 @@
 <ion-content [fullscreen]="true">
 
-  <header class="header-content">
+  <header class="header">
 
     <ion-buttons>
       <ion-back-button defaultHref="/login" text="" icon="chevron-back-outline"></ion-back-button>
     </ion-buttons>
-    <img src="./assets/img/logo.png" alt="Logo Jawy" class="jawy-logo-small">
+    <img src="./assets/img/logo.png" alt="Logo Jawy" class="jawyLogo">
   
   </header>
 
   <div class="body">
 
-    <main class="contenedor-principal">
+    <main class="todoBody">
       
       <div class="textos">
         <h1><strong><span class="destacado">¡</span>Regístrate<span class="destacado">!</span></strong></h1>
@@ -26,7 +26,7 @@
             labelPlacement="floating"
             formControlName="email"
             type="email"
-            class="contenido-input">
+            class="input">
           </ion-input>
 
           <ion-input 
@@ -34,7 +34,7 @@
             labelPlacement="floating"
             formControlName="name"
             type="text"
-            class="contenido-input">
+            class="input">
           </ion-input>
 
           <ion-input 
@@ -42,7 +42,7 @@
             labelPlacement="floating"
             formControlName="username"
             type="text"
-            class="contenido-input">
+            class="input">
           </ion-input>
           
           <ion-input 
@@ -50,7 +50,7 @@
             labelPlacement="floating"
             formControlName="phone"
             type="tel"
-            class="contenido-input">
+            class="input">
           </ion-input>
           
           <ion-input
@@ -58,7 +58,7 @@
             labelPlacement="floating" 
             formControlName="password"
             type="password"
-            class="contenido-input">
+            class="input">
           </ion-input>
           
           <ion-input 
@@ -66,7 +66,7 @@
             labelPlacement="floating" 
             formControlName="confirmPassword"
             type="password"
-            class="contenido-input">
+            class="input">
           </ion-input>
         </div>
         
@@ -74,7 +74,7 @@
           type="submit" 
           expand="block" 
           mode="ios"
-          class="btn-jawy-primary"
+          class="btnFill"
           [disabled]="form.invalid">
           Registrarse
         </ion-button>

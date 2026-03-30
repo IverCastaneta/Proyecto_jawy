@@ -1,4 +1,4 @@
-.header-content {
+.header {
   background-color: transparent;
   margin-top: max(40px, env(safe-area-inset-top)); 
   display: flex;
@@ -11,7 +11,7 @@ ion-back-button {
   margin-right: 10px;
 }
 
-.jawy-logo-small {
+.jawyLogo {
   width: 70px; 
   height: auto;
 }

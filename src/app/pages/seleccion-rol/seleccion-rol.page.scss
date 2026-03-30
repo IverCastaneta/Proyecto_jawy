@@ -1,4 +1,4 @@
-.header-content {
+.header {
   background-color: transparent !important;
   margin-top: 40px; 
   display: flex;
@@ -11,7 +11,7 @@ ion-back-button {
   margin-right: 10px;
 }
 
-.jawy-logo-small {
+.jawyLogo {
   width: 70px; 
   height: auto;
 }
@@ -23,7 +23,7 @@ ion-back-button {
   min-height: 100%;
 }
 
-.contenedor-principal {
+.todoBody {
   display: flex;
   flex-direction: column;
   gap: 32px;

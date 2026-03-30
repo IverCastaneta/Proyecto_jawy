@@ -26,14 +26,13 @@ export class LoginPage implements OnInit {
 
   onSubmitForm(){
     if(this.form.valid){
-      /////
+      
       console.log('valores', this.form.value)
       const {email, password} =this.form.value;
       this.auth.loginUser(email, password);
     
     }
     else {
-      /////
     }
   }
 

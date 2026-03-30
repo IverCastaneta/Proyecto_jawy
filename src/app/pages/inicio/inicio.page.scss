@@ -1,4 +1,24 @@
+
+.bgGif {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2; 
+  overflow: hidden;
+}
+
+.background-gif {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+  filter: blur(8px);
+}
+
 .todo {
+  position: relative; 
+  z-index: 1;
   padding-top: 80px;
   display: flex;
   flex-direction: column;

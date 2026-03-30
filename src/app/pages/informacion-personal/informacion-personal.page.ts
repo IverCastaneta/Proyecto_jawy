@@ -15,7 +15,7 @@ export class InformacionPersonalPage implements OnInit {
     private fb: FormBuilder,
     private router: Router
   ) {
-    // Inicializamos el formulario con validaciones básicas
+
     this.personaForm = this.fb.group({
       nombreArtistico: ['', [Validators.required, Validators.minLength(3)]],
       nombreReal: ['', [Validators.required]],
@@ -34,7 +34,7 @@ export class InformacionPersonalPage implements OnInit {
 
       localStorage.setItem('temp_registro', JSON.stringify(registroActualizado));
 
-      // Lógica de ramificación (Branching)
+  
       if (datosExistentes.rol === 'dueno') {
         this.router.navigate(['/informacion-lugar']);
       } else {

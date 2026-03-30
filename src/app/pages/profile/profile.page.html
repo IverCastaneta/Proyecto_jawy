@@ -82,7 +82,40 @@
 
         <div class="linea"></div>
 
-        <section class="visited-section">
+        <section class="mi-lugar-section" *ngIf="(usuario.rol === 'dueno' || usuario.rol === 'dueño') && miLugar">
+          <div class="wallet-header">
+            <h3 class="section-title">Mi Espacio</h3>
+            </div>
+
+          <ion-card class="venue-card animate__animated animate__zoomIn" [routerLink]="['/view-lugar', miLugar.id]">
+            <div class="image-wrapper" style="position: relative;">
+              <img [src]="miLugar.fotos?.length ? miLugar.fotos[0] : (miLugar.foto || 'assets/default-venue.jpg')" />
+              
+              <div class="edit-venue-badge" (click)="abrirModalEditLugar($event)">
+                <ion-icon name="pencil"></ion-icon>
+              </div>
+            </div>
+            
+            <div class="card-body">
+              <div class="venue-header">
+                <h2 class="venue-title">{{ miLugar.nombre }}</h2>
+              </div>
+              <div class="section-line"></div>
+              <div class="section-data">
+                <div class="detail-item">
+                  <ion-icon name="location"></ion-icon>
+                  <p>{{ miLugar.direccion }}</p>
+                </div>
+                <div class="detail-item">
+                  <ion-icon name="pricetag"></ion-icon>
+                  <p>{{ miLugar.tipoLocal || miLugar.tipo }} • {{ miLugar.precioCover ? miLugar.precioCover + ' Bs.' : 'Gratis' }}</p>
+                </div>
+              </div>
+            </div>
+          </ion-card>
+        </section>
+
+        <section class="visited-section" *ngIf="usuario.rol !== 'dueno' && usuario.rol !== 'dueño'">
           <h3 class="section-title center-text">Lugares visitados</h3>
           
           <div class="empty-state" *ngIf="!reservas || reservas.length === 0">
@@ -91,7 +124,7 @@
 
           <div class="places-grid" *ngIf="reservas && reservas.length > 0">
             <ion-card *ngFor="let lugar of reservas" class="mini-place-card">
-              <img [src]="lugar.foto || 'assets/default-venue.jpg'">
+              <img [src]="lugar.fotos?.length ? lugar.fotos[0] : (lugar.foto || 'assets/default-venue.jpg')">
               <p>{{ lugar.nombre }}</p>
             </ion-card>
           </div>
@@ -207,59 +240,241 @@
 
   <ng-template #skeletons>
     <div class="skeleton-pane">
-      <ion-card *ngFor="let i of [1,2]" class="jawy-ticket" style="opacity: 0.4;">
-        <ion-item lines="none">
-          <ion-avatar slot="start"><ion-skeleton-text animated></ion-skeleton-text></ion-avatar>
-          <ion-label><ion-skeleton-text animated style="width: 70%"></ion-skeleton-text></ion-label>
+      <ion-card *ngFor="let i of [1,2,3]" class="jawy-ticket" style="box-shadow: none; border: 1px solid rgba(255,255,255,0.05); opacity: 0.7;">
+        <ion-item lines="none" style="--background: transparent;">
+          <ion-avatar slot="start">
+            <ion-skeleton-text animated></ion-skeleton-text>
+          </ion-avatar>
+          <ion-label>
+            <ion-skeleton-text animated style="width: 70%; height: 16px; border-radius: 4px; margin-bottom: 8px;"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 40%; height: 12px; border-radius: 4px;"></ion-skeleton-text>
+          </ion-label>
+          <ion-skeleton-text slot="end" animated style="width: 60px; height: 22px; border-radius: 12px;"></ion-skeleton-text>
         </ion-item>
       </ion-card>
     </div>
   </ng-template>
 
   <ng-template #cargandoPerfil>
-    <div class="loader-center">
-      <ion-spinner name="crescent" color="warning"></ion-spinner>
-      <p>Cargando Perfil...</p>
+    <div class="main-safe-area" style="opacity: 0.7; padding-top: 20px;">
+      
+      <div style="display: flex; justify-content: center; margin-bottom: 20px;">
+        <ion-skeleton-text animated style="width: 220px; height: 35px; border-radius: 20px; margin: 0;"></ion-skeleton-text>
+      </div>
+
+      <div class="profile-hero-row">
+        <div class="user-info-col">
+          <div class="avatar-wrapper">
+            <ion-skeleton-text animated style="width: 120px; height: 120px; border-radius: 50%; margin: 0;"></ion-skeleton-text>
+          </div>
+          <div class="user-meta-new" style="display: flex; flex-direction: column; align-items: center; width: 100%; margin-top: 15px;">
+            <ion-skeleton-text animated style="width: 160px; height: 24px; border-radius: 6px;"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 110px; height: 14px; border-radius: 4px; margin-top: 8px;"></ion-skeleton-text>
+          </div>
+        </div>
+
+        <div class="stats-wrapper">
+          <div class="stat-item">
+            <ion-skeleton-text animated style="width: 40px; height: 24px; border-radius: 4px;"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 60px; height: 14px; border-radius: 4px; margin-top: 4px;"></ion-skeleton-text>
+          </div>
+          <div class="h-line"></div>
+          <div class="stat-item">
+            <ion-skeleton-text animated style="width: 60px; height: 24px; border-radius: 4px;"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 50px; height: 14px; border-radius: 4px; margin-top: 4px;"></ion-skeleton-text>
+          </div>
+          <div class="h-line"></div>
+        </div>
+      </div>
+
+      <div class="linea" style="margin: 20px 0;"></div>
+
+      <section class="desc-section">
+        <ion-skeleton-text animated style="width: 40%; height: 20px; border-radius: 4px; margin-bottom: 15px;"></ion-skeleton-text>
+        <ion-skeleton-text animated style="width: 100%; height: 14px; border-radius: 4px; margin-bottom: 6px;"></ion-skeleton-text>
+        <ion-skeleton-text animated style="width: 90%; height: 14px; border-radius: 4px; margin-bottom: 6px;"></ion-skeleton-text>
+        <ion-skeleton-text animated style="width: 60%; height: 14px; border-radius: 4px;"></ion-skeleton-text>
+      </section>
+
+      <div class="linea" style="margin: 20px 0;"></div>
+
+      <section class="mi-lugar-section">
+        <div class="wallet-header" style="margin-bottom: 15px;">
+          <ion-skeleton-text animated style="width: 120px; height: 20px; border-radius: 4px; margin: 0;"></ion-skeleton-text>
+        </div>
+        <ion-card class="venue-card" style="margin: 0; box-shadow: none; border: 1px solid rgba(255,255,255,0.05);">
+          <div class="image-wrapper">
+            <ion-skeleton-text animated style="width: 100%; height: 160px; margin: 0;"></ion-skeleton-text>
+          </div>
+          <div class="card-body">
+            <ion-skeleton-text animated style="width: 60%; height: 18px; border-radius: 4px; margin-bottom: 12px;"></ion-skeleton-text>
+            <div class="section-line"></div>
+            <ion-skeleton-text animated style="width: 80%; height: 14px; border-radius: 4px; margin-bottom: 8px;"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 50%; height: 14px; border-radius: 4px;"></ion-skeleton-text>
+          </div>
+        </ion-card>
+      </section>
+
     </div>
   </ng-template>
 
-  <ion-modal [isOpen]="isRechazoModalOpen" (didDismiss)="cerrarModalRechazo()" initialBreakpoint="0.75" [breakpoints]="[0, 0.75, 1]">
-    <ng-template>
-      <ion-content class="ion-padding dark-modal">
-        <div class="sheet-handle"></div>
-        
-        <div class="custom-header">
-          <h3 class="title-danger">Rechazar Solicitud</h3>
-          <p class="subtitle">Indícale al músico por qué no puedes aceptar su evento.</p>
-        </div>
-
-        <ion-list class="bg-transparent rejection-list">
-          <ion-radio-group [(ngModel)]="motivoRechazo">
-            <ion-item *ngFor="let motivo of motivosPredeterminados" lines="none" class="rejection-item" (click)="motivoRechazo = motivo">
-              <ion-radio slot="start" [value]="motivo" color="danger"></ion-radio>
-              <ion-label>{{ motivo }}</ion-label>
-            </ion-item>
-          </ion-radio-group>
-        </ion-list>
-
-        <div class="input-group ion-margin-top px-15">
-          <ion-label class="input-label">Detalles adicionales (Opcional)</ion-label>
-          <ion-textarea class="jawy-text-inputs jawy-textarea" rows="3" placeholder="Ej: Me gustaría que postules para el próximo mes..." [(ngModel)]="comentarioRechazo"></ion-textarea>
-        </div>
-
-        <ion-row class="ion-margin-top px-15 pb-20" style="margin-top: 20px;">
-          <ion-col size="5">
-            <ion-button expand="block" fill="clear" color="medium" (click)="cerrarModalRechazo()">Cancelar</ion-button>
-          </ion-col>
-          <ion-col size="7">
-            <ion-button expand="block" color="danger" class="btn-danger-custom" [disabled]="!motivoRechazo" (click)="confirmarRechazo()">Confirmar Rechazo</ion-button>
-          </ion-col>
-        </ion-row>
-      </ion-content>
-    </ng-template>
-  </ion-modal>
-
 </ion-content>
+
+<ion-modal [isOpen]="isEditLugarModalOpen" (didDismiss)="cerrarModalEditLugar()" initialBreakpoint="0.95" [breakpoints]="[0, 0.95, 1]">
+  <ng-template>
+    <ion-content class="ion-padding dark-modal">
+      <div class="sheet-handle"></div>
+      
+      <div class="custom-header">
+        <h3 class="title-bold" style="color: white; margin-bottom: 5px;">Editar mi Espacio</h3>
+        <p class="subtitle">Actualiza la información pública de tu local.</p>
+      </div>
+
+      <div class="input-group">
+        <h4 class="input-label">Nombre del Local</h4>
+        <ion-input mode="md" type="text" class="inputsRegistro jawy-input-glass" [(ngModel)]="lugarEditData.nombre" placeholder="Ej: Jawy Bar"></ion-input>
+      </div>
+
+      <div class="input-group">
+        <h4 class="input-label">Descripción</h4>
+        <ion-textarea mode="md" class="inputsRegistro jawy-input-glass jawy-textarea" rows="3" [(ngModel)]="lugarEditData.descripcion" placeholder="Describe el ambiente y vibra de tu local..."></ion-textarea>
+      </div>
+
+      <div class="input-group">
+        <h4 class="input-label">Dirección</h4>
+        <ion-input mode="md" type="text" class="inputsRegistro jawy-input-glass" [(ngModel)]="lugarEditData.direccion" placeholder="Ej: Av. Principal #123"></ion-input>
+      </div>
+
+      <div class="input-group">
+        <h4 class="input-label">Capacidad</h4>
+        <ion-input mode="md" type="text" class="inputsRegistro jawy-input-glass" [(ngModel)]="lugarEditData.capacidad" placeholder="Ej: 30-60"></ion-input>
+      </div>
+
+      <div class="input-group">
+        <h4 class="input-label">Tipo de Local</h4>
+        <ion-select mode="md" class="inputsRegistro jawy-input-glass" [(ngModel)]="lugarEditData.tipoLocal" interface="action-sheet" placeholder="Seleccionar...">
+          <ion-select-option value="Pub">Pub</ion-select-option>
+          <ion-select-option value="Cafetería">Cafetería</ion-select-option>
+          <ion-select-option value="Teatro">Teatro</ion-select-option>
+          <ion-select-option value="Bar">Bar</ion-select-option>
+          <ion-select-option value="Restaurante">Restaurante</ion-select-option>
+          <ion-select-option value="Centro Cultural">Centro Cultural</ion-select-option>
+        </ion-select>
+      </div>
+
+      <div class="input-group">
+        <h4 class="input-label">Precio Cover (Bs.)</h4>
+        <ion-input mode="md" type="number" class="inputsRegistro jawy-input-glass" [(ngModel)]="lugarEditData.precioCover" placeholder="0 para Gratis"></ion-input>
+      </div>
+
+      <div class="input-group">
+        <h4 class="input-label">Equipamiento Disponible</h4>
+        <ion-select mode="md" class="inputsRegistro jawy-input-glass" [(ngModel)]="lugarEditData.equipamiento" [multiple]="true" cancelText="Cancelar" okText="Aceptar" placeholder="¿Qué ofreces?">
+          <ion-select-option value="Amplificadores">Amplificadores</ion-select-option>
+          <ion-select-option value="Micrófonos">Micrófonos</ion-select-option>
+          <ion-select-option value="Consola de sonido">Consola de sonido</ion-select-option>
+          <ion-select-option value="Monitores">Monitores</ion-select-option>
+          <ion-select-option value="Batería">Batería</ion-select-option>
+          <ion-select-option value="Iluminación">Iluminación</ion-select-option>
+          <ion-select-option value="Proyector">Proyector</ion-select-option>
+          <ion-select-option value="DJ Booth">DJ Booth</ion-select-option>
+          <ion-select-option value="Tarima/Escenario">Tarima/Escenario</ion-select-option>
+        </ion-select>
+      </div>
+
+      <ion-row class="form-actions-row">
+        <ion-col size="5">
+          <ion-button expand="block" mode="ios" fill="clear" color="medium" class="btn-cancel" (click)="cerrarModalEditLugar()">
+            Cancelar
+          </ion-button>
+        </ion-col>
+        <ion-col size="7">
+          <ion-button expand="block" mode="ios" class="btn-jawy-primary" (click)="guardarCambiosLugar()" [disabled]="guardandoLugar">
+            <strong *ngIf="!guardandoLugar">Guardar</strong>
+            <ion-spinner name="crescent" *ngIf="guardandoLugar"></ion-spinner>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+<ion-modal [isOpen]="isEditLugarModalOpen" (didDismiss)="cerrarModalEditLugar()" initialBreakpoint="0.95" [breakpoints]="[0, 0.95, 1]">
+  <ng-template>
+    <ion-content class="ion-padding dark-modal">
+      <div class="sheet-handle"></div>
+      
+      <div class="custom-header">
+        <h3 class="title-bold" style="color: white; margin-bottom: 5px;">Editar mi Espacio</h3>
+        <p class="subtitle">Actualiza la información pública de tu local.</p>
+      </div>
+
+      <div class="input-group ion-margin-top px-15">
+        <ion-label class="input-label" style="color: var(--orange);">Nombre del Local</ion-label>
+        <ion-input class="jawy-input-glass" [(ngModel)]="lugarEditData.nombre" placeholder="Ej: Jawy Bar"></ion-input>
+      </div>
+
+      <div class="input-group ion-margin-top px-15">
+        <ion-label class="input-label" style="color: var(--orange);">Descripción</ion-label>
+        <ion-textarea class="jawy-input-glass jawy-textarea" rows="3" [(ngModel)]="lugarEditData.descripcion" placeholder="Describe el ambiente y vibra de tu local..."></ion-textarea>
+      </div>
+
+      <div class="input-group ion-margin-top px-15">
+        <ion-label class="input-label" style="color: var(--orange);">Dirección</ion-label>
+        <ion-input class="jawy-input-glass" [(ngModel)]="lugarEditData.direccion" placeholder="Ej: Av. Principal #123"></ion-input>
+      </div>
+
+      <div class="input-group ion-margin-top px-15">
+        <ion-label class="input-label" style="color: var(--orange);">Capacidad</ion-label>
+        <ion-input class="jawy-input-glass" [(ngModel)]="lugarEditData.capacidad" placeholder="Ej: 30-60"></ion-input>
+      </div>
+
+      <div class="input-group ion-margin-top px-15">
+        <ion-label class="input-label" style="color: var(--orange);">Tipo de Local</ion-label>
+        <ion-select class="jawy-input-glass" [(ngModel)]="lugarEditData.tipoLocal" interface="action-sheet" placeholder="Seleccionar...">
+          <ion-select-option value="Pub">Pub</ion-select-option>
+          <ion-select-option value="Cafetería">Cafetería</ion-select-option>
+          <ion-select-option value="Teatro">Teatro</ion-select-option>
+          <ion-select-option value="Bar">Bar</ion-select-option>
+          <ion-select-option value="Restaurante">Restaurante</ion-select-option>
+          <ion-select-option value="Centro Cultural">Centro Cultural</ion-select-option>
+        </ion-select>
+      </div>
+
+      <div class="input-group ion-margin-top px-15">
+        <ion-label class="input-label" style="color: var(--orange);">Precio Cover (Bs.)</ion-label>
+        <ion-input type="number" class="jawy-input-glass" [(ngModel)]="lugarEditData.precioCover" placeholder="0 para Gratis"></ion-input>
+      </div>
+
+      <div class="input-group ion-margin-top px-15">
+        <ion-label class="input-label" style="color: var(--orange);">Equipamiento Disponible</ion-label>
+        <ion-select class="jawy-input-glass" [(ngModel)]="lugarEditData.equipamiento" [multiple]="true" cancelText="Cancelar" okText="Aceptar" placeholder="¿Qué ofreces?">
+          <ion-select-option value="Amplificadores">Amplificadores</ion-select-option>
+          <ion-select-option value="Micrófonos">Micrófonos</ion-select-option>
+          <ion-select-option value="Consola de sonido">Consola de sonido</ion-select-option>
+          <ion-select-option value="Monitores">Monitores</ion-select-option>
+          <ion-select-option value="Batería">Batería</ion-select-option>
+          <ion-select-option value="Iluminación">Iluminación</ion-select-option>
+          <ion-select-option value="Proyector">Proyector</ion-select-option>
+          <ion-select-option value="DJ Booth">DJ Booth</ion-select-option>
+          <ion-select-option value="Tarima/Escenario">Tarima/Escenario</ion-select-option>
+        </ion-select>
+      </div>
+
+      <ion-row class="ion-margin-top px-15 pb-20" style="margin-top: 30px; margin-bottom: 20px;">
+        <ion-col size="5">
+          <ion-button expand="block" fill="clear" color="medium" (click)="cerrarModalEditLugar()">Cancelar</ion-button>
+        </ion-col>
+        <ion-col size="7">
+          <ion-button expand="block" color="success" class="btn-confirm" (click)="guardarCambiosLugar()" [disabled]="guardandoLugar">
+            <span *ngIf="!guardandoLugar">Guardar</span>
+            <ion-spinner name="crescent" *ngIf="guardandoLugar"></ion-spinner>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-content>
+  </ng-template>
+</ion-modal>
 
 <ion-footer class="ion-no-border">
   <ion-toolbar class="jawy-footer-toolbar">

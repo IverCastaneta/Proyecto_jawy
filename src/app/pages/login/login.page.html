@@ -1,19 +1,31 @@
-<ion-header>
-    <div class="header">
-      <ion-buttons slot="start">
-        <ion-back-button defaultHref="/" text="" icon="chevron-back-outline"></ion-back-button>
-      </ion-buttons>
-      
-      <img src="./assets/img/logo.png" alt="Logo Jawy" class="jawy-logo-small">
-    </div>
+<ion-header class="ion-no-border">
+  <ion-toolbar class="transparent-toolbar">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/" text="" icon="chevron-back-outline"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
+
+  <div class="bgGif">
+    <video 
+      src="assets/Video/Bg_Inicio.mp4" 
+      class="background-gif" 
+      autoplay 
+      loop 
+      muted 
+      playsinline 
+      preload="auto" 
+      disablePictureInPicture>
+    </video>
+  </div>
+
   <div class="body">
 
     <div class="textos">
       <h1><strong><span class="destacado">¡</span>Inicia sesión<span class="destacado">!</span></strong></h1>
-      <p>Ingresa a tu cuenta</p>
+      <p>Ingresa a tu cuenta para continuar</p>
     </div>
 
     <form [formGroup]="form" (ngSubmit)="onSubmitForm()" class="form-container">
@@ -23,7 +35,7 @@
           label="Nombre o Correo" 
           labelPlacement="floating" 
           formControlName="email"
-          class="contenido-input">
+          class="input">
         </ion-input>
         
         <ion-input
@@ -31,12 +43,12 @@
           labelPlacement="floating" 
           formControlName="password"
           type="password"
-          class="contenido-input">
+          class="input">
         </ion-input>
       </div>
       
-      <ion-button expand="block" mode="ios" class="btn-jawy-primary" type="submit"> 
-        Ingresar
+      <ion-button expand="block" mode="ios" class="btnFill btn-jawy-primary" type="submit"> 
+        <strong>Ingresar</strong>
       </ion-button>
 
     </form>
