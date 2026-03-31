@@ -22,19 +22,76 @@ ion-content { --background: var(--black); }
   display: flex;
   flex-direction: column;
   gap: 4px;
-  h1 { margin: 0; font-size: 30px; color: var(--white); }
-  h4 { margin: 0; font-weight: 400; font-size: 16px; color: var(--white-muted); }
+  h1 { margin: 0;  color: var(--white); }
+  h4 { margin: 0; font-weight: 300; font-size: 16px; color: var(--white-muted); }
+}
+/* ==============================================================
+   ESTILOS DEL CALENDARIO (POPOVER)
+   ============================================================== */
+
+.selector-fecha {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  padding: 0; 
+  min-height: 52px; /* Alineado a la altura de los demás inputs */
+
+  ion-datetime-button {
+    flex: 1;
+    margin: 0;
+    background: transparent;
+    
+    &::part(native) {
+      background: transparent;
+      display: flex; 
+      width: 100%; 
+      justify-content: flex-start; 
+      padding-left: 0; /* Ya tiene padding por la clase input-jawy */
+      color: var(--white);
+      box-shadow: none;
+    }
+  }
+
+  .icono-flecha {
+    color: var(--grey);
+    font-size: 20px;
+    opacity: 0.8;
+  }
 }
 
-.form-container { display: flex; flex-direction: column; gap: 32px; }
-.input-container { display: flex; flex-direction: column; gap: 24px; }
+ion-datetime {
+  --background: var(--dark-grey);
+  --color: var(--white);
+  --color-activated: var(--orange);
+  border-radius: 16px;
 
+  &::part(calendar-day) { color: var(--white); }
+  &::part(calendar-day active) {
+    background: var(--orange);
+    color: white;
+  }
+}
+
+ion-popover::part(content) {
+  background: var(--dark-grey);
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+.input-seleccion{
+  border-radius: 8px;
+}
+
+.todo { display: flex; flex-direction: column; gap: 32px; }
+.input { display: flex; flex-direction: column; gap: 24px; }
+.lista { display: flex; flex-direction: column; gap: 24px; }
 .form-section {
   display: flex;
   flex-direction: column;
   gap: 15px;
-  h4 { margin: 0; font-size: 18px; font-weight: 600; color: var(--white); }
+  h4 { margin: 0; font-size: 18px; font-weight: 400; color: var(--white); }
 }
+
 
 .input-jawy {
   --background: var(--dark-grey); 
@@ -50,20 +107,23 @@ ion-content { --background: var(--black); }
     box-shadow: 0 0 0 2px rgba(246, 111, 23, 0.3);
   }
 
-  ion-select, ion-input { --background: transparent; width: 100%; }
+  ion-select, ion-input { 
+    --background: transparent; 
+    width: 100%; 
+  }
 }
 
-.currency-label { color: var(--orange); font-weight: 700; font-size: 18px; }
-
 .list-jawy {
-  background: transparent;
-  display: flex;
-  flex-direction: column;
+  background: var(--dark-grey); /* Fondo unificado */
+  border-radius: 8px;
+  padding: 8px 0;
+  border: none !important; /* Eliminamos bordes */
+  box-shadow: none;
 
   .checkbox-item {
-    --background: var(--dark-grey); 
+    --background: transparent; /* Hereda del fondo de la lista */
     --inner-border-width: 0;
-
+    --padding-start: 16px;
 
     ion-label { color: var(--white); font-size: 16px; }
     ion-checkbox {
@@ -71,6 +131,7 @@ ion-content { --background: var(--black); }
       --checkbox-background-checked: var(--orange);
       --border-color-checked: var(--orange);
       --border-color: rgba(255, 255, 255, 0.3);
+      margin-right: 16px;
     }
   }
 }
@@ -140,6 +201,19 @@ ion-content { --background: var(--black); }
     height: 56px;
     --background: var(--orange);
     font-weight: 700;
+    font-size: 16px;
+  }
+}
+
+
+ion-datetime-button {
+  width: 100%;
+  justify-content: flex-start;
+  
+  ::part(native) {
+    background: transparent;
+    color: var(--white);
+    padding: 0;
     font-size: 16px;
   }
 }

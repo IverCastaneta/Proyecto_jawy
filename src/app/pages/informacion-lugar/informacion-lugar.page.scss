@@ -1,3 +1,4 @@
+
 .header {
   background-color: transparent;
   margin-top: max(40px, env(safe-area-inset-top)); 
@@ -41,13 +42,12 @@ ion-content {
 
   h4 {
     margin: 0;
-    font-weight: 400;
     font-size: 16px;
     color: var(--white-muted);
   }
 }
 
-.form-container {
+.todo {
   display: flex;
   flex-direction: column;
   gap: 32px; 
@@ -174,19 +174,21 @@ ion-content {
   text-align: center;
 }
 
-.input-container {
+.input {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
-
+.input-seleccion{
+  border-radius: 8px;
+}
 .linea {
   width: 100%;
   height: 3px;
   background-color: var(--dark-grey); 
 }
 
-.list-container {
+.lista {
   display: flex;
   flex-direction: column;
   gap: 32px;
@@ -204,12 +206,6 @@ ion-content {
   }
 }
 
-h5 {
-  margin: 0;
-  font-weight: 300;
-  font-size: 16px;
-  color: var(--white);
-}
 
 .input-jawy {
   --background: var(--dark-grey); 

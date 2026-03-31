@@ -13,7 +13,7 @@
       <h4>Llena los espacios para que podamos darnos una idea de cómo es tu lugar.</h4>
     </div>
 
-    <form [formGroup]="lugarForm" class="form-container">
+    <form [formGroup]="lugarForm" class="todo">
       
       <div class="image-upload-container">
         <input type="file" #fileInput (change)="onFileSelected($event)" accept="image/*" multiple style="display: none;">
@@ -42,7 +42,7 @@
         <p class="photo-hint" *ngIf="fotosLugar.length > 0">Sube hasta 5 fotos. La primera será tu portada.</p>
       </div>
 
-      <div class="input-container">
+      <div class="input">
         <div class="form-section">
           <h5>Nombre del lugar</h5>
           <ion-item lines="none" class="input-jawy">
@@ -65,11 +65,11 @@
         </div>
       </div>
 
-      <div class="list-container">
+      <div class="lista">
         <div class="linea"></div>
         <div class="form-section">
-          <h5>¿Qué tipo de local manejas?</h5>
-          <ion-item lines="none" class="input-jawy">
+          <h4>¿Qué tipo de local manejas?</h4>
+          <ion-item lines="none" class="input-seleccion">
             <ion-select placeholder="Selecciona el tipo" toggleIcon="chevron-down" formControlName="tipoLocal">
               <ion-select-option value="bar">Bar / Pub</ion-select-option>
               <ion-select-option value="cafe">Café Cultural</ion-select-option>

@@ -36,12 +36,9 @@
   --ion-color-primary: var(--orange);
 }
 
-
-
 ion-datetime {
   --background: var(--dark-grey) !important;
   --color: var(--white) !important;
-
 
   &::part(fade) {
     background-image: none !important;
@@ -49,13 +46,11 @@ ion-datetime {
   }
 }
 
-
 ion-picker-internal, 
 ion-picker-column-internal,
 ion-picker {
   --fade-background: var(--dark-grey) !important;
   background: var(--dark-grey) !important;
-
 
   &::part(fade) {
     background-image: none !important;
@@ -64,7 +59,6 @@ ion-picker {
     display: none !important;
   }
 }
-
 
 ion-picker-column-internal {
   &::part(wheel-item) {
@@ -76,7 +70,6 @@ ion-picker-column-internal {
   }
 }
 
-
 ion-popover {
   --background: var(--dark-grey) !important;
   &::part(content) {
@@ -84,7 +77,6 @@ ion-popover {
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5) !important;
   }
 }
-
 
 ion-content {
   --background: var(--black);
@@ -94,7 +86,6 @@ ion-content {
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Geist', sans-serif;
   color: var(--white);
-  font-weight: 300;
   margin: 0;
 }
 
@@ -138,9 +129,21 @@ ion-datetime-button {
 }
 
 ion-input, ion-textarea, ion-select {
-  --highlight-color-focused: transparent !important;
-  --highlight-color-valid: transparent !important;
-  --highlight-color-invalid: transparent !important;
   --border-width: 0 !important;
   --border-style: none !important;
+}
+
+ion-input, ion-textarea {
+  --highlight-color-focused: var(--orange) !important;
+  --highlight-color-valid: var(--orange) !important;
+  --highlight-color-invalid: var(--orange) !important;
+  caret-color: var(--orange) !important;
+}
+
+
+ion-input::part(native),
+ion-textarea::part(native),
+ion-input::part(input),
+ion-textarea::part(textarea) {
+  caret-color: var(--orange) !important;
 }

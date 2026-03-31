@@ -13,6 +13,7 @@ export class DetallesLugarPage implements OnInit {
   
   nuevaRegla: string = '';
   reglasLista: string[] = [];
+  fechaDisponibilidad: string = '';
 
   equipamiento = [
     { nombre: 'Amplificadores', isChecked: false },
@@ -26,6 +27,23 @@ export class DetallesLugarPage implements OnInit {
     { nombre: 'Sillas / mesas', isChecked: false },
     { nombre: 'Mezcladora DJ / Pads', isChecked: false },
     { nombre: 'Otros', isChecked: false }
+  ];
+
+  generos = [
+    { nombre: 'Rock', isChecked: false },
+    { nombre: 'Pop', isChecked: false },
+    { nombre: 'Electrónica', isChecked: false },
+    { nombre: 'Reggaeton', isChecked: false },
+    { nombre: 'Urbano/Trap', isChecked: false },
+    { nombre: 'Salsa', isChecked: false },
+    { nombre: 'Cumbia', isChecked: false },
+    { nombre: 'Bachata', isChecked: false },
+    { nombre: 'Jazz', isChecked: false },
+    { nombre: 'Blues', isChecked: false },
+    { nombre: 'Acústico/Cantautor', isChecked: false },
+    { nombre: 'Folk', isChecked: false },
+    { nombre: 'Metal', isChecked: false },
+    { nombre: 'Otro', isChecked: false }
   ];
 
   constructor(private router: Router) { }
@@ -48,11 +66,17 @@ export class DetallesLugarPage implements OnInit {
       .filter(e => e.isChecked)
       .map(e => e.nombre);
 
+    const seleccionGeneros = this.generos
+      .filter(g => g.isChecked)
+      .map(g => g.nombre);
+
     const nuevosDatos = {
       capacidadLugar: this.capacidad,
       precioCover: this.precioCover,
       reglasLocal: this.reglasLista,
-      equipamientoLugar: seleccionEquipamiento
+      equipamientoLugar: seleccionEquipamiento,
+      generosLugar: seleccionGeneros,
+      fechaDisponibilidad: this.fechaDisponibilidad
     };
 
     const datosPrevios = JSON.parse(localStorage.getItem('temp_registro') || '{}');

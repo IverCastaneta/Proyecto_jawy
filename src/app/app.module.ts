@@ -28,9 +28,9 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
   schemas: [CUSTOM_ELEMENTS_SCHEMA], 
   imports: [
     BrowserModule,
-    // CONFIGURACIÓN GLOBAL DE MATERIAL DESIGN
+    // CONFIGURACIÓN GLOBAL DE IOS
     IonicModule.forRoot({ 
-      mode: 'md', // Forzamos Material Design en toda la app (Android Style)
+      mode: 'ios', // Forzamos el estilo iOS en toda la app
       rippleEffect: true 
     }),
     AppRoutingModule,

@@ -38,11 +38,20 @@ export class FinalizarRegistroPage implements AfterViewInit {
     const temp = JSON.parse(localStorage.getItem('temp_registro') || '{}');
 
     // 1. SEPARAMOS LA INFORMACIÓN CON PINZAS
-    // Extraemos todo lo que le pertenece al lugar...
+    // Agregamos generosLugar y fechaDisponibilidad a la lista de extracción para que NO se queden en el usuario
     const {
-      nombreLugar, direccion, descripcion, tipoLocal,
-      capacidadLugar, precioCover, reglasLocal, equipamientoLugar, fotosLugar,
-      ...datosSoloUsuario // ...y guardamos "el resto" aquí (nombre artístico, foto de perfil, rol, etc.)
+      nombreLugar, 
+      direccion, 
+      descripcion, 
+      tipoLocal,
+      capacidadLugar, 
+      precioCover, 
+      reglasLocal, 
+      equipamientoLugar, 
+      fotosLugar,
+      generosLugar,         // <-- Extraído correctamente
+      fechaDisponibilidad,  // <-- Extraído correctamente
+      ...datosSoloUsuario   // Aquí solo queda la info personal (nombre, bio, foto, rol, etc.)
     } = temp;
 
     // 2. ARMAMOS EL USUARIO LIMPIO
@@ -71,7 +80,9 @@ export class FinalizarRegistroPage implements AfterViewInit {
           precioCover: precioCover || null,
           reglas: reglasLocal || [],
           equipamiento: equipamientoLugar || [],
-          fotos: fotosLugar || [] // Ahora guarda el arreglo de fotos completo para el carrusel
+          generos: generosLugar || [],                 // <-- Guardado en lugares
+          fechaDisponibilidad: fechaDisponibilidad || '', // <-- Guardado en lugares
+          fotos: fotosLugar || []
         };
         
         // Guardamos en la colección correcta

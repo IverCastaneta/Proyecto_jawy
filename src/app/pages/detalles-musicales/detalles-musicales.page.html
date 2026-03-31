@@ -36,7 +36,7 @@
           
           <div class="Input">
             <h4>¿Qué tocas?</h4>
-            <div class="jawy-list-container">
+            <div class="jawy-lista">
               <ion-item *ngFor="let inst of instrumentos" lines="none" class="jawy-checkbox-item">
                 <ion-label>{{ inst.nombre }}</ion-label>
                 <ion-checkbox slot="end" [(ngModel)]="inst.isChecked"></ion-checkbox>
@@ -48,7 +48,7 @@
 
           <div class="Input">
             <h4>¿Qué genero de música tocas?</h4>
-            <div class="jawy-list-container">
+            <div class="jawy-lista">
               <ion-item *ngFor="let gen of generos" lines="none" class="jawy-checkbox-item">
                 <ion-label>{{ gen.nombre }}</ion-label>
                 <ion-checkbox slot="end" [(ngModel)]="gen.isChecked"></ion-checkbox>

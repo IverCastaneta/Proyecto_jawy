@@ -9,18 +9,28 @@
   <div class="page-layout animate__animated animate__fadeIn">
     
     <div class="textos-header">
-      <h1><strong>Hablanos de tu lugar</strong></h1>
+      <h1><strong>Háblanos de tu lugar</strong></h1>
       <h4>Completa los detalles técnicos y las normas de tu espacio.</h4>
     </div>
 
-    <div class="form-container">
+    <div class="todo">
+      <div class="linea"></div>
 
+      <div class="input-calendario">
+        <div class="form-section">
+          <h3>¿Desde cuándo está disponible para reservar?</h3>
+          <ion-item lines="none" class="input-seleccion date-input-wrapper">
+            <ion-input type="date" [(ngModel)]="fechaDisponibilidad"></ion-input>
+          </ion-item>
+        </div>
+      </div>
+      
       <div class="linea"></div>
       
-      <div class="list-container">
+      <div class="lista">
         <div class="form-section">
           <h4>¿Para cuántas personas es tu espacio?</h4>
-          <ion-item lines="none" class="input-jawy">
+          <ion-item lines="none" class="input-seleccion">
             <ion-select placeholder="Seleccione capacidad" toggleIcon="chevron-down" [(ngModel)]="capacidad">
               <ion-select-option value="0-10">0 - 10</ion-select-option>
               <ion-select-option value="10-30">10 - 30</ion-select-option>
@@ -34,7 +44,7 @@
 
       <div class="linea"></div>
 
-      <div class="list-container">
+      <div class="lista">
         <div class="form-section">
           <h4>¿Con qué cuenta tu espacio?</h4>
           <ion-list class="list-jawy">
@@ -48,7 +58,32 @@
 
       <div class="linea"></div>
 
-      <div class="input-container">
+      <div class="lista">
+        <div class="form-section">
+          <h4>¿Qué géneros musicales encajan aquí?</h4>
+          <ion-list class="list-jawy">
+            <ion-item *ngFor="let genero of generos" class="checkbox-item" lines="none">
+              <ion-label>{{ genero.nombre }}</ion-label>
+              <ion-checkbox slot="end" [(ngModel)]="genero.isChecked"></ion-checkbox>
+            </ion-item>
+          </ion-list>
+        </div>
+      </div>
+
+      <div class="linea"></div>
+
+      <div class="input">
+        <div class="form-section">
+          <h4>Precio del cover (Opcional)</h4>
+          <ion-item lines="none" class="input-jawy">
+            <ion-input type="number" placeholder="Ej. 50" [(ngModel)]="precioCover"></ion-input>
+          </ion-item>
+        </div>
+      </div>
+
+      <div class="linea"></div>
+
+      <div class="input">
         <div class="form-section">
           <h4>Reglas del local</h4>
           <div class="add-rule-row">
@@ -69,22 +104,10 @@
         </div>
       </div>
 
-      <div class="linea"></div>
-
-      <div class="input-container">
-        <div class="form-section">
-          <h4>Precio del cover (Opcional)</h4>
-          <ion-item lines="none" class="input-jawy">
-            <ion-input type="number" placeholder="Ej. 50" [(ngModel)]="precioCover"></ion-input>
-
-          </ion-item>
-        </div>
-      </div>
-
     </div>
 
     <div class="footer-actions">
-      <ion-button expand="block" mode="ios" class="btnFill" (click)="siguiente()" [disabled]="!capacidad">
+      <ion-button expand="block" mode="ios" class="btnFill" (click)="siguiente()" [disabled]="!capacidad || !fechaDisponibilidad">
         Siguiente
       </ion-button>
     </div>
