@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { DatabaseService } from 'src/app/services/database.service';
-import { ToastController, AlertController } from '@ionic/angular';
+import { ToastController, AlertController, ModalController } from '@ionic/angular';
 
+// COMPONENTES MODALES
+import { EditarLugarComponent } from '../../components/editar-lugar/editar-lugar.component';
+import { RechazarReservaComponent } from '../../components/rechazar-reserva/rechazar-reserva.component';
+import { EditarPerfilComponent } from '../../components/editar-perfil/editar-perfil.component';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',
@@ -16,51 +20,24 @@ export class ProfilePage implements OnInit {
   reservas: any[] = [];
   solicitudes: any[] = [];
   cargando: boolean = true;
-  paso: number = 1; 
-  metodoSeleccionado: string = 'tarjeta'; 
-  numTarjeta: string = '';
-  quiereGuardar: boolean = true;
-
   misInstrumentos: string[] = [];
   misGeneros: string[] = [];
-
-  isRechazoModalOpen: boolean = false;
-  solicitudARechazar: any = null;
-  motivoRechazo: string = '';
-  comentarioRechazo: string = '';
-  motivosPredeterminados: string[] = [
-    'Fecha ya ocupada o no disponible',
-    'El estilo musical no encaja con el lugar',
-    'El lugar estará en mantenimiento',
-    'Falta de requerimientos técnicos',
-    'Otro motivo'
-  ];
-
-  isEditLugarModalOpen: boolean = false;
-  lugarEditData: any = {};
-  guardandoLugar: boolean = false;
 
   constructor(
     public auth: AuthService,
     public db: DatabaseService,
     private toastCtrl: ToastController,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private modalCtrl: ModalController
   ) { }
 
   ngOnInit() {
     this.cargarBadges();
   }
 
-  detectarMarca(numero: string): string {
-    if (numero.startsWith('4')) return 'Visa';
-    if (numero.startsWith('5')) return 'Mastercard';
-    return 'Tarjeta';
-  }
-
   ionViewWillEnter() {
     this.cargando = true;
     this.usuario = this.auth.profile;
-
     if (this.usuario) {
       this.cargarTodo();
     } else {
@@ -79,28 +56,10 @@ export class ProfilePage implements OnInit {
   }
 
   cargarBadges() {
-    if (this.usuario && (this.usuario.instrumentos || this.usuario.generos)) {
+    if (this.usuario) {
       this.misInstrumentos = this.usuario.instrumentos || [];
       this.misGeneros = this.usuario.generos || [];
-    } else {
-      const datosGuardados = localStorage.getItem('temp_registro');
-      if (datosGuardados) {
-        const registro = JSON.parse(datosGuardados);
-        this.misInstrumentos = registro.instrumentos || [];
-        this.misGeneros = registro.generos || [];
-      }
     }
-  }
-
-  obtenerIconoInstrumento(instrumento: string): string {
-    const nombre = instrumento.toLowerCase();
-    if (nombre.includes('voz') || nombre.includes('cantante')) return 'mic';
-    if (nombre.includes('dj') || nombre.includes('sintetizador')) return 'headset';
-    if (nombre.includes('batería') || nombre.includes('percusión') || nombre.includes('cajón')) return 'radio-button-on';
-    if (nombre.includes('teclado') || nombre.includes('piano') || nombre.includes('acordeón')) return 'keypad';
-    if (nombre.includes('guitarra') || nombre.includes('bajo') || nombre.includes('charango')) return 'pulse-outline';
-    if (nombre.includes('vientos') || nombre.includes('saxofón') || nombre.includes('trompeta') || nombre.includes('flauta')) return 'leaf';
-    return 'musical-note';
   }
 
   cargarDatosSegunRol() {
@@ -109,31 +68,13 @@ export class ProfilePage implements OnInit {
         .subscribe((res: any) => {
           if (res && res.length > 0) this.miLugar = res[0];
         });
-    } else {
-      this.cargarReservas();
     }
-  }
-
-  cargarReservas() {
-    const userId = this.usuario?.id;
-    if (!userId) return;
-    this.db.getDocumentById('users', userId).subscribe((userData: any) => {
-      const idsReservas = userData?.reserva || [];
-      this.reservas = [];
-      idsReservas.forEach((lugarId: string) => {
-        this.db.getDocumentById('lugares', lugarId).subscribe((lugarData: any) => {
-          if (lugarData) this.reservas.push(lugarData);
-        });
-      });
-    });
   }
 
   cargarSolicitudesSegunRol() {
     this.cargando = true;
-    const user = this.auth.profile;
-    if (!user) return;
-    const rolField = (user.rol === 'dueño' || user.rol === 'dueno') ? 'idDueno' : 'idMusico';
-    this.db.getCollectionByCustomparam('performances', rolField, user.id).subscribe(res => {
+    const rolField = (this.usuario.rol === 'dueño' || this.usuario.rol === 'dueno') ? 'idDueno' : 'idMusico';
+    this.db.getCollectionByCustomparam('performances', rolField, this.usuario.id).subscribe(res => {
       this.solicitudes = res;
       this.cargando = false;
     });
@@ -142,157 +83,77 @@ export class ProfilePage implements OnInit {
   async gestionarSolicitud(idSolicitud: string, nuevoEstado: 'confirmado' | 'rechazado') {
     try {
       await this.db.updateFireStoreDocument('performances', idSolicitud, { estado: nuevoEstado });
-      const msg = nuevoEstado === 'confirmado' ? '¡Reserva Confirmada!' : 'Reserva rechazada.';
-      this.presentToast(msg, nuevoEstado === 'confirmado' ? 'success' : 'danger');
+      this.presentToast(nuevoEstado === 'confirmado' ? '¡Reserva Confirmada!' : 'Reserva rechazada', nuevoEstado === 'confirmado' ? 'success' : 'danger');
+      this.cargarSolicitudesSegunRol();
     } catch (error) {
-      this.presentToast('Error al procesar la solicitud', 'warning');
+      this.presentToast('Error al procesar solicitud', 'warning');
     }
   }
 
-  abrirModalRechazo(solicitud: any) {
-    this.solicitudARechazar = solicitud;
-    this.motivoRechazo = '';
-    this.comentarioRechazo = '';
-    this.isRechazoModalOpen = true;
+  async abrirModalRechazo(solicitud: any) {
+    const modal = await this.modalCtrl.create({
+      component: RechazarReservaComponent,
+      componentProps: { solicitud: solicitud },
+      mode: 'ios',
+      initialBreakpoint: 0.7,
+      breakpoints: [0, 0.7, 0.9]
+    });
+    await modal.present();
+    const { data } = await modal.onDidDismiss();
+    if (data) this.cargarSolicitudesSegunRol();
   }
 
-  cerrarModalRechazo() {
-    this.isRechazoModalOpen = false;
-    setTimeout(() => { this.solicitudARechazar = null; }, 300);
-  }
-
-  async confirmarRechazo() {
-    if (!this.solicitudARechazar || !this.motivoRechazo) return;
-
-    try {
-      await this.db.updateFireStoreDocument('performances', this.solicitudARechazar.id, { 
-        estado: 'rechazado',
-        motivoRechazo: this.motivoRechazo,
-        comentarioRechazo: this.comentarioRechazo
-      });
-      
-      this.presentToast('Has rechazado esta solicitud', 'danger');
-      this.cerrarModalRechazo();
-    } catch (error) {
-      this.presentToast('Hubo un error al rechazar', 'warning');
-    }
+  async abrirModalEditLugar(event?: Event) {
+    if (event) { event.preventDefault(); event.stopPropagation(); }
+    const modal = await this.modalCtrl.create({
+      component: EditarLugarComponent,
+      componentProps: { lugar: this.miLugar },
+      mode: 'ios',
+      initialBreakpoint: 0.95,
+      breakpoints: [0, 0.95, 1]
+    });
+    await modal.present();
+    const { data } = await modal.onDidDismiss();
+    if (data) this.miLugar = { ...this.miLugar, ...data };
   }
 
   async presentToast(mensaje: string, color: string) {
     const toast = await this.toastCtrl.create({
-      message: mensaje,
-      duration: 2000,
-      color: color,
-      position: 'bottom',
-      mode: 'ios'
+      message: mensaje, duration: 2000, color: color, mode: 'ios'
     });
     await toast.present();
   }
 
+  obtenerIconoInstrumento(instrumento: string): string {
+    const n = instrumento.toLowerCase();
+    if (n.includes('voz')) return 'mic';
+    if (n.includes('dj')) return 'headset';
+    if (n.includes('batería')) return 'radio-button-on';
+    if (n.includes('guitarra')) return 'pulse-outline';
+    return 'musical-note';
+  }
+
   contactarViaWhatsapp(s: any) {
-    const fecha = new Date(s.fechaPerformance).toLocaleDateString();
-    const mensaje = `¡Hola! Soy de ${s.nombreLugar}. Acepté tu propuesta para el show del ${fecha}. ¿Coordinamos?`;
-    const url = `https://wa.me/591${s.telefonoMusico || ''}?text=${encodeURIComponent(mensaje)}`;
-    window.open(url, '_blank');
+    const msg = `¡Hola! Soy de ${s.nombreLugar}. Acepté tu propuesta para el show. ¿Coordinamos?`;
+    window.open(`https://wa.me/591${s.telefonoMusico}?text=${encodeURIComponent(msg)}`, '_blank');
   }
-
-  async presentAlertNuevaTarjeta() {
-    const alert = await this.alertCtrl.create({
-      header: 'Nueva Tarjeta',
-      inputs: [
-        { name: 'numero', type: 'text', placeholder: 'Número de tarjeta' },
-        { name: 'expiracion', type: 'text', placeholder: 'MM/AA' }
-      ],
-      buttons: [
-        { text: 'Cancelar', role: 'cancel' },
-        { text: 'Guardar', handler: (data) => this.guardarTarjeta(data) }
-      ]
+async abrirModalEditPerfil() {
+    const modal = await this.modalCtrl.create({
+      component: EditarPerfilComponent,
+      componentProps: { usuario: this.usuario },
+      mode: 'ios',
+      initialBreakpoint: 0.8,
+      breakpoints: [0, 0.8, 1]
     });
-    await alert.present();
-  }
 
-  async guardarTarjeta(datosTarjeta: any) {
-    try {
-      const nuevaTarjeta = {
-        id: Date.now().toString(),
-        marca: this.detectarMarca(datosTarjeta.numero),
-        ultimos4: datosTarjeta.numero.slice(-4),
-        expiracion: datosTarjeta.expiracion,
-        tokenFake: 'tok_test_' + Math.random().toString(36).substr(2, 9)
-      };
-      const tarjetasActuales = this.usuario.metodosPago || [];
-      await this.db.updateFireStoreDocument('users', this.usuario.id, {
-        metodosPago: [...tarjetasActuales, nuevaTarjeta]
-      });
-      this.usuario.metodosPago = [...tarjetasActuales, nuevaTarjeta];
-      this.presentToast('Tarjeta añadida con éxito', 'success');
-    } catch (error) {
-      this.presentToast('Error al guardar tarjeta', 'danger');
+    await modal.present();
+
+    const { data } = await modal.onDidDismiss();
+    // Si guardó algo, actualizamos la vista de inmediato
+    if (data) {
+      this.usuario = { ...this.usuario, ...data };
     }
   }
-
-  async eliminarTarjeta(id: string) {
-    const nuevasTarjetas = this.usuario.metodosPago.filter((t: any) => t.id !== id);
-    await this.db.updateFireStoreDocument('users', this.usuario.id, { metodosPago: nuevasTarjetas });
-    this.usuario.metodosPago = nuevasTarjetas;
-    this.presentToast('Tarjeta eliminada', 'medium');
-  }
-
-  abrirModalEditLugar(event?: Event) {
-    if (event) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
-
-    this.lugarEditData = JSON.parse(JSON.stringify(this.miLugar));
-    
-    if (!this.lugarEditData.tipoLocal && this.lugarEditData.tipo) {
-      this.lugarEditData.tipoLocal = this.lugarEditData.tipo;
-    }
-    if (!this.lugarEditData.equipamiento) {
-      this.lugarEditData.equipamiento = [];
-    }
-    
-    this.isEditLugarModalOpen = true;
-  }
-
-  cerrarModalEditLugar() {
-    this.isEditLugarModalOpen = false;
-  }
-
-  async guardarCambiosLugar() {
-    if (!this.lugarEditData.nombre || !this.lugarEditData.direccion) {
-      this.presentToast('Por favor completa el nombre y la dirección', 'warning');
-      return;
-    }
-
-    this.guardandoLugar = true;
-
-    try {
-      const datosActualizados = {
-        nombre: this.lugarEditData.nombre,
-        direccion: this.lugarEditData.direccion,
-        descripcion: this.lugarEditData.descripcion || '',
-        capacidad: this.lugarEditData.capacidad || '',
-        equipamiento: this.lugarEditData.equipamiento || [],
-        tipoLocal: this.lugarEditData.tipoLocal || 'Pub',
-        tipo: this.lugarEditData.tipoLocal || 'Pub', 
-        precioCover: this.lugarEditData.precioCover || 0
-      };
-
-      await this.db.updateFireStoreDocument('lugares', this.miLugar.id, datosActualizados);
-      
-      this.miLugar = { ...this.miLugar, ...datosActualizados };
-      
-      this.presentToast('Información actualizada correctamente', 'success');
-      this.cerrarModalEditLugar();
-
-    } catch (error) {
-      console.error(error);
-      this.presentToast('Hubo un error al actualizar los datos', 'danger');
-    } finally {
-      this.guardandoLugar = false;
-    }
-  }
-
+  async presentAlertNuevaTarjeta() { /* Lógica de alerta */ }
+  async eliminarTarjeta(id: string) { /* Lógica eliminar */ }
 }

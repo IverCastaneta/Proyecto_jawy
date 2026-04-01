@@ -1,0 +1,29 @@
+<ion-content class="ion-padding dark-modal">
+  <div class="sheet-handle"></div>
+
+  <div class="custom-header">
+    <h3 class="title-bold">Rechazar Solicitud</h3>
+    <p class="subtitle">Cuéntale al artista por qué no puedes aceptar.</p>
+  </div>
+
+  <div class="form-container">
+    <div class="input-group">
+      <ion-label class="input-label">Motivo principal</ion-label>
+      <ion-select class="jawy-seleccion" [(ngModel)]="motivoSeleccionado" placeholder="Selecciona un motivo..." interface="action-sheet">
+        <ion-select-option *ngFor="let m of motivos" [value]="m">{{ m }}</ion-select-option>
+      </ion-select>
+    </div>
+
+    <div class="input-group">
+      <ion-label class="input-label">Comentario adicional (opcional)</ion-label>
+      <ion-textarea class="jawy-input-glass" rows="4" [(ngModel)]="comentario" placeholder="Escribe un detalle amable..."></ion-textarea>
+    </div>
+  </div>
+
+  <div class="footer-actions">
+    <ion-button fill="clear" color="medium" (click)="cerrar()">Cancelar</ion-button>
+    <ion-button class="btn-confirm" (click)="confirmarRechazo()" [disabled]="!motivoSeleccionado || guardando">
+      Confirmar Rechazo
+    </ion-button>
+  </div>
+</ion-content>

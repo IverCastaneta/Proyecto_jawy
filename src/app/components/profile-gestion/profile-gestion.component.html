@@ -1,0 +1,59 @@
+<h3 class="section-title">Actividad Reciente</h3>
+
+<div class="tickets-list" *ngIf="!cargando; else skeletons">
+  <ion-card *ngFor="let s of solicitudes" class="jawy-ticket" 
+            [class.is-confirmed]="s.estado === 'confirmado'"
+            [class.is-rejected]="s.estado === 'rechazado'">
+
+    <div class="status-banner" *ngIf="s.estado === 'confirmado'">
+      <ion-icon name="sparkles"></ion-icon> EVENTO CONFIRMADO
+    </div>
+
+    <ion-item lines="none" class="ticket-inner">
+      <ion-avatar slot="start">
+        <img [src]="s.fotoMusico || 'assets/default-avatar.png'">
+      </ion-avatar>
+      <ion-label>
+        <h3 class="title-bold">{{ (usuario?.rol === 'dueno' || usuario?.rol === 'dueño') ? s.nombreMusico : s.nombreLugar }}</h3>
+        <p class="subtitle-gray"><ion-icon name="calendar-outline"></ion-icon> {{ s.fechaPerformance | date:'dd/MM/yyyy' }}</p>
+      </ion-label>
+      <ion-badge slot="end" [color]="s.estado === 'confirmado' ? 'success' : (s.estado === 'pendiente' ? 'warning' : 'danger')">
+        {{ s.estado | uppercase }}
+      </ion-badge>
+    </ion-item>
+
+    <div class="event-details-box" *ngIf="s.tituloEvento">
+      <h4><ion-icon name="musical-notes"></ion-icon> {{ s.tituloEvento }}</h4>
+      <p>"{{ s.descripcionEvento }}"</p>
+    </div>
+
+    <div class="ticket-actions" *ngIf="s.estado === 'pendiente' && (usuario?.rol === 'dueno' || usuario?.rol === 'dueño')">
+      <ion-button fill="clear" color="danger" (click)="onRechazar(s)">
+        <ion-icon name="close-circle-outline" slot="start"></ion-icon> Rechazar
+      </ion-button>
+      <ion-button fill="solid" class="btn-aceptar" (click)="onAceptar(s.id, 'confirmado')">
+        <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon> Aceptar
+      </ion-button>
+    </div>
+
+    <div class="ticket-actions" *ngIf="s.estado === 'confirmado'">
+      <ion-button fill="outline" color="success" expand="block" (click)="onContactar(s)">
+        <ion-icon name="logo-whatsapp" slot="start"></ion-icon> Contactar
+      </ion-button>
+    </div>
+  </ion-card>
+</div>
+
+<ng-template #skeletons>
+  <div class="tickets-list">
+    <ion-card *ngFor="let i of [1,2,3]" class="jawy-ticket skeleton-ticket">
+      <ion-item lines="none">
+        <ion-avatar slot="start"><ion-skeleton-text animated></ion-skeleton-text></ion-avatar>
+        <ion-label>
+          <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+          <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
+        </ion-label>
+      </ion-item>
+    </ion-card>
+  </div>
+</ng-template>

@@ -97,12 +97,12 @@
   .inputs-container {
     display: flex;
     flex-direction: column;
-    gap: 16px; // Gap entre el input de título y descripción
+    gap: 16px; 
 
     .input-group {
       display: flex;
       flex-direction: column;
-      gap: 8px; // Gap entre label e input
+      gap: 8px; 
       
       .input-label {
         color: var(--white-muted);
@@ -126,10 +126,10 @@
     --border-radius: 8px;
     height: 54px;
     font-weight: 700;
-    margin: 0; // El gap del wrapper ya le da el espacio arriba
+    margin: 0;
   }
 
-  /* PANTALLA DE ÉXITO */
+ 
   .success-screen-orange {
     position: absolute;
     inset: 0;

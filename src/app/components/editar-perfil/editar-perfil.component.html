@@ -1,0 +1,33 @@
+<ion-content class="ion-padding dark-modal">
+  <div class="sheet-handle"></div>
+
+  <div class="custom-header">
+    <h2 class="title-bold"><strong>Editar Perfil</strong></h2>
+    <h4 class="subtitle">Actualiza tu información pública.</h4>
+  </div>
+
+  <div class="form-container">
+    <div class="input-group">
+      <ion-label class="input-label">URL Foto de Perfil</ion-label>
+      <ion-input class="jawy-input-glass" type="url" [(ngModel)]="perfilData.fotoPerfil" placeholder="https://..."></ion-input>
+    </div>
+
+    <div class="input-group">
+      <ion-label class="input-label">Nombre o Alias</ion-label>
+      <ion-input class="jawy-input-glass" type="text" [(ngModel)]="perfilData.nombreArtistico" placeholder="Ej: DJ Jawy"></ion-input>
+    </div>
+
+    <div class="input-group">
+      <ion-label class="input-label">Biografía</ion-label>
+      <ion-textarea class="jawy-input-glass" rows="5" [(ngModel)]="perfilData.biografia" placeholder="Cuéntale al mundo sobre ti..."></ion-textarea>
+    </div>
+  </div>
+
+  <div class="footer-actions">
+    <ion-button fill="clear" color="medium" (click)="cerrar()">Cancelar</ion-button>
+    <ion-button class="btn-confirm" (click)="guardarCambios()" [disabled]="guardando">
+      <span *ngIf="!guardando">Guardar</span>
+      <ion-spinner name="crescent" *ngIf="guardando"></ion-spinner>
+    </ion-button>
+  </div>
+</ion-content>

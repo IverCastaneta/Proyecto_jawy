@@ -1,0 +1,54 @@
+<ion-content class="ion-padding dark-modal">
+  <div class="sheet-handle"></div>
+  
+  <div class="custom-header">
+    <h2 class="title-bold">Editar mi Espacio</h2>
+    <p class="subtitle">Actualiza la información pública de tu local.</p>
+  </div>
+
+  <div class="form-container">
+    <div class="input-group">
+      <ion-label class="input-label">Nombre del Local</ion-label>
+      <ion-input class="jawy-input-glass" [(ngModel)]="lugarEditData.nombre"></ion-input>
+    </div>
+
+    <div class="input-group">
+      <ion-label class="input-label">Descripción</ion-label>
+      <ion-textarea class="jawy-input-glass" rows="3" [(ngModel)]="lugarEditData.descripcion"></ion-textarea>
+    </div>
+
+    <div class="input-group">
+      <ion-label class="input-label">Dirección</ion-label>
+      <ion-input class="jawy-input-glass" [(ngModel)]="lugarEditData.direccion"></ion-input>
+    </div>
+
+    <div class="row-inputs">
+      <div class="input-group">
+        <ion-label class="input-label">Capacidad</ion-label>
+        <ion-input class="jawy-input-glass" [(ngModel)]="lugarEditData.capacidad"></ion-input>
+      </div>
+      <div class="input-group">
+        <ion-label class="input-label">Precio Cover (Bs.)</ion-label>
+        <ion-input type="number" class="jawy-input-glass" [(ngModel)]="lugarEditData.precioCover"></ion-input>
+      </div>
+    </div>
+
+    <div class="input-group">
+      <ion-label class="input-label">Tipo de Local</ion-label>
+      <ion-select class="jawy-seleccion" [(ngModel)]="lugarEditData.tipoLocal" interface="action-sheet">
+        <ion-select-option value="Pub">Pub</ion-select-option>
+        <ion-select-option value="Bar">Bar</ion-select-option>
+        <ion-select-option value="Cafetería">Cafetería</ion-select-option>
+        <ion-select-option value="Restaurante">Restaurante</ion-select-option>
+      </ion-select>
+    </div>
+  </div>
+
+  <div class="footer-actions">
+    <ion-button fill="clear" color="medium" (click)="cerrar()">Cancelar</ion-button>
+    <ion-button color="success" class="btn-confirm" (click)="guardarCambios()" [disabled]="guardando">
+      <span *ngIf="!guardando">Guardar Cambios</span>
+      <ion-spinner name="crescent" *ngIf="guardando"></ion-spinner>
+    </ion-button>
+  </div>
+</ion-content>

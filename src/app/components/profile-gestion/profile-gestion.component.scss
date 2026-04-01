@@ -1,0 +1,8 @@
+  .tickets-list { display: flex; flex-direction: column; gap: 20px; }
+  .jawy-ticket {
+    margin: 0; background: var(--dark-grey); border-radius: 8px; overflow: hidden;
+    &.is-confirmed { border: 1px solid #2dd36f; background: linear-gradient(135deg, var(--black) 0%, #0d2b1a 100%); }
+    .status-banner { background: var(--orange); color: black; font-size: 10px; font-weight: 900; text-align: center; padding: 4px; }
+    .ticket-inner { --background: transparent; padding: 5px 0; }
+    .event-details-box { padding: 0 16px 12px; display: flex; flex-direction: column; gap: 5px; h4 { color: var(--orange); margin: 0; } p { margin: 0; font-size: 13px; opacity: 0.8; } }
+  }

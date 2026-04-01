@@ -1,0 +1,27 @@
+<section class="section-box" *ngIf="miLugar">
+  <h3 class="section-title">Mi Espacio</h3>
+  
+  <ion-card class="venue-card" [routerLink]="['/view-lugar', miLugar.id]">
+    <div class="image-wrapper">
+      <img [src]="miLugar.fotos?.length ? miLugar.fotos[0] : (miLugar.foto || 'assets/default-venue.jpg')" />
+      <div class="edit-venue-badge" (click)="onEditarClick($event)">
+        <ion-icon name="pencil"></ion-icon>
+      </div>
+    </div>
+    
+    <div class="card-body">
+      <h2 class="venue-title">{{ miLugar.nombre }}</h2>
+      <div class="section-line"></div>
+      <div class="section-data">
+        <div class="detail-item">
+          <ion-icon name="location"></ion-icon>
+          <p>{{ miLugar.direccion }}</p>
+        </div>
+        <div class="detail-item">
+          <ion-icon name="time"></ion-icon>
+          <p>Disponible desde el {{ miLugar.fechaDisponibilidad | date:'dd MMM yyyy' || 'Pronto' }}</p>
+        </div>
+      </div>
+    </div>
+  </ion-card>
+</section>

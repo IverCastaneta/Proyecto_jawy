@@ -1,0 +1,117 @@
+.dark-modal {
+  --background: var(--black);
+  --padding-start: 20px;
+  --padding-end: 20px;
+  color: white;
+
+  .sheet-handle {
+    width: 50px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    margin: 12px auto 25px;
+  }
+
+  .custom-header {
+    margin-bottom: 25px;
+    .title-bold {
+      font-weight: 800;
+      color: white;
+      margin: 0;
+    }
+    .subtitle {
+      font-size: 14px;
+      color: var(--white-muted);
+      margin: 5px 0 0;
+    }
+  }
+
+  .form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .row-inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+  }
+
+  .input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    .input-label {
+      color: var(--orange);
+      padding-left: 4px;
+    }
+  }
+
+  ion-input.jawy-input-glass,
+  ion-textarea.jawy-input-glass {
+    --background: rgba(255, 255, 255, 0.05) !important;
+    --color: white !important;
+    --placeholder-color: rgba(255, 255, 255, 0.3) !important;
+    --padding-start: 16px !important;
+    --padding-end: 16px !important;
+    --highlight-color-focused: var(--orange) !important;
+    
+    border: 1px solid var(--orange) !important;
+    border-radius: 8px !important;
+    min-height: 50px;
+    transition: all 0.3s ease;
+
+    &.ion-focused {
+      border-color: var(--orange) !important;
+      background: rgba(246, 111, 23, 0.05) !important;
+      box-shadow: 0 0 15px rgba(246, 111, 23, 0.1);
+    }
+  }
+
+  ion-select.jawy-seleccion {
+    --background: rgba(255, 255, 255, 0.05) !important;
+    --color: white !important;
+    --placeholder-color: rgba(255, 255, 255, 0.3) !important;
+    --padding-start: 16px !important;
+    --padding-end: 16px !important;
+    --highlight-color-focused: var(--orange) !important;
+    
+    border-radius: 8px !important;
+    min-height: 50px;
+    transition: all 0.3s ease;
+
+    &.ion-focused {
+      border-color: var(--orange) !important;
+      background: rgba(246, 111, 23, 0.05) !important;
+      box-shadow: 0 0 15px rgba(246, 111, 23, 0.1);
+    }
+  }
+
+  ion-textarea.jawy-input-glass {
+    --padding-top: 15px;
+    --padding-bottom: 15px;
+  }
+
+  .footer-actions {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 15px;
+    margin-top: 40px;
+    padding-bottom: 30px;
+
+    ion-button {
+      height: 52px;
+      margin: 0;
+      --border-radius: 8px;
+      font-weight: 700;
+    }
+
+    .btn-confirm {
+      --background: var(--orange);
+      --color: black;
+      --box-shadow: 0 8px 20px rgba(246, 111, 23, 0.3);
+    }
+  }
+}

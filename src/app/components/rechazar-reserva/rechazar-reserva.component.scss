@@ -1,0 +1,40 @@
+.dark-modal {
+  --background: var(--black);
+  --padding-start: 20px;
+  --padding-end: 20px;
+  color: white;
+
+  .sheet-handle {
+    width: 50px; height: 4px; background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px; margin: 12px auto 25px;
+  }
+
+  .custom-header {
+    margin-bottom: 25px;
+    .title-bold { font-weight: 800; font-size: 22px; margin: 0; }
+    .subtitle { font-size: 14px; color: var(--white-muted); margin: 5px 0 0; }
+  }
+
+  .form-container { display: flex; flex-direction: column; gap: 20px; }
+
+  .input-group {
+    display: flex; flex-direction: column; gap: 8px;
+    .input-label { color: var(--orange); font-size: 12px; font-weight: 700; text-transform: uppercase; }
+  }
+
+  ion-textarea.jawy-input-glass,
+  ion-select.jawy-seleccion {
+    --background: rgba(255, 255, 255, 0.05) !important;
+    --color: white !important;
+    border: 1px solid var(--orange) !important;
+    border-radius: 8px !important;
+    min-height: 50px;
+  }
+
+  .footer-actions {
+    display: grid; grid-template-columns: 1fr 1.5fr; gap: 15px;
+    margin-top: 40px; padding-bottom: 30px;
+    ion-button { height: 52px; --border-radius: 8px; font-weight: 700; }
+    .btn-confirm { --background: #eb445a; --color: white; }
+  }
+}
