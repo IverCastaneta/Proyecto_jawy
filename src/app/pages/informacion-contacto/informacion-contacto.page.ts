@@ -24,14 +24,14 @@ export class InformacionContactoPage implements OnInit {
   ngOnInit() {}
 
   siguiente() {
-  if (this.contactoForm.valid) {
-    const datosContacto = this.contactoForm.value;
-    const datosPrevios = JSON.parse(localStorage.getItem('temp_registro') || '{}');
-    const registroTotal = { ...datosPrevios, ...datosContacto };
-    
-    localStorage.setItem('temp_registro', JSON.stringify(registroTotal));
-    
-    this.router.navigate(['/detalles-musicales']); 
+    if (this.contactoForm.valid) {
+      const datosContacto = this.contactoForm.value;
+      const datosPrevios = JSON.parse(localStorage.getItem('temp_registro') || '{}');
+      const registroTotal = { ...datosPrevios, ...datosContacto };
+      
+      localStorage.setItem('temp_registro', JSON.stringify(registroTotal));
+      
+      this.router.navigate(['/seleccion-rol']); 
+    }
   }
-}
 }

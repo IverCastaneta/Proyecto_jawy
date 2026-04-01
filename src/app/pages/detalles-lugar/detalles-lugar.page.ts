@@ -13,7 +13,7 @@ export class DetallesLugarPage implements OnInit {
   
   nuevaRegla: string = '';
   reglasLista: string[] = [];
-  fechaDisponibilidad: string = '';
+  fechaDisponibilidad: string = new Date().toISOString();
 
   equipamiento = [
     { nombre: 'Amplificadores', isChecked: false },
@@ -84,6 +84,6 @@ export class DetallesLugarPage implements OnInit {
     
     localStorage.setItem('temp_registro', JSON.stringify(registroTotal));
     
-    this.router.navigate(['/perfil-artistico']); 
+    this.router.navigate(['/finalizar-registro']); 
   }
 }

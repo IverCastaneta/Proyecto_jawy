@@ -34,11 +34,11 @@ export class InformacionPersonalPage implements OnInit {
 
       localStorage.setItem('temp_registro', JSON.stringify(registroActualizado));
 
-  
+
       if (datosExistentes.rol === 'dueno') {
         this.router.navigate(['/informacion-lugar']);
       } else {
-        this.router.navigate(['/informacion-contacto']);
+        this.router.navigate(['/perfil-artistico']);
       }
     }
   }

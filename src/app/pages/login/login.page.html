@@ -1,13 +1,11 @@
-<ion-header class="ion-no-border">
-  <ion-toolbar class="transparent-toolbar">
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/" text="" icon="chevron-back-outline"></ion-back-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
-
+  <header class="header">
+    <ion-buttons>
+      <ion-back-button defaultHref="/login" text="" icon="chevron-back-outline"></ion-back-button>
+    </ion-buttons>
+    <img src="assets/animations/logoHeader.gif" alt="Logo Jawy" class="jawyLogo">
+  </header>
+  
   <div class="bgGif">
     <video 
       src="assets/Video/Bg_Inicio.mp4" 

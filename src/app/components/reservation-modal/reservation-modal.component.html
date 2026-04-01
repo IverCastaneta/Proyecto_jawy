@@ -1,62 +1,67 @@
-<ion-content class="ion-padding payment-modal">
+<ion-content class="reserva">
 
-  <div *ngIf="paso === 1" class="animate__animated animate__fadeIn">
+  <div *ngIf="paso === 1" class="modal-wrapper animate__animated animate__fadeIn">
     
     <div class="sheet-handle"></div>
 
-    <div class="custom-header">
+    <header class="custom-header">
       <ion-icon name="chevron-back-outline" class="back-btn-icon" (click)="dismissModal()"></ion-icon>
-
       <p class="subtitle">Reserva ahora en {{ lugar?.nombre || 'este lugar' }}</p>
       <h2 class="title-orange">Selecciona la fecha</h2>
       
       <div class="availability-badge">
-        <span class="dot"></span> DISPONIBLE
+        <div class="badge-item"><span class="dot"></span> DISPONIBLE</div>
+        <div class="badge-item"><span class="dot-bloqueado"></span> OCUPADO</div>
       </div>
-    </div>
-    <div class="calendar-wrapper">
+    </header>
+
+    <section class="calendar-section">
+      <div *ngIf="cargandoFechas" class="loading-calendar">
+        <ion-spinner name="crescent" color="warning"></ion-spinner>
+        <p>Consultando disponibilidad...</p>
+      </div>
+
       <ion-datetime 
+        *ngIf="!cargandoFechas"
         presentation="date" 
         [(ngModel)]="fecha" 
+        [min]="minDate"
+        [isDateEnabled]="isDateAvailable" 
         size="cover" 
         class="premium-datetime"
         locale="es-ES">
       </ion-datetime>
+    </section>
+
+    <div class="inputs-container">
+      <div class="input-group">
+        <ion-label class="input-label">Título del Evento</ion-label>
+        <ion-input class="custom-input" placeholder="Ej: Tributo a Soda Stereo" [(ngModel)]="tituloEvento"></ion-input>
+      </div>
+
+      <div class="input-group">
+        <ion-label class="input-label">Descripción breve</ion-label>
+        <ion-textarea class="custom-textarea" rows="2" placeholder="Ej: Tocada acústica..." [(ngModel)]="descripcionEvento"></ion-textarea>
+      </div>
     </div>
 
-    <div class="input-group ion-margin-top px-15">
-      <ion-label class="input-label">Título del Evento</ion-label>
-      <ion-input class="custom-input" placeholder="Ej: Tributo a Soda Stereo" [(ngModel)]="tituloEvento"></ion-input>
-    </div>
-
-    <div class="input-group ion-margin-top px-15">
-      <ion-label class="input-label">Descripción breve</ion-label>
-      <ion-textarea class="custom-textarea" rows="2" placeholder="Ej: Será una tocada acústica con 2 invitados especiales..." [(ngModel)]="descripcionEvento"></ion-textarea>
-    </div>
-
-    <ion-button expand="block" mode="ios" class="main-btn-orange" (click)="enviarSolicitud()" [disabled]="!fecha || !tituloEvento || !descripcionEvento">
-      Solicitar Reserva
+    <ion-button expand="block" mode="ios" class="main-btn-orange" (click)="enviarSolicitud()" [disabled]="!fecha || !tituloEvento || !descripcionEvento || cargando">
+      <ion-spinner name="crescent" *ngIf="cargando"></ion-spinner>
+      <span *ngIf="!cargando">Solicitar Reserva</span>
     </ion-button>
   </div>
 
   <div *ngIf="paso === 2" class="success-screen-orange animate__animated animate__fadeIn">
-    
     <div class="success-content">
       <div class="dark-circle">
         <ion-icon name="checkmark-sharp"></ion-icon>
       </div>
-      
-      <h1 class="success-title">¡Se completó la solicitud<br>exitosamente!</h1>
-      
-      <p class="success-message">
-        Espera pacientemente a que el dueño del lugar nos dé la aprobación.
-      </p>
-      
+      <h1 class="success-title">¡Solicitud completada!</h1>
+      <p class="success-message">Espera a que el dueño del lugar nos dé la aprobación.</p>
       <ion-button expand="block" mode="ios" class="btn-dark-return" (click)="dismissModal()">
         Volver a explorar
       </ion-button>
     </div>
-
   </div>
 
 </ion-content>

@@ -63,7 +63,7 @@ export class PerfilArtisticoPage {
 
       localStorage.setItem('temp_registro', JSON.stringify(registroTotal));
 
-      this.router.navigate(['/finalizar-registro']);
+      this.router.navigate(['/informacion-contacto']);
     }
   }
 }

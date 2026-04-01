@@ -92,6 +92,17 @@ export class ProfilePage implements OnInit {
     }
   }
 
+  obtenerIconoInstrumento(instrumento: string): string {
+    const nombre = instrumento.toLowerCase();
+    if (nombre.includes('voz') || nombre.includes('cantante')) return 'mic';
+    if (nombre.includes('dj') || nombre.includes('sintetizador')) return 'headset';
+    if (nombre.includes('batería') || nombre.includes('percusión') || nombre.includes('cajón')) return 'radio-button-on';
+    if (nombre.includes('teclado') || nombre.includes('piano') || nombre.includes('acordeón')) return 'keypad';
+    if (nombre.includes('guitarra') || nombre.includes('bajo') || nombre.includes('charango')) return 'pulse-outline';
+    if (nombre.includes('vientos') || nombre.includes('saxofón') || nombre.includes('trompeta') || nombre.includes('flauta')) return 'leaf';
+    return 'musical-note';
+  }
+
   cargarDatosSegunRol() {
     if (this.usuario.rol === 'dueno' || this.usuario.rol === 'dueño') {
       this.db.getCollectionByCustomparam('lugares', 'duenoId', this.usuario.id)
@@ -227,8 +238,7 @@ export class ProfilePage implements OnInit {
     this.presentToast('Tarjeta eliminada', 'medium');
   }
 
-abrirModalEditLugar(event?: Event) {
-    // Esto evita que al tocar el lapicito, también se haga clic en la tarjeta de fondo y nos lleve a otra página
+  abrirModalEditLugar(event?: Event) {
     if (event) {
       event.preventDefault();
       event.stopPropagation();

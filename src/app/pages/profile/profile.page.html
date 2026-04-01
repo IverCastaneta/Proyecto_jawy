@@ -2,7 +2,42 @@
 
   <div class="main-safe-area" *ngIf="usuario; else cargandoPerfil">
 
-    <div class="top-segment-area animate__animated animate__fadeInDown">
+    <div class="profile-hero-row" style="margin-top: 30px;">
+      <div class="user-info-col">
+        <div class="avatar-wrapper">
+          <img [src]="usuario.fotoPerfil || 'assets/default-avatar.png'" class="main-avatar">
+          <div class="edit-badge"><ion-icon name="pencil"></ion-icon></div>
+        </div>
+        <div class="user-meta-new">
+          <h1>{{ usuario.nombreArtistico || usuario.nombre }}</h1>
+          <p class="role-tag">
+            <ion-icon name="pulse-outline"></ion-icon>
+            
+            <span *ngIf="usuario.rol === 'dueno' || usuario.rol === 'dueño'">Dueño de lugar</span>
+            
+            <span *ngIf="usuario.rol !== 'dueno' && usuario.rol !== 'dueño'">
+              {{ usuario.rol | titlecase }} 
+              <ng-container *ngIf="usuario.tipoArtista"> - {{ usuario.tipoArtista | titlecase }}</ng-container>
+            </span>
+          </p>
+        </div>
+      </div>
+
+      <div class="stats-wrapper">
+        <div class="stat-item">
+          <h3>40</h3>
+          <p>Reseñas</p>
+        </div>
+        <div class="h-line"></div>
+        <div class="stat-item">
+          <h3>★ 4.94</h3>
+          <p>Estrellas</p>
+        </div>
+        <div class="h-line"></div>
+      </div>
+    </div>
+
+    <div class="top-segment-area animate__animated animate__fadeIn">
       <ion-segment [(ngModel)]="segmentoActual" mode="ios" class="jawy-pill-segment">
         <ion-segment-button value="info"> <ion-label>Perfil</ion-label> </ion-segment-button>
         <ion-segment-button value="gestion"> <ion-label>Gestión</ion-label> </ion-segment-button>
@@ -13,79 +48,41 @@
 
       <div *ngSwitchCase="'info'" class="pane-fade animate__animated animate__fadeIn profile-layout">
         
-        <div class="profile-hero-row">
-          <div class="user-info-col">
-            <div class="avatar-wrapper">
-              <img [src]="usuario.fotoPerfil || 'assets/default-avatar.png'" class="main-avatar">
-              <div class="edit-badge"><ion-icon name="pencil"></ion-icon></div>
-            </div>
-          <div class="user-meta-new">
-            <h1>{{ usuario.nombreArtistico || usuario.nombre }}</h1>
-            <p class="role-tag">
-              <ion-icon name="pulse-outline"></ion-icon>
-              
-              <span *ngIf="usuario.rol === 'dueno' || usuario.rol === 'dueño'">Dueño de lugar</span>
-              
-              <span *ngIf="usuario.rol !== 'dueno' && usuario.rol !== 'dueño'">
-                {{ usuario.rol | titlecase }} 
-                <ng-container *ngIf="usuario.tipoArtista"> - {{ usuario.tipoArtista | titlecase }}</ng-container>
-              </span>
-
-            </p>
-          </div>
-          </div>
-
-          <div class="stats-wrapper">
-            <div class="stat-item">
-              <h3>40</h3>
-              <p>Reseñas</p>
-            </div>
-            <div class="h-line"></div>
-            <div class="stat-item">
-              <h3>★ 4.94</h3>
-              <p>Estrellas</p>
-            </div>
-            <div class="h-line"></div>
-          </div>
-        </div>
-
-        <div class="linea"></div>
-
-        <div class="skills-section" *ngIf="(misInstrumentos && misInstrumentos.length > 0) || (misGeneros && misGeneros.length > 0)">
-          <div class="seccion-badges" *ngIf="misInstrumentos && misInstrumentos.length > 0">
-            <h3 class="section-title">Instrumentos</h3>
-            <div class="badges-group">
-              <ion-badge *ngFor="let instrumento of misInstrumentos" class="badge-jawy">
-                {{ instrumento }}
-              </ion-badge>
-            </div>
-          </div>
-
-          <div class="seccion-badges" *ngIf="misGeneros && misGeneros.length > 0">
-            <h3 class="section-title">Géneros Musicales</h3>
-            <div class="badges-group">
-              <ion-badge *ngFor="let genero of misGeneros" class="badge-jawy">
-                {{ genero }}
-              </ion-badge>
-            </div>
-          </div>
-        </div>
-
-        <div class="linea" *ngIf="(misInstrumentos && misInstrumentos.length > 0) || (misGeneros && misGeneros.length > 0)"></div>
-
+        <div class="linea" style="margin-top: 10px;"></div>
+        
         <section class="desc-section">
           <h3 class="section-title">Descripción <ion-icon name="pencil"></ion-icon></h3>
+          
+          <div class="badges-group" *ngIf="misInstrumentos && misInstrumentos.length > 0" style="margin-bottom: 12px;">
+            <ion-badge *ngFor="let instrumento of misInstrumentos" class="badge-instrumento">
+              <ion-icon [name]="obtenerIconoInstrumento(instrumento)"></ion-icon>
+              {{ instrumento }}
+            </ion-badge>
+          </div>
+
           <p class="bio-text">
             "{{ usuario.biografia || 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' }}"
           </p>
         </section>
 
-        <div class="linea"></div>
+        <div class="linea" *ngIf="misGeneros && misGeneros.length > 0"></div>
+
+        <section class="skills-section" *ngIf="misGeneros && misGeneros.length > 0">
+          <h3 class="section-title">Géneros Musicales</h3>
+          <div class="badges-group">
+            <ion-badge *ngFor="let genero of misGeneros" class="badge-generos">
+              <ion-icon name="musical-notes"></ion-icon>
+              {{ genero }}
+            </ion-badge>
+          </div>
+        </section>
+
+        <div class="linea" *ngIf="(usuario.rol === 'dueno' || usuario.rol === 'dueño') || (reservas && reservas.length > 0)"></div>
 
         <section class="mi-lugar-section" *ngIf="(usuario.rol === 'dueno' || usuario.rol === 'dueño') && miLugar">
           <div class="wallet-header">
             <h3 class="section-title">Mi Espacio</h3>
-            </div>
+          </div>
 
           <ion-card class="venue-card animate__animated animate__zoomIn" [routerLink]="['/view-lugar', miLugar.id]">
             <div class="image-wrapper" style="position: relative;">
@@ -130,7 +127,7 @@
           </div>
         </section>
 
-        <div class="linea"></div>
+        <div class="linea" *ngIf="usuario.rol !== 'dueno' && usuario.rol !== 'dueño'"></div>
 
         <section class="wallet-section">
           <div class="wallet-header">
@@ -174,7 +171,7 @@
         
       </div>
 
-      <div *ngSwitchCase="'gestion'" class="pane-fade animate__animated animate__fadeIn profile-layout">
+      <div *ngSwitchCase="'gestion'" class="pane-fade animate__animated animate__fadeIn profile-layout" style="padding-top: 15px;">
         <h3 class="section-title">Actividad Reciente</h3>
 
         <div *ngIf="!cargando; else skeletons">
@@ -256,11 +253,7 @@
   </ng-template>
 
   <ng-template #cargandoPerfil>
-    <div class="main-safe-area" style="opacity: 0.7; padding-top: 20px;">
-      
-      <div style="display: flex; justify-content: center; margin-bottom: 20px;">
-        <ion-skeleton-text animated style="width: 220px; height: 35px; border-radius: 20px; margin: 0;"></ion-skeleton-text>
-      </div>
+    <div class="main-safe-area" style="opacity: 0.7; padding-top: 30px;">
 
       <div class="profile-hero-row">
         <div class="user-info-col">
@@ -287,7 +280,11 @@
         </div>
       </div>
 
-      <div class="linea" style="margin: 20px 0;"></div>
+      <div style="display: flex; justify-content: center; margin-top: 25px; margin-bottom: 20px;">
+        <ion-skeleton-text animated style="width: 220px; height: 35px; border-radius: 20px; margin: 0;"></ion-skeleton-text>
+      </div>
+
+      <div class="linea" style="margin: 10px 0 20px;"></div>
 
       <section class="desc-section">
         <ion-skeleton-text animated style="width: 40%; height: 20px; border-radius: 4px; margin-bottom: 15px;"></ion-skeleton-text>
@@ -319,85 +316,6 @@
   </ng-template>
 
 </ion-content>
-
-<ion-modal [isOpen]="isEditLugarModalOpen" (didDismiss)="cerrarModalEditLugar()" initialBreakpoint="0.95" [breakpoints]="[0, 0.95, 1]">
-  <ng-template>
-    <ion-content class="ion-padding dark-modal">
-      <div class="sheet-handle"></div>
-      
-      <div class="custom-header">
-        <h3 class="title-bold" style="color: white; margin-bottom: 5px;">Editar mi Espacio</h3>
-        <p class="subtitle">Actualiza la información pública de tu local.</p>
-      </div>
-
-      <div class="input-group">
-        <h4 class="input-label">Nombre del Local</h4>
-        <ion-input mode="md" type="text" class="inputsRegistro jawy-input-glass" [(ngModel)]="lugarEditData.nombre" placeholder="Ej: Jawy Bar"></ion-input>
-      </div>
-
-      <div class="input-group">
-        <h4 class="input-label">Descripción</h4>
-        <ion-textarea mode="md" class="inputsRegistro jawy-input-glass jawy-textarea" rows="3" [(ngModel)]="lugarEditData.descripcion" placeholder="Describe el ambiente y vibra de tu local..."></ion-textarea>
-      </div>
-
-      <div class="input-group">
-        <h4 class="input-label">Dirección</h4>
-        <ion-input mode="md" type="text" class="inputsRegistro jawy-input-glass" [(ngModel)]="lugarEditData.direccion" placeholder="Ej: Av. Principal #123"></ion-input>
-      </div>
-
-      <div class="input-group">
-        <h4 class="input-label">Capacidad</h4>
-        <ion-input mode="md" type="text" class="inputsRegistro jawy-input-glass" [(ngModel)]="lugarEditData.capacidad" placeholder="Ej: 30-60"></ion-input>
-      </div>
-
-      <div class="input-group">
-        <h4 class="input-label">Tipo de Local</h4>
-        <ion-select mode="md" class="inputsRegistro jawy-input-glass" [(ngModel)]="lugarEditData.tipoLocal" interface="action-sheet" placeholder="Seleccionar...">
-          <ion-select-option value="Pub">Pub</ion-select-option>
-          <ion-select-option value="Cafetería">Cafetería</ion-select-option>
-          <ion-select-option value="Teatro">Teatro</ion-select-option>
-          <ion-select-option value="Bar">Bar</ion-select-option>
-          <ion-select-option value="Restaurante">Restaurante</ion-select-option>
-          <ion-select-option value="Centro Cultural">Centro Cultural</ion-select-option>
-        </ion-select>
-      </div>
-
-      <div class="input-group">
-        <h4 class="input-label">Precio Cover (Bs.)</h4>
-        <ion-input mode="md" type="number" class="inputsRegistro jawy-input-glass" [(ngModel)]="lugarEditData.precioCover" placeholder="0 para Gratis"></ion-input>
-      </div>
-
-      <div class="input-group">
-        <h4 class="input-label">Equipamiento Disponible</h4>
-        <ion-select mode="md" class="inputsRegistro jawy-input-glass" [(ngModel)]="lugarEditData.equipamiento" [multiple]="true" cancelText="Cancelar" okText="Aceptar" placeholder="¿Qué ofreces?">
-          <ion-select-option value="Amplificadores">Amplificadores</ion-select-option>
-          <ion-select-option value="Micrófonos">Micrófonos</ion-select-option>
-          <ion-select-option value="Consola de sonido">Consola de sonido</ion-select-option>
-          <ion-select-option value="Monitores">Monitores</ion-select-option>
-          <ion-select-option value="Batería">Batería</ion-select-option>
-          <ion-select-option value="Iluminación">Iluminación</ion-select-option>
-          <ion-select-option value="Proyector">Proyector</ion-select-option>
-          <ion-select-option value="DJ Booth">DJ Booth</ion-select-option>
-          <ion-select-option value="Tarima/Escenario">Tarima/Escenario</ion-select-option>
-        </ion-select>
-      </div>
-
-      <ion-row class="form-actions-row">
-        <ion-col size="5">
-          <ion-button expand="block" mode="ios" fill="clear" color="medium" class="btn-cancel" (click)="cerrarModalEditLugar()">
-            Cancelar
-          </ion-button>
-        </ion-col>
-        <ion-col size="7">
-          <ion-button expand="block" mode="ios" class="btn-jawy-primary" (click)="guardarCambiosLugar()" [disabled]="guardandoLugar">
-            <strong *ngIf="!guardandoLugar">Guardar</strong>
-            <ion-spinner name="crescent" *ngIf="guardandoLugar"></ion-spinner>
-          </ion-button>
-        </ion-col>
-      </ion-row>
-    </ion-content>
-  </ng-template>
-</ion-modal>
 
 <ion-modal [isOpen]="isEditLugarModalOpen" (didDismiss)="cerrarModalEditLugar()" initialBreakpoint="0.95" [breakpoints]="[0, 0.95, 1]">
   <ng-template>
@@ -469,6 +387,42 @@
           <ion-button expand="block" color="success" class="btn-confirm" (click)="guardarCambiosLugar()" [disabled]="guardandoLugar">
             <span *ngIf="!guardandoLugar">Guardar</span>
             <ion-spinner name="crescent" *ngIf="guardandoLugar"></ion-spinner>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+<ion-modal [isOpen]="isRechazoModalOpen" (didDismiss)="cerrarModalRechazo()" initialBreakpoint="0.65" [breakpoints]="[0, 0.65, 0.9]">
+  <ng-template>
+    <ion-content class="ion-padding dark-modal">
+      <div class="sheet-handle"></div>
+
+      <div class="custom-header">
+        <h3 class="title-bold" style="color: white; margin-bottom: 5px;">Rechazar Solicitud</h3>
+        <p class="subtitle">Cuéntale al artista por qué no puedes aceptar.</p>
+      </div>
+
+      <div class="input-group ion-margin-top px-15">
+        <ion-label class="input-label" style="color: var(--orange);">Motivo principal</ion-label>
+        <ion-select class="jawy-input-glass" [(ngModel)]="motivoRechazo" placeholder="Selecciona un motivo..." interface="action-sheet">
+          <ion-select-option *ngFor="let m of motivosPredeterminados" [value]="m">{{ m }}</ion-select-option>
+        </ion-select>
+      </div>
+
+      <div class="input-group ion-margin-top px-15">
+        <ion-label class="input-label" style="color: var(--orange);">Comentario adicional (opcional)</ion-label>
+        <ion-textarea class="jawy-input-glass jawy-textarea" rows="3" [(ngModel)]="comentarioRechazo" placeholder="Escribe un detalle amable..."></ion-textarea>
+      </div>
+
+      <ion-row class="ion-margin-top px-15 pb-20" style="margin-top: 30px; margin-bottom: 20px;">
+        <ion-col size="5">
+          <ion-button expand="block" fill="clear" color="medium" (click)="cerrarModalRechazo()">Cancelar</ion-button>
+        </ion-col>
+        <ion-col size="7">
+          <ion-button expand="block" color="danger" class="btn-confirm" (click)="confirmarRechazo()" [disabled]="!motivoRechazo">
+            Confirmar Rechazo
           </ion-button>
         </ion-col>
       </ion-row>

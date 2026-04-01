@@ -1,194 +1,173 @@
-.payment-modal {
-  --background: #121212;
+.reserva {
+  --background: var(--black);
   color: white;
+
+  .modal-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 24px; // Espacio uniforme entre secciones
+    padding: 0 20px 20px 20px; // El margen de seguridad de 20px
+    height: 100%;
+  }
 
   .sheet-handle {
     width: 60px;
     height: 5px;
-    background: #333;
-    border-radius: 3px;
-    margin: 10px auto 30px;
+    background: var(--dark-grey);
+    border-radius: 8px;
+    margin: 10px auto 0; // Solo para centrar el handle
   }
 
   .custom-header {
-    padding: 0 20px;
-    margin-bottom: 20px;
-    text-align: left; 
+    display: flex;
+    flex-direction: column;
+    gap: 8px; // Gap interno del header
 
-    /* ESTILO PARA EL NUEVO BOTÓN */
     .back-btn-icon {
       font-size: 28px;
-      color: #ffffff;
-      margin-bottom: 15px; 
-      margin-left: -5px; 
+      color: white;
+      margin-left: -5px;
       cursor: pointer;
-      display: block; 
-      transition: transform 0.2s ease;
-      
-      &:active {
-        transform: translateX(-5px); 
-      }
     }
 
     .subtitle {
-      color: #888;
+      color: var(--white-muted);
       font-size: 14px;
-      margin-bottom: 10px;
+      margin: 0;
     }
 
     .title-orange {
-      color: #F66F17;
+      color: var(--orange);
       font-size: 26px;
       font-weight: 800;
-      margin: 0 0 15px 0;
+      margin: 0;
       letter-spacing: -0.5px;
     }
 
     .availability-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      color: #999;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 1px;
-
-      .dot {
-        width: 8px;
-        height: 8px;
-        background-color: #999;
-        border-radius: 50%;
+      display: flex;
+      gap: 15px;
+      
+      .badge-item {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        color: var(--white-muted);
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
       }
+
+      .dot { width: 7px; height: 7px; background: var(--orange); border-radius: 50%; box-shadow: 0 0 5px var(--orange); }
+      .dot-bloqueado { width: 7px; height: 7px; background: var(--dark-grey); border-radius: 50%; }
     }
   }
 
-  .calendar-wrapper {
-    min-height: 380px; 
-    overflow: visible;
+  .calendar-section {
+    .loading-calendar {
+      height: 300px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      p { color: var(--white-muted); font-size: 0.9em; }
+    }
   }
 
-  /* --- CALENDARIO PREMIUM --- */
   .premium-datetime {
     --background: transparent;
-    margin: 0 auto;
+    border-radius: 8px;
     
     &::part(calendar-day) {
-      background-color: #2a2a2a;
-      color: #ffffff;
+      background-color: var(--dark-grey);
+      color: white;
       border-radius: 50%;
       margin: 4px;
-      width: 38px;
-      height: 38px;
-      font-weight: 500;
     }
 
     &::part(calendar-day active) {
-      background-color: #F66F17;
-      color: #ffffff;
-      font-weight: 700;
-      box-shadow: 0 4px 10px rgba(246, 111, 23, 0.4); 
+      background-color: var(--orange);
+      box-shadow: 0 4px 10px rgba(246, 111, 23, 0.3);
     }
 
-    &::part(calendar-day today) {
-      border: 1px solid #F66F17;
-      color: #F66F17;
-      background-color: transparent;
-    }
-
-    &::part(day-of-week) {
-      color: #555555;
-      font-weight: 600;
-      font-size: 12px;
-    }
-
-    &::part(month-year-button) {
-      color: #999999;
-      font-weight: normal;
-      font-size: 16px;
-    }
+    &::part(calendar-day disabled) { opacity: 0.15; }
   }
 
-  /* --- OTROS ELEMENTOS --- */
-  .px-15 { padding: 0 20px; }
+  .inputs-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px; // Gap entre el input de título y descripción
 
-  .custom-textarea {
-    --background: #1e1e1e;
-    --color: white;
-    --border-radius: 12px;
-    border: 1px solid #333;
-    margin-top: 8px;
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px; // Gap entre label e input
+      
+      .input-label {
+        color: var(--white-muted);
+        font-size: 14px;
+        font-weight: 600;
+      }
+
+      .custom-input, .custom-textarea {
+        --background: var(--dark-grey);
+        --color: white;
+        --padding-start: 15px;
+        --border-radius: 8px;
+        border: 1px solid rgba(255,255,255,0.05);
+      }
+    }
   }
 
   .main-btn-orange {
-    --background: #F66F17;
-    --border-radius: 12px;
-    height: 52px;
+    --background: var(--orange);
+    --color: white;
+    --border-radius: 8px;
+    height: 54px;
     font-weight: 700;
-    margin: 20px;
+    margin: 0; // El gap del wrapper ya le da el espacio arriba
   }
 
-  /* --- PANTALLA DE ÉXITO NARANJA --- */
+  /* PANTALLA DE ÉXITO */
   .success-screen-orange {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #F66F17; 
+    inset: 0;
+    background-color: var(--orange);
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    z-index: 1000; 
+    z-index: 10;
 
     .success-content {
-      padding: 0 30px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
       text-align: center;
-      width: 100%;
     }
 
     .dark-circle {
-      width: 180px;
-      height: 180px;
-      background-color: #252525; 
+      width: 150px;
+      height: 150px;
+      background: var(--black);
       border-radius: 50%;
       display: flex;
-      align-items: center;
       justify-content: center;
-      margin: 0 auto 40px;
-      
-      ion-icon { 
-        font-size: 100px; 
-        color: #F66F17; 
-      }
+      align-items: center;
+      ion-icon { font-size: 80px; color: var(--orange); }
     }
 
-    .success-title {
-      color: #252525; 
-      font-size: 26px;
-      font-weight: 900;
-      line-height: 1.2;
-      margin: 0 0 15px 0;
-      letter-spacing: -0.5px;
-    }
-
-    .success-message {
-      color: #252525;
-      font-size: 15px;
-      font-weight: 500;
-      line-height: 1.4;
-      margin: 0 0 40px 0;
-      opacity: 0.9;
-    }
-
+    .success-title { color: var(--black); font-size: 24px; font-weight: 900; margin: 0; }
+    .success-message { color: var(--black); font-weight: 600; opacity: 0.8; margin: 0; }
+    
     .btn-dark-return {
-      --background: #252525;
-      --color: #ffffff;
-      --border-radius: 12px;
+      --background: var(--black);
+      --color: white;
+      --border-radius: 8px;
+      width: 100%;
       height: 52px;
-      font-weight: 600;
-      font-size: 16px;
-      margin: 0;
     }
   }
 }

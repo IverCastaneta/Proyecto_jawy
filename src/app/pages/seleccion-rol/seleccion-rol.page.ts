@@ -10,10 +10,8 @@ export class SeleccionRolPage implements OnInit {
 
   rolSeleccionado: string | null = null;
 
- 
   roles = [
     { id: 'musico', nombre: 'Músico', imagenUrl: 'assets/img/roles/musico.svg' },
-    { id: 'banda', nombre: 'Banda', imagenUrl: 'assets/img/roles/banda.svg' },
     { id: 'dueno', nombre: 'Dueño de lugar', imagenUrl: 'assets/img/roles/dueno_lugar.svg' },
     { id: 'productor', nombre: 'Productor', imagenUrl: 'assets/img/roles/productor.svg' }
   ];
@@ -28,13 +26,16 @@ export class SeleccionRolPage implements OnInit {
 
   siguiente() {
     if (this.rolSeleccionado !== null) {
-      const registroInicial = {
-        rol: this.rolSeleccionado 
-      };
+      const datosPrevios = JSON.parse(localStorage.getItem('temp_registro') || '{}');
+      const registroTotal = { ...datosPrevios, rol: this.rolSeleccionado };
 
-      localStorage.setItem('temp_registro', JSON.stringify(registroInicial));
-      this.router.navigate(['/informacion-personal']);
+      localStorage.setItem('temp_registro', JSON.stringify(registroTotal));
+
+      if (this.rolSeleccionado === 'dueno') {
+        this.router.navigate(['/informacion-lugar']);
+      } else {
+        this.router.navigate(['/detalles-musicales']);
+      }
     }
   }
-
 }

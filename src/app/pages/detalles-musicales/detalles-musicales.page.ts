@@ -11,11 +11,22 @@ export class DetallesMusicalesPage implements OnInit {
   rolEspecifico: string = '';
 
   instrumentos = [
-    { nombre: 'Guitarra', isChecked: false },
+    { nombre: 'Voz / Cantante', isChecked: false },
+    { nombre: 'Guitarra Eléctrica', isChecked: false },
+    { nombre: 'Guitarra Acústica', isChecked: false },
+    { nombre: 'Bajo Eléctrico', isChecked: false },
     { nombre: 'Batería', isChecked: false },
-    { nombre: 'Bajo', isChecked: false },
-    { nombre: 'Teclado', isChecked: false },
-    { nombre: 'Violín', isChecked: false }
+    { nombre: 'Piano / Teclado', isChecked: false },
+    { nombre: 'Sintetizador / DJ Controller', isChecked: false },
+    { nombre: 'Percusión (Congas, Cajón, etc.)', isChecked: false },
+    { nombre: 'Saxofón', isChecked: false },
+    { nombre: 'Trompeta', isChecked: false },
+    { nombre: 'Violín', isChecked: false },
+    { nombre: 'Flauta', isChecked: false },
+    { nombre: 'Charango', isChecked: false },
+    { nombre: 'Zampoña', isChecked: false },
+    { nombre: 'Quena', isChecked: false },
+    { nombre: 'Acordeón', isChecked: false },
   ];
 
   generos = [
@@ -37,7 +48,6 @@ export class DetallesMusicalesPage implements OnInit {
   ngOnInit() { }
 
   siguiente() {
-    // Filtramos las selecciones del músico
     const seleccionInstrumentos = this.instrumentos.filter(i => i.isChecked).map(i => i.nombre);
     const seleccionGeneros = this.generos.filter(g => g.isChecked).map(g => g.nombre);
 
@@ -47,14 +57,12 @@ export class DetallesMusicalesPage implements OnInit {
       generos: seleccionGeneros
     };
 
-    // Recuperamos y unimos la información acumulada
     const datosPrevios = JSON.parse(localStorage.getItem('temp_registro') || '{}');
     const registroTotal = { ...datosPrevios, ...nuevosDatos };
 
     localStorage.setItem('temp_registro', JSON.stringify(registroTotal));
-    console.log('Datos acumulados hasta Paso 4:', registroTotal);
+    console.log(registroTotal);
 
-    // NAVEGACIÓN AL PASO 5 (Perfil Artístico)
-    this.router.navigate(['/perfil-artistico']);
+    this.router.navigate(['/finalizar-registro']);
   }
 }

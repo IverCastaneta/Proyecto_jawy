@@ -6,7 +6,7 @@
     </ion-button>
   </div>
 
-  <div class="page-layout">
+  <div class="page-layout" *ngIf="lugar">
     
     <div class="place-hero">
       <swiper-container *ngIf="lugar?.fotos?.length > 0; else unifoto" pagination="true" loop="true" class="hero-swiper">
@@ -24,6 +24,10 @@
         <h1 class="place-title"><strong>{{ lugar?.nombre }}</strong></h1>
         <div class="datos">
           <p><ion-icon name="location-sharp"></ion-icon> {{ lugar?.direccion }}</p>
+          <p *ngIf="lugar?.fechaDisponibilidad">
+             <ion-icon name="calendar-outline"></ion-icon> 
+             Disponible desde: {{ formatearFechaEspanol(lugar.fechaDisponibilidad) }}
+           </p>
         </div>
       </div>
     </div>
@@ -36,12 +40,12 @@
         <div class="stat-unit">
           <ion-icon name="cash-outline"></ion-icon>
           <small>PRECIO</small>
-          <strong>{{ lugar?.precioCover || '' }}</strong>
+          <strong>{{ lugar?.precioCover || '0' }} Bs.</strong>
         </div>
         <div class="stat-unit divider-left">
           <ion-icon name="people-outline"></ion-icon>
           <small>CAPACIDAD</small>
-          <strong>{{ lugar?.capacidad || '' }}</strong>
+          <strong>{{ lugar?.capacidad || 'N/A' }}</strong>
         </div>
         <div class="stat-unit divider-left">
           <ion-icon name="star"></ion-icon>
@@ -87,6 +91,8 @@
   </div>
 </ion-content>
 
-<ion-footer class="ion-no-border">
-  <app-action-calendar (click)="solicitarPerformance(lugar)"></app-action-calendar>
+<ion-footer class="ion-no-border" *ngIf="lugar">
+  <ion-toolbar style="--background: transparent; padding: 0 10px 10px;">
+    <app-action-calendar (click)="solicitarPerformance(lugar)"></app-action-calendar>
+  </ion-toolbar>
 </ion-footer>

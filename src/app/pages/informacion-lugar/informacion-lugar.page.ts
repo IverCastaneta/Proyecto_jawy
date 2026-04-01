@@ -11,7 +11,6 @@ export class InformacionLugarPage {
   @ViewChild('fileInput') fileInput!: ElementRef;
   lugarForm: FormGroup;
   
-  // Ahora es un arreglo para guardar múltiples imágenes en Base64
   fotosLugar: string[] = [];
   maxFotos: number = 5;
 
@@ -30,12 +29,10 @@ export class InformacionLugarPage {
     }
   }
 
-  // Se modificó para procesar múltiples archivos
   onFileSelected(event: any) {
     const files = event.target.files;
     
     if (files && files.length > 0) {
-      // Calculamos cuántos archivos más podemos subir
       const espaciosDisponibles = this.maxFotos - this.fotosLugar.length;
       const archivosAProcesar = Math.min(files.length, espaciosDisponibles);
 
@@ -44,11 +41,10 @@ export class InformacionLugarPage {
         this.procesarImagen(file);
       }
     }
-    // Limpiamos el input para permitir subir la misma foto de nuevo si se borró
+    
     this.fileInput.nativeElement.value = '';
   }
 
-  // Función extraída para procesar individualmente cada imagen a Base64
   procesarImagen(file: File) {
     const reader = new FileReader();
     reader.onload = (e: any) => {
@@ -56,7 +52,7 @@ export class InformacionLugarPage {
       img.src = e.target.result;
       img.onload = () => {
         const canvas = document.createElement('canvas');
-        const MAX_WIDTH = 800; // Un poco más de calidad para el carrusel
+        const MAX_WIDTH = 800; 
         let width = img.width;
         let height = img.height;
         if (width > MAX_WIDTH) { height *= MAX_WIDTH / width; width = MAX_WIDTH; }
@@ -64,7 +60,6 @@ export class InformacionLugarPage {
         const ctx = canvas.getContext('2d');
         ctx?.drawImage(img, 0, 0, width, height);
         
-        // Añadimos la imagen procesada al arreglo
         this.fotosLugar.push(canvas.toDataURL('image/jpeg', 0.6));
       };
     };
@@ -77,7 +72,6 @@ export class InformacionLugarPage {
 
   siguiente() {
     if (this.lugarForm.valid) {
-      // Guardamos el arreglo completo de fotos
       const datosLugar = { ...this.lugarForm.value, fotosLugar: this.fotosLugar };
       const datosPrevios = JSON.parse(localStorage.getItem('temp_registro') || '{}');
       

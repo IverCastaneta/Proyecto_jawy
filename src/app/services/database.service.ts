@@ -1,24 +1,23 @@
-
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AngularFirestore, Query } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
-import { DocumentData } from 'firebase/firestore'; // Asegúrate de importar DocumentData
-
+import { DocumentData } from 'firebase/firestore'; 
 
 @Injectable({
   providedIn: 'root'
 })
 export class DatabaseService {
-  async addDocument(collectionName: string, collectionData: any) {
-  // .add() genera un ID automático de Firebase, ideal para reservas
-  return this.firestore.collection(collectionName).add(collectionData);
-}
+
   constructor(
     public http: HttpClient,
     public firestore: AngularFirestore
   ) { }
 
+  async addDocument(collectionName: string, collectionData: any) {
+  // .add() genera un ID automático de Firebase, ideal para reservas
+  return this.firestore.collection(collectionName).add(collectionData);
+  }
 
   // Lee un archivo json en la carpeta /assets/db/ NOMBRE
   fetchLocalCollection(collection: string) {
@@ -49,13 +48,9 @@ export class DatabaseService {
     return this.firestore.collection(collection).doc(uid).valueChanges({ idField: 'id' });
   }
 
-  // Busca todos los registros o documentos de una colección que coincidan  con los parametros buscados
-  // Requiere collection (nombre de la colección), customParam (campo para buscar) y searched (valor buscado)
   getCollectionByCustomparam(collection: string, customParam: string, searched: string): Observable<any> {
     return this.firestore.collection(collection, ref => ref.where(customParam, '==', searched))
       .valueChanges({ idField: 'id' });
   }
-
   
 }
-

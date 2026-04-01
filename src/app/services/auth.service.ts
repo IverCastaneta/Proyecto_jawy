@@ -32,7 +32,6 @@ export class AuthService {
     }
   }
 
-  // --- LOGIN CON GOOGLE ---
   async loginWithGoogle() {
     try {
       const provider = new firebase.auth.GoogleAuthProvider();
@@ -53,25 +52,24 @@ export class AuthService {
             fechaRegistro: new Date()
           };
           await this.firestore.collection('users').doc(user.uid).set(newUser);
-          this.router.navigateByUrl('/seleccion-rol');
+          this.router.navigateByUrl('/informacion-personal');
         } else {
           this.checkOnboarding(userDoc.data());
         }
       }
       return user;
     } catch (error) {
-      console.error('Error en Google:', error);
+      console.error(error);
       return null;
     }
   }
 
-  // --- CORRECCIÓN DEL ERROR TS2345 EN LOGIN USER ---
   async loginUser(email: string, password: string) {
     try {
       const userCredential = await this.auth.signInWithEmailAndPassword(email, password);
       const user = userCredential.user;
 
-      if (user) { // Verificamos que el usuario existe antes de usar su UID
+      if (user) {
         localStorage.setItem('user', JSON.stringify(user));
         this.isLogued = true;
 
@@ -82,7 +80,7 @@ export class AuthService {
         });
       }
     } catch (error) {
-      console.error('Error al iniciar sesión:', error);
+      console.error(error);
     }
   }
 
@@ -100,7 +98,7 @@ export class AuthService {
         this.router.navigateByUrl('/login');
       }
     } catch (error) {
-      console.error('Error al registrar:', error);
+      console.error(error);
     }
   }
 
@@ -108,18 +106,16 @@ export class AuthService {
     if (userData?.perfilCompleto === true) {
       this.router.navigateByUrl('/profile');
     } else {
-      this.router.navigateByUrl('/seleccion-rol');
+      this.router.navigateByUrl('/informacion-personal');
     }
   }
-
-  // --- MÉTODOS DE ESTADO Y PERFIL ---
 
   verifyIsLogued() {
     this.isLogued = !!localStorage.getItem('user');
     return this.isLogued;
   }
 
-  getProfile(uid: string) { // Cambiado a string para mayor seguridad
+  getProfile(uid: string) {
     this.db.getDocumentById('users', uid).subscribe(
       (res: any) => {
         localStorage.setItem('profile', JSON.stringify(res));
@@ -128,8 +124,6 @@ export class AuthService {
       (error: any) => { console.error(error); }
     );
   }
-
-  // --- MÉTODOS DE INTERACCIÓN (CARD COMPONENT) ---
 
   addToList(field: any, uid: any) {
     if (this.profile) {
@@ -155,8 +149,6 @@ export class AuthService {
   checkIsFavorite(field: any, uid: any) {
     return this.profile && this.profile[field] ? this.profile[field].indexOf(uid) >= 0 : false;
   }
-
-  // --- MÉTODOS DE LUGARES ---
 
   async addLugar(lugarData: any) {
     try {

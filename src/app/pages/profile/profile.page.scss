@@ -157,7 +157,23 @@
   gap: 10px;
 }
 
-.badge-jawy {
+.badge-instrumento {
+  --background: var(--dark-grey);
+  --color: var(--orange);
+  font-weight: 500;
+  font-size: 12px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  
+  ion-icon {
+    font-size: 14px;
+  }
+}
+
+.badge-generos {
   --background: var(--dark-grey);
   --color: var(--orange);
   border: 1px solid var(--orange);
@@ -165,6 +181,13 @@
   font-size: 12px;
   padding: 8px 12px;
   border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  
+  ion-icon {
+    font-size: 14px;
+  }
 }
 
 .desc-section .bio-text {
@@ -426,7 +449,7 @@
   .input-label {
     font-size: 14px;
     font-weight: 700;
-    color: #F66F17; /* Naranja HEX directo */
+    color: #F66F17; 
     margin: 0;
     letter-spacing: 0.5px;
   }

@@ -92,4 +92,22 @@ export class HomePage implements OnInit {
       return coincideTexto && coincideCategoria;
     });
   }
+
+  formatearFechaEspanol(fechaString: string): string {
+    if (!fechaString) return '';
+    
+
+    const fecha = new Date(fechaString + 'T00:00:00'); 
+    
+    const meses = [
+      'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 
+      'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'
+    ];
+
+    const dia = String(fecha.getDate()).padStart(2, '0');
+    const mes = meses[fecha.getMonth()];
+    const anio = fecha.getFullYear();
+
+    return `${dia} de ${mes} ${anio}`; 
+  }
 }

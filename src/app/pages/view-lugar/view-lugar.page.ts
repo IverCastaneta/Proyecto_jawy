@@ -63,4 +63,23 @@ export class ViewLugarPage implements OnInit {
     if (text.includes('sillas') || text.includes('mesas')) return 'cafe-outline';
     return 'checkmark-circle-outline'; 
   }
+
+  formatearFechaEspanol(fechaString: string): string {
+    if (!fechaString) return '';
+    
+    // Le agregamos 'T00:00:00' para evitar que por zonas horarias te reste un día
+    const fecha = new Date(fechaString + 'T00:00:00'); 
+    
+    const meses = [
+      'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 
+      'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'
+    ];
+
+    const dia = String(fecha.getDate()).padStart(2, '0');
+    const mes = meses[fecha.getMonth()];
+    const anio = fecha.getFullYear();
+
+    // Devuelve "02 de febrero 2026"
+    return `${dia} de ${mes} ${anio}`; 
+  }
 }

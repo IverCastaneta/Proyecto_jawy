@@ -98,10 +98,12 @@
               <ion-icon name="location"></ion-icon>
               <p>{{ lugar.direccion }}</p>
             </div>
+            
             <div class="detail-item">
               <ion-icon name="time"></ion-icon>
-              <p>Fechas disponibles a partir de 08/12/2025</p>
+              <p *ngIf="lugar.fechaDisponibilidad">Fechas disponibles a partir del {{ formatearFechaEspanol(lugar.fechaDisponibilidad) }}</p>
             </div>
+            
           </div>
         </div>
       </ion-card>
