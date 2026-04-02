@@ -1,6 +1,20 @@
-<ion-header class="ion-no-border">
+<ion-header class="ion-no-border jawy-home-header">
   <ion-toolbar class="transparent-toolbar">
-    <div class="glass-search-box animate__animated animate__fadeInDown">
+    
+    <div class="header-default-row animate__animated animate__fadeIn" *ngIf="!isSearching">
+      <img src="assets/animations/logoHeader.gif" alt="Logo Jawy" class="jawyLogo">
+      <div class="header-actions">
+        <div class="action-btn" (click)="activarBusqueda()">
+          <ion-icon name="search-outline"></ion-icon>
+        </div>
+        <div class="action-btn" (click)="abrirNotificaciones()">
+          <ion-icon name="notifications-outline"></ion-icon>
+          <div class="badge-dot" *ngIf="hayNotificaciones"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="glass-search-box animate__animated animate__fadeInRight" *ngIf="isSearching">
       <div class="icon-box">
         <ion-icon name="search-outline"></ion-icon>
       </div>
@@ -8,13 +22,13 @@
         placeholder="¿Qué quieres encontrar hoy?" 
         [(ngModel)]="busqueda" 
         (ionInput)="ejecutarBusqueda($event)"
-        (ionFocus)="activarBusqueda()"
         class="search-input">
       </ion-input>
-      <div class="filter-circle" (click)="cerrarBusqueda()">
-        <ion-icon [name]="isSearching ? 'close-outline' : 'options-outline'"></ion-icon>
+      <div class="filter-btn" (click)="cerrarBusqueda()">
+        <ion-icon name="close-outline"></ion-icon>
       </div>
     </div>
+
   </ion-toolbar>
 </ion-header>
 
@@ -103,7 +117,6 @@
               <ion-icon name="time"></ion-icon>
               <p *ngIf="lugar.fechaDisponibilidad">Fechas disponibles a partir del {{ formatearFechaEspanol(lugar.fechaDisponibilidad) }}</p>
             </div>
-            
           </div>
         </div>
       </ion-card>

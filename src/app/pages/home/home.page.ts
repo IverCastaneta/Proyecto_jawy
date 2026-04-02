@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { DatabaseService } from 'src/app/services/database.service';
 
@@ -21,10 +22,12 @@ export class HomePage implements OnInit {
 
   cargandoMusicos: boolean = true;
   cargandoLugares: boolean = true;
+  hayNotificaciones: boolean = false;
 
   constructor(
     public db: DatabaseService,
-    public auth: AuthService
+    public auth: AuthService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -47,6 +50,32 @@ export class HomePage implements OnInit {
         this.filtrarResultados();
       }
     });
+  }
+
+  verificarNotificaciones(usuarioId: string, rol: string, lugarId?: string) {
+    this.db.fetchFirestoreCollection('solicitudes').subscribe(res => {
+      const notificacionesNuevas = res.filter(s => {
+        if (s.leido) {
+          return false;
+        }
+        
+        if (rol === 'musico' || rol === 'músico') {
+          return s.idMusico === usuarioId && (s.estado === 'confirmado' || s.estado === 'rechazado');
+        }
+        
+        if (rol === 'dueno' || rol === 'dueño') {
+          return s.idLugar === lugarId && s.estado === 'pendiente';
+        }
+
+        return false;
+      });
+
+      this.hayNotificaciones = notificacionesNuevas.length > 0;
+    });
+  }
+
+  abrirNotificaciones() {
+    this.router.navigate(['/notifications']);
   }
 
   activarBusqueda() {
@@ -96,7 +125,6 @@ export class HomePage implements OnInit {
   formatearFechaEspanol(fechaString: string): string {
     if (!fechaString) return '';
     
-
     const fecha = new Date(fechaString + 'T00:00:00'); 
     
     const meses = [

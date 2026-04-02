@@ -126,7 +126,11 @@ const routes: Routes = [
   {
     path: 'detalles-lugar',
     loadChildren: () => import('./pages/detalles-lugar/detalles-lugar.module').then(m => m.DetallesLugarPageModule)
+  },  {
+    path: 'notificaciones',
+    loadChildren: () => import('./pages/notificaciones/notificaciones.module').then( m => m.NotificacionesPageModule)
   },
+
 
 
 
