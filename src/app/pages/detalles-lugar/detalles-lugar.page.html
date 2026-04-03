@@ -16,13 +16,27 @@
     <div class="todo">
       <div class="linea"></div>
 
-      <div class="input-calendario">
-        <div class="form-section">
-          <h3>¿Desde cuándo está disponible para reservar?</h3>
-          <ion-item lines="none" class="input-seleccion date-input-wrapper">
-            <ion-input type="date" [(ngModel)]="fechaDisponibilidad"></ion-input>
-          </ion-item>
+    <div class="input-calendario">
+      <div class="form-section">
+        <h4>¿Desde cuándo está disponible para reservar?</h4>
+        
+        <div class="selector-fecha input-jawy">
+          <ion-datetime-button datetime="datetime-disponibilidad"></ion-datetime-button>
+          <ion-icon name="calendar-outline" class="icono-flecha"></ion-icon>
         </div>
+        
+        <ion-popover [keepContentsMounted]="true" class="jawy-popover">
+          <ng-template>
+            <ion-datetime 
+              id="datetime-disponibilidad" 
+              presentation="date" 
+              mode="ios" 
+              [(ngModel)]="fechaDisponibilidad">
+            </ion-datetime>
+          </ng-template>
+        </ion-popover>
+
+      </div>
       </div>
       
       <div class="linea"></div>

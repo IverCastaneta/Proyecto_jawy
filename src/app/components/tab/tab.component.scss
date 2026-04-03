@@ -28,15 +28,12 @@ $total-frames: 60;
   -webkit-mask-size: auto 100%;
   mask-size: auto 100%;
 
-  // --- CAMBIO AQUÍ ---
-  // Cambiamos 100% por 0% para mostrar el primer cuadro cuando está inactivo
   -webkit-mask-position: 0% 0;
   mask-position: 0% 0;
 
   transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
-// RUTAS RELATIVAS
 .places-sprite {
   -webkit-mask-image: url('../../../assets/spriteIconos/spriteLugares/lugares.png');
   mask-image: url('../../../assets/spriteIconos/spriteLugares/lugares.png');
@@ -52,13 +49,11 @@ $total-frames: 60;
   mask-image: url('../../../assets/spriteIconos/spritePerfil/perfil.png');
 }
 
-// ESTADO SELECCIONADO
 ion-tab-button.tab-selected {
   .jawy-sprite-icon {
     background-color: var(--orange);
     transform: translateY(-4px); 
     
-    // Al activarse, la animación corre de 0% a 100%
     animation: playSprite 1s steps($total-frames - 1) forwards;
   }
   

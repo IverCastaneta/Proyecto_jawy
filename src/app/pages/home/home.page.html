@@ -7,7 +7,7 @@
         <div class="action-btn" (click)="activarBusqueda()">
           <ion-icon name="search-outline"></ion-icon>
         </div>
-        <div class="action-btn" (click)="abrirNotificaciones()">
+        <div class="action-btn" [routerLink]="['/profile']" [queryParams]="{segment: 'gestion'}">
           <ion-icon name="notifications-outline"></ion-icon>
           <div class="badge-dot" *ngIf="hayNotificaciones"></div>
         </div>
@@ -61,7 +61,6 @@
           <h2>{{ lugar.nombre }}</h2>
           <p>{{ lugar.tipo }} • {{ lugar.precioCover ? lugar.precioCover + ' Bs.' : 'Gratis' }}</p>
         </ion-label>
-        <ion-icon name="chevron-forward-outline" slot="end" color="medium"></ion-icon>
       </ion-item>
     </ion-list>
 
@@ -104,15 +103,12 @@
               <path d="M11.2394 20.5734H11.4876L12.1545 2.40623H16.2707L14.3096 30H9.27088L8.341 15.1777L8.12359 8.21761H7.87533L7.70493 15.1777L6.78974 30H1.40143L0 9.00793H3.66517L4.60386 20.5426H4.85212L5.06953 15.0397L6.03026 0H10.0304L11.0072 15.0397L11.2394 20.5734Z" fill="var(--orange, #F66F17)"/>
             </svg>
           </div>
-
           <div class="section-line"></div>
-
           <div class="section-data">
             <div class="detail-item">
               <ion-icon name="location"></ion-icon>
               <p>{{ lugar.direccion }}</p>
             </div>
-            
             <div class="detail-item">
               <ion-icon name="time"></ion-icon>
               <p *ngIf="lugar.fechaDisponibilidad">Fechas disponibles a partir del {{ formatearFechaEspanol(lugar.fechaDisponibilidad) }}</p>
@@ -123,13 +119,13 @@
     </div>
 
   </div>
-  
+
   <ng-template #skeletonMusicos>
     <div class="horizontal-scroll">
-      <ion-card *ngFor="let i of [1,2,3]" class="musico-card" style="box-shadow: none; border: 1px solid rgba(255,255,255,0.05);">
-        <ion-skeleton-text animated style="height: 120px; width: 100%; margin: 0;"></ion-skeleton-text>
-        <ion-card-header style="padding: 10px;">
-          <ion-skeleton-text animated style="height: 14px; width: 80%; margin: 0 auto; border-radius: 4px;"></ion-skeleton-text>
+      <ion-card *ngFor="let i of [1,2,3]" class="musico-card">
+        <ion-skeleton-text animated style="height: 120px; width: 100%;"></ion-skeleton-text>
+        <ion-card-header>
+          <ion-skeleton-text animated style="height: 14px; width: 80%; margin: 0 auto;"></ion-skeleton-text>
         </ion-card-header>
       </ion-card>
     </div>
@@ -137,26 +133,11 @@
 
   <ng-template #skeletonLugares>
     <div class="places-layout">
-      <ion-card *ngFor="let i of [1,2]" class="venue-card" style="box-shadow: none; border: 1px solid rgba(255,255,255,0.05);">
-        <div class="image-wrapper">
-          <ion-skeleton-text animated style="width: 100%; height: 100%; margin: 0;"></ion-skeleton-text>
-        </div>
+      <ion-card *ngFor="let i of [1,2]" class="venue-card">
+        <div class="image-wrapper"><ion-skeleton-text animated style="width: 100%; height: 100%;"></ion-skeleton-text></div>
         <div class="card-body">
-          <div class="venue-header">
-            <ion-skeleton-text animated style="width: 60%; height: 22px; border-radius: 4px;"></ion-skeleton-text>
-            <ion-skeleton-text animated style="width: 17px; height: 30px;"></ion-skeleton-text>
-          </div>
-          <div class="section-line"></div>
-          <div class="section-data">
-            <div class="detail-item">
-              <ion-icon name="location" style="opacity: 0.3;"></ion-icon>
-              <ion-skeleton-text animated style="width: 80%; height: 13px; border-radius: 4px;"></ion-skeleton-text>
-            </div>
-            <div class="detail-item">
-              <ion-icon name="time" style="opacity: 0.3;"></ion-icon>
-              <ion-skeleton-text animated style="width: 70%; height: 13px; border-radius: 4px;"></ion-skeleton-text>
-            </div>
-          </div>
+          <ion-skeleton-text animated style="width: 60%; height: 20px;"></ion-skeleton-text>
+          <ion-skeleton-text animated style="width: 80%; height: 12px; margin-top: 10px;"></ion-skeleton-text>
         </div>
       </ion-card>
     </div>

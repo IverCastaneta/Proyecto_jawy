@@ -1,8 +1,162 @@
-  .tickets-list { display: flex; flex-direction: column; gap: 20px; }
-  .jawy-ticket {
-    margin: 0; background: var(--dark-grey); border-radius: 8px; overflow: hidden;
-    &.is-confirmed { border: 1px solid #2dd36f; background: linear-gradient(135deg, var(--black) 0%, #0d2b1a 100%); }
-    .status-banner { background: var(--orange); color: black; font-size: 10px; font-weight: 900; text-align: center; padding: 4px; }
-    .ticket-inner { --background: transparent; padding: 5px 0; }
-    .event-details-box { padding: 0 16px 12px; display: flex; flex-direction: column; gap: 5px; h4 { color: var(--orange); margin: 0; } p { margin: 0; font-size: 13px; opacity: 0.8; } }
+.section-title {
+  padding: 20px 0;
+}
+
+.linea {
+  margin: 0 0 20px 0;
+}
+
+.tickets-list { 
+  display: flex; 
+  flex-direction: column; 
+  gap: 20px; 
+  padding: 0 16px 20px;
+}
+
+.jawy-ticket {
+  margin: 0; 
+  background: var(--dark-grey); 
+  border-radius: 8px; 
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+  border: 1px solid rgba(255,255,255,0.05);
+
+  &.is-confirmed { 
+    border-color: rgba(246, 111, 23, 0.4);
   }
+  
+  .status-banner { 
+    background: var(--orange); 
+    color: var(--black); 
+    font-size: 11px; 
+    font-weight: 800; 
+    text-align: center; 
+    padding: 6px; 
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+
+    &.banner-pending {
+      background: #ffc409;
+    }
+  }
+
+  .ticket-body {
+    padding: 16px 16px 8px;
+
+    .ticket-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 4px;
+    }
+
+    .event-hero {
+      flex: 1;
+      
+      .event-title { 
+        color: var(--white); 
+        font-size: 19px;
+        margin: 0 0 4px; 
+        line-height: 1.2;
+        font-weight: 700;
+      }
+      .event-desc { 
+        color: #a0a0a0; 
+        font-size: 13px; 
+        margin: 0; 
+        font-style: italic;
+        line-height: 1.4;
+      }
+    }
+
+    .estadoyfecha {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
+      min-width: 100px;
+
+      .status-badge {
+        font-size: 10px;
+        padding: 4px 10px;
+        border-radius: 6px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        margin: 0;
+      }
+
+      .event-date {
+        color: #808080;
+        font-size: 12px;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        white-space: nowrap;
+        font-weight: 500;
+      }
+    }
+
+    .divider-line {
+      height: 1px;
+      width: 100%;
+      background: rgba(255,255,255,0.08);
+      margin: 16px 0;
+    }
+
+    .event-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      .venue-avatar {
+        width: 48px;
+        height: 48px;
+        border-radius: 8px; 
+        border: 1px solid rgba(255,255,255,0.1);
+      }
+
+      .meta-details {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+
+        .venue-name {
+          color: var(--white);
+          font-size: 15px;
+          font-weight: 600;
+          margin: 0;
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          
+          ion-icon { color: var(--orange); font-size: 16px; }
+        }
+      }
+    }
+  }
+
+  .ticket-actions {
+    display: flex;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    background: rgba(0,0,0,0.2);
+
+    ion-button {
+      flex: 1;
+      margin: 0;
+      height: 48px;
+      font-size: 14px;
+      font-weight: 700;
+      --border-radius: 0; 
+      --box-shadow: none;
+    }
+
+    .btn-whatsapp {
+      --color: #25D366; 
+    }
+  }
+}

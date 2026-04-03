@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { DatabaseService } from 'src/app/services/database.service';
-import { ToastController, AlertController, ModalController } from '@ionic/angular';
+import { ToastController, AlertController, ModalController, IonicSafeString } from '@ionic/angular';
 
 // COMPONENTES MODALES
 import { EditarLugarComponent } from '../../components/editar-lugar/editar-lugar.component';
 import { RechazarReservaComponent } from '../../components/rechazar-reserva/rechazar-reserva.component';
 import { EditarPerfilComponent } from '../../components/editar-perfil/editar-perfil.component';
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',
@@ -71,24 +72,50 @@ export class ProfilePage implements OnInit {
     }
   }
 
+  // --- LIMPIO: Solo carga las solicitudes, ya no tiene el espía ---
   cargarSolicitudesSegunRol() {
     this.cargando = true;
     const rolField = (this.usuario.rol === 'dueño' || this.usuario.rol === 'dueno') ? 'idDueno' : 'idMusico';
+    
     this.db.getCollectionByCustomparam('performances', rolField, this.usuario.id).subscribe(res => {
       this.solicitudes = res;
       this.cargando = false;
     });
   }
 
+  // --- LOGICA GESTION DE SOLICITUDES ACTUALIZADA ---
   async gestionarSolicitud(idSolicitud: string, nuevoEstado: 'confirmado' | 'rechazado') {
     try {
-      await this.db.updateFireStoreDocument('performances', idSolicitud, { estado: nuevoEstado });
-      this.presentToast(nuevoEstado === 'confirmado' ? '¡Reserva Confirmada!' : 'Reserva rechazada', nuevoEstado === 'confirmado' ? 'success' : 'danger');
-      this.cargarSolicitudesSegunRol();
+      let datosActualizar: any = { estado: nuevoEstado };
+
+      if (nuevoEstado === 'confirmado') {
+        datosActualizar.notificacionArtistaVista = false;
+      }
+
+      await this.db.updateFireStoreDocument('performances', idSolicitud, datosActualizar);
+      
+      if (nuevoEstado === 'confirmado') {
+        this.mostrarPopUpDueno();
+      } else {
+        this.presentToast('Reserva rechazada', 'danger');
+      }
+
     } catch (error) {
       this.presentToast('Error al procesar solicitud', 'warning');
     }
   }
+
+async mostrarPopUpDueno() {
+    const alert = await this.alertCtrl.create({
+      header: '¡Reserva Confirmada! 🎉',
+      message: 'Por favor, se recomienda preparar todo lo que se solicitó en el "Rider" (requerimientos del artista) y no disponer de esta fecha y espacio para otras actividades.\n\n💡 Recuerda: Mientras mejor sea tu trato y desempeño, mantendrás una buena calificación como usuario dentro de Jawy.',
+      cssClass: 'jawy-success-alert',
+      buttons: [{ text: '¡Entendido!', role: 'confirm', cssClass: 'btn-entendido-alert' }]
+    });
+    
+    await alert.present();
+  }
+
 
   async abrirModalRechazo(solicitud: any) {
     const modal = await this.modalCtrl.create({
@@ -100,7 +127,6 @@ export class ProfilePage implements OnInit {
     });
     await modal.present();
     const { data } = await modal.onDidDismiss();
-    if (data) this.cargarSolicitudesSegunRol();
   }
 
   async abrirModalEditLugar(event?: Event) {
@@ -137,7 +163,8 @@ export class ProfilePage implements OnInit {
     const msg = `¡Hola! Soy de ${s.nombreLugar}. Acepté tu propuesta para el show. ¿Coordinamos?`;
     window.open(`https://wa.me/591${s.telefonoMusico}?text=${encodeURIComponent(msg)}`, '_blank');
   }
-async abrirModalEditPerfil() {
+
+  async abrirModalEditPerfil() {
     const modal = await this.modalCtrl.create({
       component: EditarPerfilComponent,
       componentProps: { usuario: this.usuario },
@@ -149,11 +176,11 @@ async abrirModalEditPerfil() {
     await modal.present();
 
     const { data } = await modal.onDidDismiss();
-    // Si guardó algo, actualizamos la vista de inmediato
     if (data) {
       this.usuario = { ...this.usuario, ...data };
     }
   }
+
   async presentAlertNuevaTarjeta() { /* Lógica de alerta */ }
   async eliminarTarjeta(id: string) { /* Lógica eliminar */ }
 }

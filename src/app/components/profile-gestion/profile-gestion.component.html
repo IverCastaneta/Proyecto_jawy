@@ -1,4 +1,5 @@
-<h3 class="section-title">Actividad Reciente</h3>
+<h3 class="section-title"><strong>Actividad Reciente</strong></h3>
+<div class="linea"></div>
 
 <div class="tickets-list" *ngIf="!cargando; else skeletons">
   <ion-card *ngFor="let s of solicitudes" class="jawy-ticket" 
@@ -8,23 +9,42 @@
     <div class="status-banner" *ngIf="s.estado === 'confirmado'">
       <ion-icon name="sparkles"></ion-icon> EVENTO CONFIRMADO
     </div>
+    <div class="status-banner banner-pending" *ngIf="s.estado === 'pendiente'">
+      <ion-icon name="time-outline"></ion-icon> PENDIENTE DE REVISIÓN
+    </div>
 
-    <ion-item lines="none" class="ticket-inner">
-      <ion-avatar slot="start">
-        <img [src]="s.fotoMusico || 'assets/default-avatar.png'">
-      </ion-avatar>
-      <ion-label>
-        <h3 class="title-bold">{{ (usuario?.rol === 'dueno' || usuario?.rol === 'dueño') ? s.nombreMusico : s.nombreLugar }}</h3>
-        <p class="subtitle-gray"><ion-icon name="calendar-outline"></ion-icon> {{ s.fechaPerformance | date:'dd/MM/yyyy' }}</p>
-      </ion-label>
-      <ion-badge slot="end" [color]="s.estado === 'confirmado' ? 'success' : (s.estado === 'pendiente' ? 'warning' : 'danger')">
-        {{ s.estado | uppercase }}
-      </ion-badge>
-    </ion-item>
+    <div class="ticket-body">
+      
+      <div class="ticket-header">   
+        <div class="event-hero">
+          <h2 class="event-title">{{ s.tituloEvento || 'Presentación en Vivo' }}</h2>
+          <p class="event-desc" *ngIf="s.descripcionEvento">"{{ s.descripcionEvento }}"</p>
+        </div>
 
-    <div class="event-details-box" *ngIf="s.tituloEvento">
-      <h4><ion-icon name="musical-notes"></ion-icon> {{ s.tituloEvento }}</h4>
-      <p>"{{ s.descripcionEvento }}"</p>
+        <div class="estadoyfecha">
+            <ion-badge class="status-badge" [color]="s.estado === 'confirmado' ? 'success' : (s.estado === 'pendiente' ? 'warning' : 'danger')">
+                  {{ s.estado ? (s.estado | uppercase) : 'DESCONOCIDO' }}
+            </ion-badge>
+            <span class="event-date">
+                    <ion-icon name="calendar-outline"></ion-icon> 
+                    {{ s.fechaPerformance | date:'dd/MM/yyyy' || 'Por definir' }}
+            </span>
+              </div>
+        </div>
+      <div class="divider-line"></div>
+
+      <div class="event-meta">
+        <ion-avatar class="venue-avatar">
+          <img [src]="(usuario?.rol === 'dueno' || usuario?.rol === 'dueño' ? s.fotoMusico : s.fotoLugar) || s.fotoMusico || 'assets/default-avatar.png'">
+        </ion-avatar>
+        
+        <div class="meta-details">
+          <h3 class="venue-name">
+            <ion-icon name="location-outline"></ion-icon> 
+            {{ (usuario?.rol === 'dueno' || usuario?.rol === 'dueño') ? s.nombreMusico : s.nombreLugar }}
+          </h3>
+        </div>
+      </div>
     </div>
 
     <div class="ticket-actions" *ngIf="s.estado === 'pendiente' && (usuario?.rol === 'dueno' || usuario?.rol === 'dueño')">
@@ -36,24 +56,34 @@
       </ion-button>
     </div>
 
-    <div class="ticket-actions" *ngIf="s.estado === 'confirmado'">
-      <ion-button fill="outline" color="success" expand="block" (click)="onContactar(s)">
+    <div class="ticket-actions single-action" *ngIf="s.estado === 'confirmado'">
+      <ion-button fill="clear" class="btn-whatsapp" (click)="onContactar(s)">
         <ion-icon name="logo-whatsapp" slot="start"></ion-icon> Contactar
       </ion-button>
     </div>
+
   </ion-card>
 </div>
-
 <ng-template #skeletons>
   <div class="tickets-list">
-    <ion-card *ngFor="let i of [1,2,3]" class="jawy-ticket skeleton-ticket">
-      <ion-item lines="none">
-        <ion-avatar slot="start"><ion-skeleton-text animated></ion-skeleton-text></ion-avatar>
-        <ion-label>
-          <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
-          <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
-        </ion-label>
-      </ion-item>
+    <ion-card *ngFor="let i of [1,2,3]" class="jawy-ticket">
+      <div class="ticket-body" style="padding: 16px;">
+        
+        <ion-skeleton-text animated style="width: 80%; height: 20px; margin-bottom: 8px; border-radius: 4px;"></ion-skeleton-text>
+        <ion-skeleton-text animated style="width: 50%; height: 14px; margin-bottom: 16px; border-radius: 4px;"></ion-skeleton-text>
+        
+        <div class="divider-line" style="height: 1px; width: 100%; background: rgba(255,255,255,0.08); margin-bottom: 16px;"></div>
+
+        <div style="display: flex; gap: 12px; align-items: center;">
+          <ion-skeleton-text animated style="width: 48px; height: 48px; border-radius: 8px; margin: 0;"></ion-skeleton-text>
+          
+          <div style="flex: 1; display: flex; flex-direction: column; gap: 6px;">
+            <ion-skeleton-text animated style="width: 60%; height: 14px; border-radius: 4px; margin: 0;"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 40%; height: 12px; border-radius: 4px; margin: 0;"></ion-skeleton-text>
+          </div>
+        </div>
+
+      </div>
     </ion-card>
   </div>
 </ng-template>

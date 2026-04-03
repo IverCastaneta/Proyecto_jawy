@@ -28,8 +28,8 @@
   --grey: #868686;
 
   --jawy-padding-side: 20px;
-  --jawy-radius-btn: 12px;
-  --jawy-radius-card: 16px;
+  --jawy-radius-btn: 8px;
+  --jawy-radius-card: 8px;
 
   --ion-background-color: var(--black);
   --ion-text-color: var(--white);
@@ -146,4 +146,16 @@ ion-textarea::part(native),
 ion-input::part(input),
 ion-textarea::part(textarea) {
   caret-color: var(--orange) !important;
+}
+
+.jawy-success-alert {
+
+  border-radius: 8px;
+  .alert-message {
+    color: #e0e0e0;
+    font-size: 15px;
+    text-align: center;
+    line-height: 1.5;
+    white-space: pre-line !important; 
+  }
 }

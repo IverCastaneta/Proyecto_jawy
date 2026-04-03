@@ -32,7 +32,7 @@
       </div>
     </div>
 
-    <div class="linea-hero"></div>
+    <div class="linea"></div>
 
     <div class="info-layout">
       
@@ -56,12 +56,28 @@
 
       <div class="linea"></div>
 
+      <section class="info-section animate__animated animate__fadeIn">
+        <h3 class="section-label">Géneros musicales preferidos</h3>
+        
+        <div class="genres-container" *ngIf="lugar?.generos?.length > 0; else noGeneros">
+          <div class="genre-tag" *ngFor="let genero of lugar.generos">
+            <span>{{ genero }}</span>
+          </div>
+        </div>
+
+        <ng-template #noGeneros>
+          <p class="no-data-text">Este local está abierto a todos los estilos musicales.</p>
+        </ng-template>
+      </section>
+
+      <div class="linea"></div>
+
       <section class="info-section">
         <h3 class="section-label">El lugar cuenta con:</h3>
         <div class="equipment-grid" *ngIf="lugar?.equipamiento?.length > 0">
           <div class="equipment-pill" *ngFor="let item of lugar?.equipamiento">
             <ion-icon [name]="getIconForEquipment(item)"></ion-icon>
-            <span>{{ item }}</span>
+            <h5><span>{{ item }}</span></h5>
           </div>
         </div>
         <p class="no-data-text" *ngIf="!lugar?.equipamiento?.length">No se especificó equipamiento extra.</p>

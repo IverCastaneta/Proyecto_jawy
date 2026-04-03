@@ -1,3 +1,4 @@
+
 ion-content {
   --background: var(--black);
 }
@@ -6,6 +7,7 @@ ion-skeleton-text {
   --background: rgba(255, 255, 255, 0.08); 
   --background-rgb: 255, 255, 255; 
 }
+
 
 .jawy-home-header {
   background-color: var(--black);
@@ -31,24 +33,11 @@ ion-skeleton-text {
 
     .header-actions {
       display: flex;
-      gap: 12px; // Añadido un pequeño gap para separar la campana de la lupa
+      gap: 12px;
     }
 
-    .badge-dot {
-      // Nota: Aquí lo saqué del contexto general para que funcione como contenedor relativo
-      // y metí la bolita naranja como un pseudo-elemento o elemento interno real
-      position: absolute;
-      top: 8px;
-      right: 8px;
-      width: 8px;
-      height: 8px;
-      background-color: var(--orange);
-      border-radius: 50%;
-      box-shadow: 0 0 8px var(--orange);
-    }
-
-    .action-btn, .search-trigger-btn { // Unifiqué las clases de los botones para no repetir código
-      position: relative; // Necesario para que el badge-dot se posicione bien
+    .action-btn {
+      position: relative;
       background: var(--black);
       width: 40px;
       height: 40px;
@@ -59,6 +48,18 @@ ion-skeleton-text {
       
       ion-icon { 
         font-size: 1.8rem; 
+      }
+
+      .badge-dot {
+        position: absolute;
+        top: 6px;
+        right: 6px;
+        width: 8px;
+        height: 8px;
+        background-color: var(--orange);
+        border-radius: 50%;
+        box-shadow: 0 0 8px var(--orange);
+        z-index: 10;
       }
     }
   }
@@ -74,12 +75,6 @@ ion-skeleton-text {
     align-items: center;
     padding: 0 6px;
     box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-
-    .icon-box, .filter-btn {
-      flex-shrink: 0; 
-      min-width: 36px; 
-      min-height: 36px;
-    }
 
     .icon-box {
       padding-left: 8px;
@@ -101,6 +96,8 @@ ion-skeleton-text {
 
     .filter-btn {
       background: var(--orange);
+      width: 36px;
+      height: 36px;
       border-radius: 8px;
       display: flex; 
       align-items: center; 
@@ -117,92 +114,136 @@ ion-skeleton-text {
       }
     }
   }
-} // <-- Aquí cierra correctamente el .jawy-home-header
+}
 
-// (La clase .filter-circle original la he omitido aquí porque ya estamos usando .filter-btn dentro del glass-search-box con la nueva regla de border-radius: 8px)
 
 .search-results-overlay {
   background: var(--black);
-  position: absolute;
-  top: 0;
+  position: fixed; 
+  top: 0; 
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 900;
+  z-index: 1000;
   
-  padding: calc(80px + env(safe-area-inset-top)) 16px 90px; 
+  padding: calc(72px + env(safe-area-inset-top)) 16px 90px; 
+  
   overflow-y: auto;
-  animation: slideFadeIn 0.3s ease-out forwards;
+  animation: slideFadeIn 0.25s ease-out forwards;
 
   .category-filters {
-    margin-bottom: 15px;
+    background: var(--black);
+    position: sticky;
+    top: 0;
+    z-index: 1001;
+    padding: 5px 0 12px; 
 
     .chips-scroll {
       display: flex;
       overflow-x: auto;
-      padding-bottom: 5px;
+      gap: 8px;
+      padding-bottom: 4px;
+      scrollbar-width: none;
       &::-webkit-scrollbar { display: none; }
       
       .custom-chip {
         --background: var(--dark-grey);
         --color: #a0a0a0;
         border: 1px solid #333;
-        margin-right: 8px;
-        font-weight: 500;
+        margin: 0;
+        font-weight: 600;
         font-size: 13px;
-        transition: all 0.3s ease;
         flex-shrink: 0;
-        --border-radius: 8px; // Aplicando la regla estricta a los chips también
+        --border-radius: 8px;
+        height: 32px; 
 
         &.active {
-          --background: rgba(246, 111, 23, 0.15);
+          --background: rgba(246, 111, 23, 0.12);
           --color: var(--orange);
           border-color: var(--orange);
+          box-shadow: 0 2px 8px rgba(246, 111, 23, 0.15);
+        }
+
+        ion-label {
+          margin: 0 10px;
         }
       }
     }
   }
 
   .overlay-header {
-    margin-bottom: 15px;
+    margin: 0 0 12px;
     span {
-      color: #888;
-      font-size: 14px;
+      color: #666;
+      font-size: 13px;
       font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
   }
 
   .results-list {
     background: transparent;
+    padding: 0;
 
     .result-item {
       --background: var(--dark-grey);
       --color: white;
-      border-radius: 8px; // Actualizado de 12px a 8px por la nueva regla
-      margin-bottom: 10px;
-      --padding-start: 10px;
-      animation: fadeInItem 0.4s ease-out;
+      --border-radius: 8px; 
+      --padding-start: 12px;
+      --inner-padding-end: 20px;
+      min-height: 70px;
 
       ion-thumbnail {
         --border-radius: 8px;
-        width: 50px; height: 50px;
-        margin-right: 15px;
-        img { object-fit: cover; width: 100%; height: 100%; border-radius: 8px; }
+        width: 50px; 
+        height: 50px;
+        margin-right: 12px;
+        img { object-fit: cover; border-radius: 8px; }
       }
       
-      h2 { font-weight: 700; font-size: 1rem; margin-bottom: 4px; }
-      p { color: var(--orange); font-size: 0.85rem; font-weight: 600; }
+      h2 { 
+        font-weight: 700; 
+        font-size: 0.95rem; 
+        margin-bottom: 2px; 
+        color: var(--white);
+      }
+      
+      p { 
+        color: var(--orange); 
+        font-size: 0.8rem; 
+        font-weight: 600; 
+      }
+
+      ion-icon {
+        font-size: 18px;
+        opacity: 0.5;
+      }
     }
   }
 
   .empty-search {
     text-align: center;
-    margin-top: 80px;
-    color: #444;
-    animation: fadeInItem 0.5s;
-    ion-icon { font-size: 60px; margin-bottom: 15px; opacity: 0.5; }
-    p { font-size: 1.1rem; }
+    margin-top: 50px;
+    padding: 20px;
+    
+    ion-icon { 
+      font-size: 50px; 
+      margin-bottom: 12px; 
+      color: var(--dark-grey);
+      opacity: 0.5; 
+    }
+    
+    p { 
+      font-size: 0.9rem; 
+      color: var(--white-muted); 
+      font-weight: 500;
+    }
   }
+}
+
+.main-layout {
+  padding-bottom: 40px;
 }
 
 .section-header {
@@ -211,33 +252,36 @@ ion-skeleton-text {
   align-items: center;
   padding: 20px 16px 10px;
   h2 { font-size: 20px; font-weight: 700; color: #fff; margin: 0; }
-  ion-note { color: var(--orange); font-weight: 600; }
+  ion-note { color: var(--orange); font-weight: 600; font-size: 14px; }
 }
 
 .horizontal-scroll {
   display: flex;
   overflow-x: auto;
   padding: 0 10px;
+  scrollbar-width: none;
   &::-webkit-scrollbar { display: none; }
   
   .musico-card {
     min-width: 140px;
     margin: 8px;
-    border-radius: 8px; // Actualizado de 15px a 8px
+    border-radius: 8px;
     background: var(--dark-grey);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     img { height: 120px; width: 100%; object-fit: cover; }
-    ion-card-title { font-size: 14px; text-align: center; color: #fff; margin-top: 8px; }
+    ion-card-header { padding: 10px 8px; }
+    ion-card-title { font-size: 14px; text-align: center; color: #fff; font-weight: 600; }
   }
 }
 
 .places-layout {
-  padding: 0 16px 80px; 
+  padding: 0 16px 100px; 
 
   .venue-card {
     background: var(--dark-grey); 
     border-radius: 8px; 
-    margin: 0 0 32px 0; 
-    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    margin: 0 0 24px 0; 
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
     overflow: hidden;
 
     .image-wrapper {
@@ -250,30 +294,29 @@ ion-skeleton-text {
       display: flex;
       flex-direction: column;
       gap: 4px;
-      padding: 20px 20px 28px;
+      padding: 20px;
 
       .venue-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 4px;
+        margin-bottom: 6px;
 
         .venue-title { color: #ffffff; font-weight: 700; font-size: 22px; margin: 0; }
-        .brand-icon { flex-shrink: 0; }
       }
 
       .section-line {
         width: 100%;
         height: 1px;
         background-color: var(--orange);
-        margin-bottom: 8px;
-        opacity: 0.8;
+        margin-bottom: 12px;
+        opacity: 0.6;
       }
 
       .section-data {
         display: flex;
         flex-direction: column;
-        gap: 4px;
+        gap: 6px;
 
         .detail-item {
           display: flex;
@@ -299,8 +342,9 @@ ion-skeleton-text {
   }
 }
 
+// 5. Animaciones
 @keyframes slideFadeIn {
-  from { opacity: 0; transform: translateY(-15px); }
+  from { opacity: 0; transform: translateY(-10px); }
   to { opacity: 1; transform: translateY(0); }
 }
 

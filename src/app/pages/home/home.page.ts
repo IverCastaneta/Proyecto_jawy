@@ -18,7 +18,12 @@ export class HomePage implements OnInit {
   busqueda: string = '';
 
   categoriaSeleccionada: string = 'Todos';
-  categorias: string[] = ['Pub', 'Cafetería', 'Centro Cultural', 'Teatro', 'Bar', 'Restaurante'];
+  categorias: string[] = [
+  'Bar / Pub', 
+  'Café Cultural', 
+  'Teatro / Foro', 
+  'Estudio de grabación'
+];
 
   cargandoMusicos: boolean = true;
   cargandoLugares: boolean = true;

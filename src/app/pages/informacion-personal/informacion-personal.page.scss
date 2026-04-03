@@ -1,5 +1,5 @@
 .header {
-  background-color: transparent;
+  background-color: transparent !important;
   margin-top: 40px; 
   display: flex;
   align-items: center;
@@ -11,7 +11,10 @@ ion-back-button {
   margin-right: 10px;
 }
 
-.jawyLogo { width: 150px; height: auto; }
+.jawyLogo {
+  width: 70px; 
+  height: auto;
+}
 
 .body {
   display: flex;
