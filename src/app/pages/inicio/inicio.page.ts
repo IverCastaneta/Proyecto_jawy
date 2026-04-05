@@ -23,12 +23,29 @@ export class InicioPage {
     }
   }
 
-  async loginGoogle() {
+async loginGoogle() {
     try {
-      await this.authService.loginWithGoogle();
-      this.router.navigate(['/informacion-personal']);
+      // AQUÍ ESTÁ LA MAGIA: Le ponemos ': any' para que TypeScript no bloquee la compilación
+      const result: any = await this.authService.loginWithGoogle();
+      
+      // 1. Verificamos que el resultado no sea nulo
+      if (!result) {
+        console.log('Login cancelado o fallido.');
+        return; 
+      }
+
+      // 2. Ahora TypeScript ya no se quejará de 'isNewUser'
+      if (result.isNewUser) {
+        console.log('Usuario nuevo o con perfil incompleto. Redirigiendo a registro...');
+        this.router.navigate(['/informacion-personal']);
+      } else {
+        // 3. Ya tiene cuenta y su perfil está completo
+        console.log('Usuario antiguo. Bienvenido de vuelta, redirigiendo a Home...');
+        this.router.navigate(['/tabs/home']); 
+      }
+      
     } catch (error) {
-      console.error(error);
+      console.error('Error durante el inicio de sesión inteligente:', error);
     }
   }
 }
