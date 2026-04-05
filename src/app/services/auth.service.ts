@@ -43,8 +43,11 @@ export class AuthService {
         this.isLogued = true;
 
         const userDoc = await this.firestore.collection('users').doc(user.uid).get().toPromise();
-        
+        let isNewUser = false;
+
         if (!userDoc?.exists) {
+          // Si no existe en la base de datos, lo creamos y lo marcamos como nuevo
+          isNewUser = true;
           const newUser = {
             id: user.uid,
             email: user.email,
@@ -52,14 +55,24 @@ export class AuthService {
             fechaRegistro: new Date()
           };
           await this.firestore.collection('users').doc(user.uid).set(newUser);
-          this.router.navigateByUrl('/informacion-personal');
         } else {
-          this.checkOnboarding(userDoc.data());
+          // Si ya existe, guardamos su perfil en memoria
+          const userData: any = userDoc.data();
+          this.profile = userData;
+          localStorage.setItem('profile', JSON.stringify(userData));
+          
+          // Si cerró la app antes de completar el registro, lo forzamos a terminarlo
+          if (userData && userData.perfilCompleto === false) {
+            isNewUser = true;
+          }
         }
+        
+        // Retornamos el objeto exacto que InicioPage está esperando
+        return { user, isNewUser };
       }
-      return user;
+      return null;
     } catch (error) {
-      console.error(error);
+      console.error('Error en Google Login:', error);
       return null;
     }
   }
