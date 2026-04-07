@@ -1,0 +1,120 @@
+<ion-header class="ion-no-border header-jawy">
+  <ion-toolbar class="toolbar-transparente">
+    
+    <div class="header-principal animate__animated animate__fadeIn" *ngIf="!isSearching">
+      <img src="assets/animations/logoHeader.gif" alt="Logo Jawy" class="logo-jawy">
+      <div class="acciones-header">
+        <div class="boton-accion" (click)="activarBusqueda()">
+          <ion-icon name="search-outline"></ion-icon>
+        </div>
+        <div class="boton-accion" [routerLink]="['/profile']" [queryParams]="{segment: 'gestion'}">
+          <ion-icon name="notifications-outline"></ion-icon>
+          <div class="punto-notificacion" *ngIf="hayNotificaciones"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="search animate__animated animate__fadeInRight" *ngIf="isSearching">
+      <div class="caja-icono">
+        <ion-icon name="search-outline"></ion-icon>
+      </div>
+      <ion-input 
+        placeholder="¿Qué talento buscas hoy?" 
+        [(ngModel)]="busqueda" 
+        (ionInput)="ejecutarBusqueda($event)"
+        class="input-busqueda">
+      </ion-input>
+      <div class="boton-filtro" (click)="cerrarBusqueda()">
+        <ion-icon name="close-outline"></ion-icon>
+      </div>
+    </div>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <div class="capa-resultados-busqueda animate__animated animate__fadeIn" *ngIf="isSearching">
+    
+    <div class="filtros-categoria">
+      <div class="scroll-etiquetas">
+        <ion-chip class="etiqueta-personalizada" [class.activa]="categoriaSeleccionada === 'Todos'" (click)="seleccionarCategoria('Todos')">
+          <ion-label>Todos</ion-label>
+        </ion-chip>
+        <ion-chip class="etiqueta-personalizada" *ngFor="let cat of categorias" [class.activa]="categoriaSeleccionada === cat" (click)="seleccionarCategoria(cat)">
+          <ion-label>{{ cat }}</ion-label>
+        </ion-chip>
+      </div>
+    </div>
+
+    <div class="cabecera-capa" *ngIf="busqueda.length > 0 || categoriaSeleccionada !== 'Todos'">
+      <span *ngIf="busqueda.length > 0">Resultados para "{{ busqueda }}"</span>
+      <span *ngIf="busqueda.length === 0 && categoriaSeleccionada !== 'Todos'">Filtrando por: {{ categoriaSeleccionada }}</span>
+    </div>
+
+    <ion-list class="lista-resultados" *ngIf="serviciosFiltrados.length > 0">
+      <ion-item *ngFor="let servicio of serviciosFiltrados" lines="none" class="item-resultado">
+        <ion-thumbnail slot="start">
+          <img [src]="servicio.imagen" />
+        </ion-thumbnail>
+        <ion-label>
+          <h2>{{ servicio.titulo }}</h2>
+          <p>{{ servicio.nombre }} • {{ servicio.ubicacion }}</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+
+    <div class="busqueda-vacia" *ngIf="(busqueda.length > 0 || categoriaSeleccionada !== 'Todos') && serviciosFiltrados.length === 0">
+      <ion-icon name="search-outline"></ion-icon>
+      <p>No encontramos servicios con esos términos.</p>
+    </div>
+  </div>
+
+  <div [hidden]="isSearching" class="diseno-principal animate__animated animate__fadeIn">
+    
+    <div class="cabecera-seccion">
+      <h2>Talentos Musicales</h2>
+      <ion-note>Explorar todos</ion-note>
+    </div>
+
+    <div class="cuadricula-servicios">
+      
+      <div class="tarjeta-talento" *ngFor="let servicio of listaServicios">
+        
+        <div class="contenedor-imagen">
+          <img [src]="servicio.imagen" [alt]="servicio.nombre">
+          <ion-icon name="heart-outline" class="boton-favorito"></ion-icon>
+        </div>
+
+        <div class="informacion-tarjeta">
+          
+          <div class="grupo-titulos">
+            <h3 class="titulo">{{ servicio.titulo }}</h3>
+            <h5 class="subtitulo">{{ servicio.nombre }}</h5>
+          </div>
+
+          <div class="caja-calificacion">
+            <ion-icon name="star" class="estrella" *ngFor="let e of estrellas"></ion-icon>
+            <span class="resenas">({{ servicio.reviews }})</span>
+          </div>
+
+          <h5 class="descripcion">{{ servicio.descripcion }}</h5>
+
+          <div class="caja-creditos">
+            <h5><span class="etiqueta">Trabajo con:</span></h5>
+            <p class="lista-creditos">{{ servicio.creditos.join(', ') }}</p>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</ion-content>
+
+<ion-footer class="ion-no-border">
+  <ion-toolbar>
+    <app-tab></app-tab>
+  </ion-toolbar>
+</ion-footer>
