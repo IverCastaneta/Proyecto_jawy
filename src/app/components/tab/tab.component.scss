@@ -1,59 +1,82 @@
-// 1. Ajuste del contenedor principal
+$total-frames: 60;
+
 .jawy-tab-bar {
   --background: var(--black);
-  height: calc(70px + env(safe-area-inset-bottom)); 
-  padding: 4px 8px 16px; 
+  height: calc(70px + env(safe-area-inset-bottom));
+  padding: 4px 8px 16px;
   border-top: 1px solid var(--dark-grey);
-  
+  display: flex;
+  gap: 8px;
+
   ion-tab-button {
-    overflow: visible; 
+    overflow: visible;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     align-items: center;
     --ripple-color: transparent;
+    margin: 0; 
   }
 }
-
-$total-frames: 60; 
 
 .jawy-sprite-icon {
   width: 2rem;
   height: 2rem;
-  margin-bottom: 4px;
   background-color: var(--grey);
+  
+  image-rendering: auto; 
   
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
-  -webkit-mask-size: auto 100%;
-  mask-size: auto 100%;
+  -webkit-mask-size: ($total-frames * 100%) 100%;
+  mask-size: ($total-frames * 100%) 100%;
 
   -webkit-mask-position: 0% 0;
   mask-position: 0% 0;
 
   transition: background-color 0.3s ease, transform 0.3s ease;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
 .places-sprite {
-  -webkit-mask-image: url('../../../assets/spriteIconos/spriteLugares/lugares.png');
-  mask-image: url('../../../assets/spriteIconos/spriteLugares/lugares.png');
+  width: 35px;
+  height: 35px; 
+  -webkit-mask-image: url('/assets/spriteiconos/spritelugares/lugares.png');
+  mask-image: url('/assets/spriteiconos/spritelugares/lugares.png');
 }
 
 .profile-sprite {
-  width: 2.4rem; 
-  height: 2.4rem;
-  margin-top: -5px; 
-  margin-bottom: 3px;
+  width: 40px;
+  height: 40px;
+  transform: translateY(-5px);
+  
+  -webkit-mask-image: url('/assets/spriteiconos/spriteperfil/perfil.png');
+  mask-image: url('/assets/spriteiconos/spriteperfil/perfil.png');
+}
 
-  -webkit-mask-image: url('../../../assets/spriteIconos/spritePerfil/perfil.png');
-  mask-image: url('../../../assets/spriteIconos/spritePerfil/perfil.png');
+.servicios-sprite {
+  width: 40px;
+  height: 40px;
+  
+  -webkit-mask-image: url('/assets/spriteiconos/spriteservicios/servicios.png');
+  mask-image: url('/assets/spriteiconos/spriteservicios/servicios.png');
+}
+
+.eventos-sprite {
+  width: 35px;
+  height: 35px;
+  transform: translateY(-5px);
+  
+  -webkit-mask-image: url('/assets/spriteiconos/spriteeventos/eventos.png');
+  mask-image: url('/assets/spriteiconos/spriteeventos/eventos.png');
 }
 
 ion-tab-button.tab-selected {
   .jawy-sprite-icon {
     background-color: var(--orange);
-    transform: translateY(-4px); 
-    
+    transform: translateY(-4px);
     animation: playSprite 1s steps($total-frames - 1) forwards;
   }
   
