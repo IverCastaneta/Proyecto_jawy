@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { EventosPageRoutingModule } from './eventos-routing.module';
 
 import { EventosPage } from './eventos.page';
-import { SharedModule } from 'src/app/modules/shared/shared.module';
+import { SharedModule } from 'src/app/modules/shared/shared.module'; 
 
 @NgModule({
   imports: [
@@ -15,7 +15,7 @@ import { SharedModule } from 'src/app/modules/shared/shared.module';
     FormsModule,
     IonicModule,
     EventosPageRoutingModule,
-    SharedModule
+    SharedModule 
   ],
   declarations: [EventosPage]
 })

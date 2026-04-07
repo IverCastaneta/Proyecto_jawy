@@ -1,17 +1,99 @@
-<ion-header [translucent]="true">
-  <app-search-bar></app-search-bar>
-  <app-tool-eventos>
+<ion-header class="ion-no-border header-jawy">
+  <ion-toolbar class="toolbar-transparente">
+    
+    <div class="header-principal animate__animated animate__fadeIn" *ngIf="!isSearching">
+      <img src="assets/animations/logoHeader.gif" alt="Logo Jawy" class="logo-jawy">
+      <div class="acciones-header">
+        <div class="boton-accion" (click)="activarBusqueda()">
+          <ion-icon name="search-outline"></ion-icon>
+        </div>
+        <div class="boton-accion" [routerLink]="['/profile']" [queryParams]="{segment: 'gestion'}">
+          <ion-icon name="notifications-outline"></ion-icon>
+          <div class="punto-notificacion" *ngIf="hayNotificaciones"></div>
+        </div>
+      </div>
+    </div>
 
-  </app-tool-eventos>
+    <div class="caja-busqueda-cristal animate__animated animate__fadeInRight" *ngIf="isSearching">
+      <div class="caja-icono"><ion-icon name="search-outline"></ion-icon></div>
+      <ion-input placeholder="Busca bandas, géneros..." [(ngModel)]="busqueda" (ionInput)="ejecutarBusqueda($event)" class="input-busqueda"></ion-input>
+      <div class="boton-filtro" (click)="cerrarBusqueda()"><ion-icon name="close-outline"></ion-icon></div>
+    </div>
+
+  </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
 
-  <app-card [data]="lugar" *ngFor="let lugar of lugaresFiltrados"></app-card>
+  <div class="capa-resultados-busqueda animate__animated animate__fadeIn" *ngIf="isSearching">
+    <div class="filtros-categoria">
+      <div class="scroll-etiquetas">
+        <ion-chip class="etiqueta-personalizada" [class.activa]="categoriaSeleccionada === 'Todos'" (click)="seleccionarCategoria('Todos')">
+          <ion-label>Todos</ion-label>
+        </ion-chip>
+        <ion-chip class="etiqueta-personalizada" *ngFor="let cat of categorias" [class.activa]="categoriaSeleccionada === cat" (click)="seleccionarCategoria(cat)">
+          <ion-label>{{ cat }}</ion-label>
+        </ion-chip>
+      </div>
+    </div>
+
+    <div class="cabecera-capa" *ngIf="busqueda.length > 0 || categoriaSeleccionada !== 'Todos'">
+      <span *ngIf="busqueda.length > 0">Resultados para "{{ busqueda }}"</span>
+      <span *ngIf="busqueda.length === 0 && categoriaSeleccionada !== 'Todos'">Filtrando: {{ categoriaSeleccionada }}</span>
+    </div>
+
+    <ion-list class="lista-resultados" *ngIf="eventosFiltrados.length > 0">
+      <ion-item *ngFor="let evento of eventosFiltrados" lines="none" class="item-resultado">
+        <ion-thumbnail slot="start">
+          <img [src]="evento.imagen" />
+        </ion-thumbnail>
+        <ion-label>
+          <h2>{{ evento.titulo }}</h2>
+          <p>{{ evento.fecha }}</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <div [hidden]="isSearching" class="diseno-principal animate__animated animate__fadeIn">
+    
+    <div class="cabecera-seccion">
+      <h2>Agenda Musical</h2>
+      <ion-note>Ver calendario</ion-note>
+    </div>
+
+    <div class="cuadricula-eventos">
+      
+      <div class="tarjeta-evento" *ngFor="let evento of listaEventos">
+        
+        <div class="contenedor-poster">
+          <img [src]="evento.imagen" [alt]="evento.titulo">
+          <div class="etiqueta-precio" [class.gratis]="evento.cover === 'Gratis'">{{ evento.cover }}</div>
+        </div>
+
+        <div class="informacion-evento">
+          <h3 class="titulo">{{ evento.titulo }}</h3>
+          
+          <div class="detalles-rapidos">
+            <span class="dato"><ion-icon name="calendar-outline"></ion-icon> {{ evento.fecha }}</span>
+            <span class="dato"><ion-icon name="musical-notes-outline"></ion-icon> {{ evento.genero }}</span>
+          </div>
+
+          <p class="descripcion">{{ evento.descripcion }}</p>
+
+          <div class="caja-lineup">
+            <span class="etiqueta">LINEUP:</span>
+            <p class="lista-artistas">{{ evento.lineup.join(' • ') }}</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
 
 </ion-content>
 
-<ion-footer [translucent]="true">
+<ion-footer class="ion-no-border">
   <ion-toolbar>
     <app-tab></app-tab>
   </ion-toolbar>

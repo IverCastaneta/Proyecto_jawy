@@ -4,7 +4,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'inicio', // Redirige automáticamente al inicio
+    redirectTo: 'inicio',
     pathMatch: 'full'
   },
   {
@@ -64,7 +64,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/marketplace/marketplace.module').then(m => m.MarketplacePageModule)
   },
   {
-    path: 'eventos/:uid',
+    path: 'eventos',
     loadChildren: () => import('./pages/eventos/eventos.module').then(m => m.EventosPageModule)
   },
   {
@@ -126,7 +126,8 @@ const routes: Routes = [
   {
     path: 'detalles-lugar',
     loadChildren: () => import('./pages/detalles-lugar/detalles-lugar.module').then(m => m.DetallesLugarPageModule)
-  },  {
+  },
+  {
     path: 'notificaciones',
     loadChildren: () => import('./pages/notificaciones/notificaciones.module').then( m => m.NotificacionesPageModule)
   },

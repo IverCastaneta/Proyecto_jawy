@@ -1,7 +1,316 @@
-ion-footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    z-index: 10; /* Ajusta según la jerarquía de tu app */
+ion-content {
+  --background: var(--black);
+}
+
+// --- HEADER Y BUSCADOR ---
+.header-jawy {
+  background-color: var(--black);
+  padding-top: calc(env(safe-area-inset-top) + 10px);
+
+  .toolbar-transparente {
+    --background: transparent;
+    --min-height: auto;
+    padding-bottom: 10px;
   }
+
+  .header-principal {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 20px 0px;
+    width: 100%;
+
+    .logo-jawy {
+      width: 100px;
+      height: auto;
+    }
+
+    .acciones-header {
+      display: flex;
+      gap: 12px;
+    }
+
+    .boton-accion {
+      position: relative;
+      background: var(--black);
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      
+      ion-icon { font-size: 1.8rem; }
+
+      .punto-notificacion {
+        position: absolute;
+        top: 6px;
+        right: 6px;
+        width: 8px;
+        height: 8px;
+        background-color: var(--orange);
+        border-radius: 50%;
+        box-shadow: 0 0 8px var(--orange);
+        z-index: 10;
+      }
+    }
+  }
+
+  .caja-busqueda-cristal {
+    background: rgba(30, 30, 30, 0.95);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    height: 48px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    padding: 0 6px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    margin-left: 16px; 
+    margin-right: 16px;
+
+    .caja-icono {
+      padding-left: 8px;
+      color: var(--white-muted);
+      font-size: 1.2rem;
+      display: flex; 
+      align-items: center;
+    }
+
+    .input-busqueda {
+      flex: 1; 
+      --padding-start: 10px;
+      --background: transparent;
+      color: white;
+      font-size: 0.95rem;
+      font-weight: 500;
+      --placeholder-color: var(--white-muted);
+    }
+
+    .boton-filtro {
+      background: var(--orange);
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      display: flex; 
+      align-items: center; 
+      justify-content: center;
+      color: var(--black);
+      transition: transform 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+      
+      ion-icon { font-size: 1.3rem; }
+      &:active { transform: scale(0.9); }
+    }
+  }
+}
+
+.capa-resultados-busqueda {
+  background: var(--black);
+  position: fixed; 
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 1000;
+  padding: calc(72px + env(safe-area-inset-top)) 16px 90px; 
+  overflow-y: auto;
+  animation: slideFadeIn 0.25s ease-out forwards;
+
+  .filtros-categoria {
+    background: var(--black);
+    position: sticky;
+    top: 0;
+    z-index: 1001;
+    padding: 5px 0 12px; 
+
+    .scroll-etiquetas {
+      display: flex;
+      overflow-x: auto;
+      gap: 8px;
+      padding-bottom: 4px;
+      scrollbar-width: none;
+      &::-webkit-scrollbar { display: none; }
+      
+      .etiqueta-personalizada {
+        --background: var(--dark-grey);
+        --color: #a0a0a0;
+        border: 1px solid #333;
+        font-weight: 600;
+        flex-shrink: 0;
+        --border-radius: 8px;
+        height: 32px; 
+        margin: 0;
+
+        &.activa {
+          --background: rgba(246, 111, 23, 0.12);
+          --color: var(--orange);
+          border-color: var(--orange);
+          box-shadow: 0 2px 8px rgba(246, 111, 23, 0.15);
+        }
+
+        ion-label {
+          padding: 0 10px;
+        }
+      }
+    }
+  }
+
+  .cabecera-capa {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding-bottom: 12px;
+
+    span {
+      color: #666;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+  }
+
+  .lista-resultados {
+    background: transparent;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .item-resultado {
+      --background: var(--dark-grey);
+      --color: white;
+      --border-radius: 8px; 
+      --padding-start: 12px;
+      --inner-padding-end: 20px;
+      min-height: 70px;
+
+      ion-thumbnail {
+        --border-radius: 8px;
+        width: 50px; 
+        height: 50px;
+        img { object-fit: cover; border-radius: 8px; }
+      }
+      
+      h2 { font-weight: 700; color: var(--white); margin: 0; }
+      p { color: var(--orange); font-weight: 600; margin: 0; }
+    }
+  }
+
+  .busqueda-vacia {
+    text-align: center;
+    padding: 50px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    
+    ion-icon { font-size: 50px; color: var(--dark-grey); opacity: 0.5; }
+    p {color: var(--white-muted); font-weight: 500; margin: 0; }
+  }
+}
+
+.diseno-principal {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; 
+  padding: 20px 16px 40px;
+}
+
+.cabecera-seccion {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   
+  h2 { font-size: 20px; font-weight: 700; color: #fff; margin: 0; }
+  ion-note { color: var(--orange); font-weight: 600; font-size: 14px; }
+}
+
+.cuadricula-eventos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px; 
+}
+
+.tarjeta-evento {
+  background: var(--dark-grey, #161616);
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+
+  .contenedor-poster {
+    position: relative;
+    width: 100%;
+    height: 280px; /* Más alto para simular un póster vertical */
+
+    img { width: 100%; height: 100%; object-fit: cover; }
+
+    .etiqueta-precio {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: var(--black);
+      color: var(--orange);
+      font-weight: bold;
+      padding: 6px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--orange);
+      backdrop-filter: blur(4px);
+
+      &.gratis {
+        background: #1a4d2e;
+        color: #4ade80;
+        border-color: #4ade80;
+      }
+    }
+  }
+
+  .informacion-evento {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: 12px; 
+
+    .titulo { margin: 0; color: var(--white); font-weight: 800; line-height: 1.2; }
+
+    .detalles-rapidos {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+
+      .dato {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--white-muted, #aaa);
+        font-weight: 500;
+
+        ion-icon { color: var(--orange); font-size: 16px; }
+      }
+    }
+
+    .descripcion {
+      margin: 0;
+      color: var(--white);
+      font-size: 14px;
+      line-height: 1.4;
+      flex-grow: 1; 
+    }
+
+    .caja-lineup {
+      border-top: 1px dashed rgba(255, 255, 255, 0.15);
+      padding-top: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px; 
+      
+      .etiqueta { margin: 0; color: var(--orange); font-weight: bold; letter-spacing: 1px; }
+      .lista-artistas { margin: 0; color: var(--white); font-weight: 600; }
+    }
+  }
+}
+
+@keyframes slideFadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
