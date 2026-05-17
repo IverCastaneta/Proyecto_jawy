@@ -32,7 +32,7 @@ ion-input.jawy-input-glass, ion-textarea.jawy-input-glass {
     --padding-end: 12px !important;   
   }
 
-  .footer-actions {
+  .footer {
     display: grid; grid-template-columns: 1fr 1.5fr; gap: 15px; margin-top: 40px; padding-bottom: 30px;
     ion-button { height: 50px; --border-radius: 8px; font-weight: 800; margin: 0; }
     .btn-confirm { --background: var(--orange); --color: black; }

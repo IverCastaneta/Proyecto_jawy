@@ -8,7 +8,6 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./inicio.page.scss'],
 })
 export class InicioPage {
-
   @ViewChild('bgVideo') bgVideo!: ElementRef<HTMLVideoElement>;
 
   constructor(
@@ -23,29 +22,29 @@ export class InicioPage {
     }
   }
 
-async loginGoogle() {
-    try {
-      // AQUÍ ESTÁ LA MAGIA: Le ponemos ': any' para que TypeScript no bloquee la compilación
+  async loginGoogle() {
+    try { 
       const result: any = await this.authService.loginWithGoogle();
-      
-      // 1. Verificamos que el resultado no sea nulo
+
       if (!result) {
-        console.log('Login cancelado o fallido.');
-        return; 
+        console.log("DEBUG: No hay resultado de Google");
+        return;
       }
 
-      // 2. Ahora TypeScript ya no se quejará de 'isNewUser'
+      console.log("DEBUG: Datos del usuario:", result);
+
       if (result.isNewUser) {
-        console.log('Usuario nuevo o con perfil incompleto. Redirigiendo a registro...');
+        console.log("DEBUG: Redirigiendo a Registro");
         this.router.navigate(['/informacion-personal']);
       } else {
-        // 3. Ya tiene cuenta y su perfil está completo
-        console.log('Usuario antiguo. Bienvenido de vuelta, redirigiendo a Home...');
-        this.router.navigate(['/tabs/home']); 
+        console.log("DEBUG: Intentando ir a Profile...");
+        this.router.navigate(['/tabs/profile']).then(success => {
+          if (!success) console.error("DEBUG: ¡La ruta /tabs/profile falló!");
+        });
       }
       
     } catch (error) {
-      console.error('Error durante el inicio de sesión inteligente:', error);
+      console.error("DEBUG Error:", error);
     }
   }
 }

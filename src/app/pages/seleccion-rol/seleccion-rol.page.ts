@@ -13,7 +13,7 @@ export class SeleccionRolPage implements OnInit {
   roles = [
     { id: 'musico', nombre: 'Músico', imagenUrl: 'assets/img/roles/musico.svg' },
     { id: 'dueno', nombre: 'Dueño de lugar', imagenUrl: 'assets/img/roles/dueno_lugar.svg' },
-    { id: 'productor', nombre: 'Productor', imagenUrl: 'assets/img/roles/productor.svg' }
+    { id: 'otro', nombre: 'Otro', imagenUrl: 'assets/img/roles/productor.svg' }
   ];
 
   constructor(private router: Router) { }

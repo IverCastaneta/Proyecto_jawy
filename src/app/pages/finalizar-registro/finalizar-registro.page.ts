@@ -37,8 +37,7 @@ export class FinalizarRegistroPage implements AfterViewInit {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
     const temp = JSON.parse(localStorage.getItem('temp_registro') || '{}');
 
-    // 1. SEPARAMOS LA INFORMACIÓN CON PINZAS
-    // Agregamos generosLugar y fechaDisponibilidad a la lista de extracción para que NO se queden en el usuario
+    
     const {
       nombreLugar, 
       direccion, 
@@ -49,12 +48,11 @@ export class FinalizarRegistroPage implements AfterViewInit {
       reglasLocal, 
       equipamientoLugar, 
       fotosLugar,
-      generosLugar,         // <-- Extraído correctamente
-      fechaDisponibilidad,  // <-- Extraído correctamente
-      ...datosSoloUsuario   // Aquí solo queda la info personal (nombre, bio, foto, rol, etc.)
+      generosLugar,         
+      fechaDisponibilidad,  
+      ...datosSoloUsuario   
     } = temp;
 
-    // 2. ARMAMOS EL USUARIO LIMPIO
     const datosUsuario = {
       ...datosSoloUsuario, 
       id: user.uid,
@@ -63,10 +61,10 @@ export class FinalizarRegistroPage implements AfterViewInit {
     };
 
     try {
-      // 3. GUARDAMOS AL USUARIO EN SU COLECCIÓN
+      
       await this.firestore.collection('users').doc(user.uid).set(datosUsuario, { merge: true });
 
-      // 4. SI ES DUEÑO, GUARDAMOS SU LUGAR EN LA COLECCIÓN "lugares"
+    
       if (temp.rol === 'dueno' || temp.rol === 'dueño') {
         const lugarId = this.firestore.createId();
         const datosLugar = {
@@ -80,16 +78,16 @@ export class FinalizarRegistroPage implements AfterViewInit {
           precioCover: precioCover || null,
           reglas: reglasLocal || [],
           equipamiento: equipamientoLugar || [],
-          generos: generosLugar || [],                 // <-- Guardado en lugares
-          fechaDisponibilidad: fechaDisponibilidad || '', // <-- Guardado en lugares
+          generos: generosLugar || [],                
+          fechaDisponibilidad: fechaDisponibilidad || '', 
           fotos: fotosLugar || []
         };
         
-        // Guardamos en la colección correcta
+
         await this.firestore.collection('lugares').doc(lugarId).set(datosLugar);
       }
 
-      // 5. LIMPIEZA Y REDIRECCIÓN
+   
       localStorage.removeItem('temp_registro');
       this.router.navigateByUrl('/profile');
       

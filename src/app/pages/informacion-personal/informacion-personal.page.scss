@@ -73,7 +73,7 @@ ion-back-button {
   --background: var(--dark-grey); 
   --color: var(--white);
   --padding-start: 16px;
-  --placeholder-color: #777;
+  --placeholder-color: var(--white-muted);
   overflow: hidden;
   
   border: 1px solid var(--orange);
@@ -140,7 +140,7 @@ ion-popover::part(content) {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
 }
 
-.pie {
+.footer {
   margin-top: auto;
   padding-bottom: 20px;
 }

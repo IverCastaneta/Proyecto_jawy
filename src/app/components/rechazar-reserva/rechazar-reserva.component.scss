@@ -31,7 +31,7 @@
     min-height: 50px;
   }
 
-  .footer-actions {
+  .footer {
     display: grid; grid-template-columns: 1fr 1.5fr; gap: 15px;
     margin-top: 40px; padding-bottom: 30px;
     ion-button { height: 52px; --border-radius: 8px; font-weight: 700; }

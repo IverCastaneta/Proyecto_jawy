@@ -19,7 +19,7 @@
         
         <div class="inputs">
           
-          <div class="avatar-section" (click)="seleccionarFoto()">
+          <div class="imagen-Perfil" (click)="seleccionarFoto()">
             <div class="avatar-circle">
               <ion-icon name="person-outline" *ngIf="!imagePreview"></ion-icon>
               <img [src]="imagePreview" *ngIf="imagePreview">
@@ -27,7 +27,9 @@
                 <ion-icon name="add"></ion-icon>
               </div>
             </div>
+
             <p>Añadir foto de perfil</p>
+            
             <input type="file" #fileInput (change)="onFileSelected($event)" accept="image/*" style="display: none;">
           </div>
 
@@ -44,7 +46,7 @@
 
         </div>
 
-        <footer class="pie">
+        <footer class="footer">
           <ion-button expand="block" mode="ios" class="btnFill" (click)="siguiente()" [disabled]="!descripcion">
             Siguiente
           </ion-button>

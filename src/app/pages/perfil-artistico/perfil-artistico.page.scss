@@ -19,7 +19,7 @@ ion-back-button {
 .body {
   display: flex;
   flex-direction: column;
-  padding: 40px var(--jawy-padding-side) 20px; 
+  padding: 40px var(--jawy-padding-side); 
   min-height: 100%;
 }
 
@@ -80,7 +80,7 @@ ion-back-button {
   --color: var(--white);
   --padding-start: 16px;
   --padding-end: 16px;
-  --placeholder-color: #777;
+  --placeholder-color: var(--white-muted);
   overflow: hidden;
   border: 1px solid var(--orange);
   border-radius: 12px;
@@ -102,7 +102,7 @@ ion-textarea.jawy-textarea {
   --padding-bottom: 16px;
 }
 
-.avatar-section {
+.imagen-Perfil {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -150,7 +150,7 @@ ion-textarea.jawy-textarea {
       
       ion-icon { 
         font-size: 20px; 
-        color: white; 
+        color: var(--white); 
       }
     }
   }
@@ -163,7 +163,7 @@ ion-textarea.jawy-textarea {
   }
 }
 
-.pie {
+.footer {
   margin-top: auto;
   padding-bottom: 20px;
 }

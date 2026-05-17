@@ -1,5 +1,5 @@
 .header {
-  background-color: transparent !important;
+  background-color: transparent;
   margin-top: 40px; 
   display: flex;
   align-items: center;
@@ -19,7 +19,7 @@ ion-back-button {
 .body {
   display: flex;
   flex-direction: column;
-  padding: 40px var(--jawy-padding-side) 20px; 
+  padding: 40px var(--jawy-padding-side); 
   min-height: 100%;
 }
 
@@ -81,7 +81,7 @@ ion-back-button {
     }
   }
 
-  .role-footer {
+  .rol-Usuario {
     background: var(--orange);
     color: var(--white);
     text-align: center;

@@ -29,11 +29,7 @@ ion-back-button {
   gap: 32px;
   flex: 1; 
 }
-.linea{
-  width: 100%;
-  height: 3px;
-  background: var(--dark-grey);
-}
+
 .textos {
   display: flex;
   flex-direction: column;
@@ -87,7 +83,7 @@ ion-back-button {
   --background: var(--dark-grey); 
   --color: var(--white);
   --padding-start: 16px;
-  --placeholder-color: #777;
+  --placeholder-color: var(--white-muted);
   overflow: hidden;
   justify-content: space-between;
   border-radius: 12px;
@@ -104,14 +100,14 @@ ion-back-button {
 }
 
 ion-select.jawy-select {
-  position: relative; /* Mantiene la flecha dentro de la caja */
-  --padding-end: 40px; /* Evita que un texto muy largo pise la flecha */
+  position: relative;
+  --padding-end: 40px; 
 
   &::part(icon) {
     position: absolute;
     right: 16px;
     top: 50%;
-    transform: translateY(-50%); /* Lo centra perfectamente en vertical */
+    transform: translateY(-50%); 
     color: var(--white);
     opacity: 0.8;
   }

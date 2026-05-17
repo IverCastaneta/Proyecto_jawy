@@ -105,7 +105,7 @@ ion-content {
   }
 }
 
-// --- CAPA DE RESULTADOS DE BÚSQUEDA ---
+
 .capa-resultados-busqueda {
   background: var(--black);
   position: fixed; 
@@ -125,7 +125,7 @@ ion-content {
     .scroll-etiquetas {
       display: flex;
       overflow-x: auto;
-      gap: 8px; // Regla de gap respetada
+      gap: 8px; 
       padding-bottom: 4px;
       scrollbar-width: none;
       &::-webkit-scrollbar { display: none; }
@@ -139,7 +139,7 @@ ion-content {
         flex-shrink: 0;
         --border-radius: 8px;
         height: 32px; 
-        margin: 0; // Eliminamos márgenes base de Ionic
+        margin: 0; 
 
         &.activa {
           --background: rgba(246, 111, 23, 0.12);
@@ -210,15 +210,15 @@ ion-content {
   }
 }
 
-// --- CONTENIDO PRINCIPAL ---
+
 .diseno-principal {
   display: flex;
   flex-direction: column;
-  gap: 20px; // Regla de gap aplicada a toda la pagina principal
+  gap: 20px; 
   padding: 20px 16px 40px;
 }
 
-.cabecera-seccion {
+.talentos-musicales {
   display: flex;
   justify-content: space-between;
   align-items: center;
